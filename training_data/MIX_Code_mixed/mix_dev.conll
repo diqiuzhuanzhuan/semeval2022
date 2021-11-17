@@ -1,0 +1,6746 @@
+
+# id cf0dd552-d304-4f14-b315-ed4f3d162a1e	domain=mix
+autonation _ _ B-CORP
+मेरे _ _ O
+पास _ _ O
+घंटे _ _ O
+
+
+# id 5cc16f43-9adf-4159-ad3f-3ad10d13065f	domain=mix
+尝 _ _ O
+试 _ _ O
+제이 _ _ B-PER
+일렉트로니카 _ _ I-PER
+
+
+# id cdae3ce2-220a-41ca-8c8d-5696343093c6	domain=mix
+bavra _ _ B-LOC
+में _ _ O
+मौसम, _ _ O
+इलिनोइस _ _ O
+फ़ारेनहाइट _ _ O
+
+
+# id 4ffd1bca-4a97-400c-a697-ef72d317b68a	domain=mix
+印 _ _ B-LOC
+度 _ _ I-LOC
+尼 _ _ I-LOC
+西 _ _ I-LOC
+亚 _ _ I-LOC
+submitted _ _ O
+a _ _ O
+film _ _ O
+for _ _ O
+the _ _ O
+first _ _ O
+time _ _ O
+, _ _ O
+and _ _ O
+古 _ _ B-LOC
+巴 _ _ I-LOC
+submitted _ _ O
+a _ _ O
+film _ _ O
+for _ _ O
+the _ _ O
+first _ _ O
+time _ _ O
+in _ _ O
+a _ _ O
+decade _ _ O
+. _ _ O
+
+
+# id 55e93147-8d0b-4b2f-a78e-681186854869	domain=mix
+old _ _ B-CORP
+mutual _ _ I-CORP
+在 _ _ O
+纽 _ _ O
+约 _ _ O
+购 _ _ O
+物 _ _ O
+
+
+# id 44b141f6-acd3-4313-b368-b39872034d91	domain=mix
+国 _ _ O
+家 _ _ O
+地 _ _ O
+理 _ _ O
+giambattista _ _ B-PER
+costaguti _ _ I-PER
+
+
+# id 8bc5518d-353a-406b-b73a-647354c4918d	domain=mix
+국민부활을 _ _ B-GRP
+위한 _ _ I-GRP
+폴란드 _ _ I-GRP
+highlights _ _ O
+heute _ _ O
+
+
+# id eb067931-7d17-4eae-bcda-19b115ab577e	domain=mix
+dcma _ _ O
+carlos _ _ B-PER
+del _ _ I-PER
+barrio _ _ I-PER
+
+
+# id d0830c9e-7889-490c-b466-2118ddc2b1d3	domain=mix
+abū _ _ B-PER
+salama _ _ I-PER
+ibn _ _ I-PER
+ʿabd _ _ I-PER
+al-asad _ _ I-PER
+বিশ্ববিদ্যালয় _ _ O
+সফর _ _ O
+
+
+# id 87275d66-b086-4f2a-a758-c00958f6e561	domain=mix
+sind _ _ O
+die _ _ O
+hauptantagonisten _ _ O
+des _ _ O
+letzten _ _ O
+bogens _ _ O
+des _ _ O
+mangas _ _ O
+und _ _ O
+der _ _ O
+meisten _ _ O
+episoden _ _ O
+von _ _ O
+美 _ _ B-CW
+少 _ _ I-CW
+女 _ _ I-CW
+戰 _ _ I-CW
+士 _ _ I-CW
+sailor _ _ I-CW
+stars _ _ I-CW
+. _ _ O
+
+
+# id aa9fe090-5b9c-4f81-a4d4-59889c891c3c	domain=mix
+one _ _ O
+report _ _ O
+claimed _ _ O
+that _ _ O
+, _ _ O
+beneath _ _ O
+a _ _ O
+black _ _ O
+cloak _ _ O
+, _ _ O
+he _ _ O
+wore _ _ O
+a _ _ O
+helmet _ _ O
+and _ _ O
+a _ _ O
+tight _ _ O
+fitting _ _ O
+white _ _ O
+garment _ _ O
+like _ _ O
+an _ _ O
+ölzeug _ _ B-PROD
+. _ _ O
+
+
+# id b4f8654f-8294-4243-a7ee-d35e633bff29	domain=mix
+vg _ _ B-CORP
+airlines _ _ I-CORP
+रिलीज _ _ O
+की _ _ O
+तारीख _ _ O
+
+
+# id fc1808c2-ae16-4a16-a15e-75391c73f655	domain=mix
+after _ _ O
+their _ _ O
+distance _ _ O
+victory _ _ O
+the _ _ O
+previous _ _ O
+year _ _ O
+, _ _ O
+bentley _ _ B-CORP
+returned _ _ O
+with _ _ O
+a _ _ O
+full _ _ O
+works _ _ O
+car _ _ O
+to _ _ O
+support _ _ O
+john _ _ B-PER
+duff _ _ I-PER
+’s _ _ O
+privateer _ _ O
+entry _ _ O
+and _ _ O
+carrying _ _ O
+the _ _ O
+“ _ _ O
+favourites _ _ O
+” _ _ O
+tag _ _ O
+. _ _ O
+
+
+# id dfc5fff4-7e6c-4ac6-a25d-809e193a03f2	domain=mix
+these _ _ O
+flights _ _ O
+are _ _ O
+now _ _ O
+operated _ _ O
+by _ _ O
+united _ _ B-CORP
+airlines _ _ I-CORP
+since _ _ O
+the _ _ O
+merger _ _ O
+between _ _ O
+the _ _ O
+two _ _ O
+carriers _ _ O
+in _ _ O
+2011 _ _ O
+. _ _ O
+
+
+# id 56e05f8b-c789-45b9-bd13-e483ff9f2cea	domain=mix
+教 _ _ O
+师 _ _ O
+平 _ _ O
+均 _ _ O
+工 _ _ O
+资 _ _ O
+international _ _ B-GRP
+allies _ _ I-GRP
+f.c. _ _ I-GRP
+
+
+# id 09b58b16-b914-4b75-b0eb-ca529168d505	domain=mix
+इनमें _ _ O
+से _ _ O
+अधिकतर _ _ O
+ऋण _ _ O
+विदेशी _ _ O
+بانک _ _ B-CORP
+تجاری _ _ I-CORP
+और _ _ O
+अन्य _ _ O
+संस्थानों _ _ O
+द्वारा _ _ O
+प्रदान _ _ O
+किए _ _ O
+जाते _ _ O
+हैं। _ _ O
+
+
+# id c0a4cd5b-f73a-43f8-a318-e2ad7120470a	domain=mix
+igor _ _ B-PER
+egorov _ _ I-PER
+ने _ _ O
+क्या _ _ O
+खोजा? _ _ O
+
+
+# id dfe732a2-ff2c-4eb9-adf8-5a4cfe6d78b7	domain=mix
+太 _ _ O
+阳 _ _ O
+马 _ _ O
+戏 _ _ O
+团 _ _ O
+commemorative _ _ B-GRP
+air _ _ I-GRP
+force _ _ I-GRP
+
+
+# id eb0c66f1-15b9-41ce-8f58-c5aeaf44778e	domain=mix
+설교단 _ _ B-PROD
+फसल _ _ O
+का _ _ O
+समय _ _ O
+
+
+# id 1e74602f-3619-47f4-b925-9f391db2e4b7	domain=mix
+kansas _ _ O
+city _ _ O
+missouri _ _ O
+слоцене _ _ B-LOC
+
+
+# id b1f4bf64-ae2b-41eb-b35f-82232cd45a64	domain=mix
+der _ _ O
+film _ _ O
+wurde _ _ O
+in _ _ O
+einer _ _ O
+folge _ _ O
+der _ _ O
+neunten _ _ O
+staffel _ _ O
+von _ _ O
+vorgestellt _ _ O
+神 _ _ B-CW
+秘 _ _ I-CW
+科 _ _ I-CW
+學 _ _ I-CW
+劇 _ _ I-CW
+場 _ _ I-CW
+. _ _ O
+
+
+# id f3772e99-bca6-45b0-8a40-6f3aaf95ced7	domain=mix
+wann _ _ O
+ist _ _ O
+der _ _ O
+erste _ _ O
+بل _ _ B-PROD
+ایکس‌پی-۷۷ _ _ I-PROD
+rausgekommen? _ _ O
+
+
+# id 76894fb9-6f54-4a59-bc94-1de4e210a5d3	domain=mix
+this _ _ O
+land _ _ O
+is _ _ O
+flat _ _ O
+( _ _ O
+approx _ _ O
+20 _ _ O
+metres _ _ O
+above _ _ O
+sea _ _ O
+level _ _ O
+) _ _ O
+and _ _ O
+is _ _ O
+used _ _ O
+for _ _ O
+crops _ _ O
+, _ _ O
+principally _ _ O
+сахарный _ _ B-PROD
+тростник _ _ I-PROD
+. _ _ O
+
+
+# id 230cbe9c-9b46-486d-99fd-bb3efa7d9dab	domain=mix
+china _ _ B-CORP
+citic _ _ I-CORP
+bank _ _ I-CORP
+रोजगार _ _ O
+सत्यापन _ _ O
+
+
+# id 8146d703-3dd1-45cf-a72b-a627cc457cab	domain=mix
+سوئدیس _ _ B-CORP
+متچ _ _ I-CORP
+ईमेल _ _ O
+पता _ _ O
+
+
+# id ec9abd0b-c4d5-4ea7-9dcc-fd725e55d1cf	domain=mix
+دانشگاه _ _ B-GRP
+پلی‌تکنیک _ _ I-GRP
+کاتالونیا _ _ I-GRP
+पूंजी _ _ O
+
+
+# id 1e2dba12-621c-4f2e-93be-75bebbd77d0b	domain=mix
+শুকনো _ _ O
+টাইপ _ _ O
+room _ _ B-CW
+service _ _ I-CW
+
+
+# id e733d2d0-c30e-487d-aa73-7d25656905bf	domain=mix
+代 _ _ O
+码 _ _ O
+pakistan _ _ B-GRP
+cricket _ _ I-GRP
+board _ _ I-GRP
+
+
+# id b6c7672d-9bf7-4949-b218-c6a1809b5671	domain=mix
+eike _ _ B-PER
+von _ _ I-PER
+repgow _ _ I-PER
+alle _ _ O
+charaktere _ _ O
+
+
+# id 9dcd6a28-18ed-42d9-96b0-48e04a1ea4fc	domain=mix
+它 _ _ O
+是 _ _ O
+第 _ _ O
+一 _ _ O
+个 _ _ O
+私 _ _ O
+有 _ _ O
+的 _ _ O
+fluggesellschaft _ _ B-CORP
+在 _ _ O
+angola _ _ B-LOC
+. _ _ O
+
+
+# id 46df8851-7c48-494f-8ea9-a3e8849d1619	domain=mix
+প্রোগ্রামটি _ _ O
+মূলত _ _ O
+কুস্তি _ _ O
+কিংবদন্তি _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+carl _ _ B-PER
+adams _ _ I-PER
+দ্বারা _ _ O
+আকৃতি _ _ O
+লাভ _ _ O
+করেছিল, _ _ O
+যিনি _ _ O
+তিন _ _ O
+দশকেরও _ _ O
+বেশি _ _ O
+সময় _ _ O
+ধরে _ _ O
+দলের _ _ O
+কোচ _ _ O
+ছিলেন। _ _ O
+
+
+# id d8dc66f7-8763-494c-88b5-fc8a7b4eab29	domain=mix
+café _ _ O
+اینجا _ _ B-CW
+ته _ _ I-CW
+دنیاست _ _ I-CW
+
+
+# id ed2d87c7-9f0f-43e6-aa70-5c969d139752	domain=mix
+treasurer _ _ O
+of _ _ O
+bain-de-bretagne _ _ B-LOC
+
+
+# id 28066ebe-ee79-493b-9854-15e4a5a87392	domain=mix
+1812 _ _ O
+年 _ _ O
+战 _ _ O
+争 _ _ O
+eleanor _ _ B-PER
+calvert _ _ I-PER
+
+
+# id 2db4b84b-1ea2-4068-9584-42c0d01dd91f	domain=mix
+1928 _ _ O
+年 _ _ O
+， _ _ O
+当 _ _ O
+他 _ _ O
+14 _ _ O
+岁 _ _ O
+的 _ _ O
+时 _ _ O
+候 _ _ O
+， _ _ O
+他 _ _ O
+设 _ _ O
+法 _ _ O
+攒 _ _ O
+下 _ _ O
+足 _ _ O
+够 _ _ O
+的 _ _ O
+零 _ _ O
+花 _ _ O
+钱 _ _ O
+买 _ _ O
+了 _ _ O
+一 _ _ O
+台 _ _ O
+douglas _ _ B-CORP
+平 _ _ O
+双 _ _ O
+床 _ _ O
+motorfiets _ _ B-PROD
+2 _ _ O
+英 _ _ O
+镑 _ _ O
+， _ _ O
+也 _ _ O
+就 _ _ O
+是 _ _ O
+14 _ _ O
+岁 _ _ O
+。 _ _ O
+
+
+# id 8e256455-2894-4527-a637-82d89776873b	domain=mix
+es _ _ O
+ist _ _ O
+in _ _ O
+gefunden _ _ O
+아프가니스탄 _ _ B-LOC
+. _ _ O
+
+
+# id 0baaa915-6432-44e5-8973-4d02f15be0ab	domain=mix
+hodimont _ _ O
+ligt _ _ O
+op _ _ O
+de _ _ O
+rechteroever _ _ O
+van _ _ O
+de _ _ O
+weser _ _ B-LOC
+. _ _ O
+
+
+# id ed68a124-abec-4cc0-bcb5-f378b3437e18	domain=mix
+andante, _ _ B-CW
+andante _ _ I-CW
+বিশেষজ্ঞ _ _ O
+
+
+# id 4202c4ca-a603-49d0-936a-893cbae03706	domain=mix
+kort _ _ O
+voor _ _ O
+zijn _ _ O
+dood _ _ O
+droeg _ _ O
+hij _ _ O
+zijn _ _ O
+enorme _ _ O
+collectie _ _ O
+aan _ _ O
+anarchistische _ _ O
+publicaties _ _ O
+en _ _ O
+manuscripten _ _ O
+over _ _ O
+aan _ _ O
+de _ _ O
+библиотека _ _ B-GRP
+конгресса _ _ I-GRP
+. _ _ O
+
+
+# id 1f6c6355-b585-4012-b4ef-739dcd036225	domain=mix
+বাসারিস _ _ O
+(βασσαρίς) _ _ O
+হল _ _ O
+একটি _ _ O
+প্রাচীন _ _ O
+ধরনের _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+indumentaria _ _ B-PROD
+। _ _ O
+
+
+# id cbb90c96-a9b1-4cea-9134-99c4a36e88cf	domain=mix
+bereit _ _ O
+zur _ _ O
+installation _ _ O
+leading _ _ B-PROD
+strings _ _ I-PROD
+
+
+# id 990d5ffe-bd67-444e-8879-02cf2a5135fb	domain=mix
+क्या _ _ O
+एक _ _ O
+smith _ _ B-PROD
+& _ _ I-PROD
+wesson _ _ I-PROD
+model _ _ I-PROD
+1913 _ _ I-PROD
+को _ _ O
+अनुक्रमित _ _ O
+करना _ _ O
+संभव _ _ O
+है _ _ O
+और _ _ O
+फिर _ _ O
+उस _ _ O
+жеруха _ _ B-PROD
+обыкновенная _ _ I-PROD
+के _ _ O
+साथ-साथ _ _ O
+अन्य _ _ O
+सभी _ _ O
+паровоз _ _ B-PROD
+тэ _ _ I-PROD
+</ _ _ O
+को _ _ O
+जोड़ना _ _ O
+संभव _ _ O
+है। _ _ O
+p> _ _ O
+इसके _ _ O
+पीछे _ _ O
+उस _ _ O
+पंक्ति _ _ O
+में _ _ O
+
+
+# id 36b919a5-798c-4b55-9a26-88adb66576ff	domain=mix
+如 _ _ O
+何 _ _ O
+更 _ _ O
+新 _ _ O
+이스즈 _ _ B-PROD
+포워드 _ _ I-PROD
+软 _ _ O
+件 _ _ O
+
+
+# id 3bb96864-be43-4c0d-8ba1-cdb698e5b63c	domain=mix
+the _ _ O
+prime _ _ O
+contractor _ _ O
+has _ _ O
+been _ _ O
+bae _ _ B-CORP
+systems _ _ I-CORP
+and _ _ O
+its _ _ O
+predecessor _ _ O
+british _ _ B-CORP
+aerospace _ _ I-CORP
+. _ _ O
+
+
+# id 392a2463-52fd-4bdf-ad57-e2b210943abd	domain=mix
+what _ _ O
+nutrients _ _ O
+do _ _ O
+паровая _ _ B-PROD
+лодка _ _ I-PROD
+have? _ _ O
+
+
+# id 315906ad-c298-4df5-bafb-332a24f9a3e3	domain=mix
+clinton _ _ B-LOC
+technical _ _ O
+support _ _ O
+
+
+# id a3c49bcb-97bd-4c83-a64f-c6c94f8539c4	domain=mix
+espn _ _ B-CORP
+classic _ _ I-CORP
+দ্রুত _ _ O
+বিল _ _ O
+পরিশোধ _ _ O
+
+
+# id aa496131-bfcf-4f68-b5ea-7dc792f4a050	domain=mix
+外 _ _ O
+表 _ _ O
+the _ _ B-CORP
+works _ _ I-CORP
+电 _ _ O
+子 _ _ O
+邮 _ _ O
+件 _ _ O
+登 _ _ O
+录 _ _ O
+
+
+# id a7a7ddca-acbe-4785-a5be-5b0ffcbba88b	domain=mix
+głubczyce _ _ B-LOC
+county _ _ I-LOC
+图 _ _ O
+书 _ _ O
+馆 _ _ O
+
+
+# id e66f39bb-bf91-4ead-a7b9-55edd0a33b78	domain=mix
+ellen _ _ B-PER
+barkin _ _ I-PER
+en _ _ O
+al _ _ B-PER
+pacino _ _ I-PER
+spelen _ _ O
+ook _ _ O
+in _ _ O
+ocean's _ _ B-CW
+thirteen _ _ I-CW
+aan _ _ O
+elkaars _ _ O
+zijde _ _ O
+. _ _ O
+
+
+# id 6e85e442-a8a9-4de6-98ce-42d856cb4e16	domain=mix
+bevölkerung _ _ O
+hillsborough _ _ O
+grafschaft _ _ O
+i̇psara _ _ B-LOC
+
+
+# id 0e796cdf-1b5b-4657-9c61-a4d72323ca8b	domain=mix
+yarygin _ _ B-PROD
+pya _ _ I-PROD
+, _ _ O
+halbautomatische _ _ O
+pistole _ _ O
+(9 _ _ O
+× _ _ O
+19mm _ _ O
+parabellum) _ _ O
+
+
+# id 7d74db10-f3e5-476e-b84a-c421a789fc92	domain=mix
+how _ _ O
+to _ _ O
+serve _ _ O
+adam _ _ B-PER
+williams _ _ I-PER
+
+
+# id 332e318d-e665-4e52-9116-55d0f3eac4e8	domain=mix
+сальвиати, _ _ B-PER
+антонио _ _ I-PER
+डिग्री _ _ O
+
+
+# id 5658393c-7c5e-49c9-9cc3-58aa39fb72fa	domain=mix
+buick _ _ B-PROD
+rendezvous _ _ I-PROD
+系 _ _ O
+统 _ _ O
+更 _ _ O
+新 _ _ O
+
+
+# id f3894bfd-6890-4ed6-9a62-a424a49966ea	domain=mix
+گتی _ _ B-CORP
+اویل _ _ I-CORP
+internet _ _ O
+offers _ _ O
+
+
+# id 9a26482e-e7be-4e05-87f9-ceabeea91cd6	domain=mix
+在 _ _ O
+登 _ _ O
+陆 _ _ O
+点 _ _ O
+附 _ _ O
+近 _ _ O
+， _ _ O
+飓 _ _ O
+风 _ _ O
+落 _ _ O
+叶 _ _ O
+。 _ _ O
+귤속 _ _ B-PROD
+树 _ _ O
+木 _ _ O
+和 _ _ O
+倒 _ _ O
+塌 _ _ O
+的 _ _ O
+电 _ _ O
+线 _ _ O
+， _ _ O
+山 _ _ O
+洪 _ _ O
+冲 _ _ O
+刷 _ _ O
+了 _ _ O
+道 _ _ O
+路 _ _ O
+。 _ _ O
+
+
+# id 009ba54d-2326-426f-b421-7008f61e5ba4	domain=mix
+konami _ _ B-CORP
+atemwege _ _ O
+
+
+# id a01de15b-4c58-4a2c-ac3a-de81d34b3da2	domain=mix
+他 _ _ O
+客 _ _ O
+串 _ _ O
+出 _ _ O
+演 _ _ O
+吸 _ _ O
+毒 _ _ O
+成 _ _ O
+瘾 _ _ O
+的 _ _ O
+棒 _ _ O
+球 _ _ O
+投 _ _ O
+手 _ _ O
+हाउस _ _ B-CW
+. _ _ O
+
+
+# id a370de56-3ef7-4b1c-9a98-0b1f853189e2	domain=mix
+doherty _ _ O
+had _ _ O
+been _ _ O
+in _ _ O
+previous _ _ O
+short _ _ O
+roles _ _ O
+on _ _ O
+wagon _ _ B-CW
+train _ _ I-CW
+and _ _ O
+dr. _ _ B-CW
+kildare _ _ I-CW
+. _ _ O
+
+
+# id 4c5882ee-7951-478c-bb17-f615ae5f6d11	domain=mix
+बड़े _ _ O
+थिएटरों _ _ O
+में _ _ O
+تقویت‌کننده _ _ B-PROD
+الکترونیکی _ _ I-PROD
+का _ _ O
+उपयोग _ _ O
+किया _ _ O
+जाना _ _ O
+चाहिए। _ _ O
+
+
+# id 12e6972d-400c-458c-9b2e-ea5e475ef79f	domain=mix
+what _ _ O
+does _ _ O
+jbj95 _ _ B-GRP
+stand _ _ O
+for? _ _ O
+
+
+# id ad1a5b9b-31af-4d40-8ce1-3892df39dc55	domain=mix
+11 _ _ O
+名 _ _ O
+新 _ _ O
+患 _ _ O
+者 _ _ O
+被 _ _ O
+发 _ _ O
+现 _ _ O
+udayapur _ _ B-LOC
+. _ _ O
+
+
+# id 2dac0e29-dfb1-438c-bac8-5e4e42153a34	domain=mix
+granulare _ _ O
+applikatoren _ _ O
+werden _ _ O
+für _ _ O
+die _ _ O
+präzise _ _ O
+anwendung _ _ O
+von _ _ O
+feststoffen _ _ O
+verwendet, _ _ O
+um _ _ O
+сельскохозяйственные _ _ B-PROD
+культуры _ _ I-PROD
+erträge _ _ O
+und _ _ O
+qualität _ _ O
+zu _ _ O
+verbessern. _ _ O
+
+
+# id 32fe3c9b-1b30-44fb-a702-8f1a9da53499	domain=mix
+iq _ _ O
+of _ _ O
+a _ _ O
+질 _ _ B-PER
+켈리 _ _ I-PER
+
+
+# id c9c2db1d-6bef-4ed6-ad52-ab4a7261750c	domain=mix
+madencinin _ _ B-CW
+kızı _ _ I-CW
+找 _ _ O
+我 _ _ O
+的 _ _ O
+手 _ _ O
+机 _ _ O
+
+
+# id 9d3e361f-4085-4cb8-8212-272d04d33906	domain=mix
+क्या _ _ O
+toyota _ _ B-PROD
+corolla _ _ I-PROD
+cross _ _ I-PROD
+प्रोटीन _ _ O
+का _ _ O
+अच्छा _ _ O
+स्रोत _ _ O
+है _ _ O
+
+
+# id 5f739afc-3f8b-41de-ac8e-77cf51da63fd	domain=mix
+feild _ _ O
+hat _ _ O
+2012 _ _ O
+eine _ _ O
+rolle _ _ O
+殺 _ _ B-CW
+機 _ _ I-CW
+四 _ _ I-CW
+伏 _ _ I-CW
+(2014 _ _ I-CW
+年 _ _ I-CW
+電 _ _ I-CW
+影 _ _ I-CW
+) _ _ I-CW
+gefilmt. _ _ O
+
+
+# id a4fbd168-7332-4160-861d-613c9612cb22	domain=mix
+when _ _ O
+was _ _ O
+d-d-don't _ _ B-CW
+don't _ _ I-CW
+stop _ _ I-CW
+the _ _ I-CW
+beat _ _ I-CW
+the _ _ O
+released? _ _ O
+
+
+# id 18f073fc-6829-4443-ae05-47ed7514be91	domain=mix
+wer _ _ O
+singt _ _ O
+bor-öndör _ _ B-LOC
+
+
+# id 5c616d6b-fa55-4b14-aaee-2362fdc140d2	domain=mix
+rainbow/push _ _ B-GRP
+hochschulakt-ergebnisse _ _ O
+
+
+# id 50e8bdc3-4d21-47a4-a85e-507c405e8228	domain=mix
+संगीत _ _ O
+рам _ _ B-PER
+лакшман _ _ I-PER
+द्वारा _ _ O
+तैयार _ _ O
+किया _ _ O
+गया _ _ O
+था। _ _ O
+
+
+# id 8e9d985d-3f18-4a09-bdeb-c429ca97a32a	domain=mix
+亚 _ _ O
+太 _ _ O
+经 _ _ O
+合 _ _ O
+组 _ _ O
+织 _ _ O
+szczawno-zdrój _ _ B-LOC
+2019 _ _ O
+年 _ _ O
+
+
+# id 275f79b6-f2ed-4217-8a90-729f5d127a77	domain=mix
+婴 _ _ O
+儿 _ _ O
+死 _ _ O
+亡 _ _ O
+率 _ _ O
+каструм _ _ B-LOC
+
+
+# id c1d3109f-d66b-443d-8941-68fac459dad7	domain=mix
+升 _ _ O
+华 _ _ O
+strathpine _ _ B-LOC
+
+
+# id 3fe52382-c4a4-4d89-b14e-e58f121b97d9	domain=mix
+ansty _ _ B-LOC
+coombe _ _ I-LOC
+को _ _ O
+गलने _ _ O
+में _ _ O
+कितना _ _ O
+समय _ _ O
+लगता _ _ O
+है? _ _ O
+
+
+# id b365483c-eccd-4e69-9006-44089b172389	domain=mix
+yoshi's _ _ B-CW
+crafted _ _ I-CW
+world _ _ I-CW
+কতদিন _ _ O
+চলল? _ _ O
+
+
+# id 2aa3d444-9e8d-4b6e-8eef-1e33ef10c05c	domain=mix
+它 _ _ O
+被 _ _ O
+认 _ _ O
+为 _ _ O
+是 _ _ O
+一 _ _ O
+个 _ _ O
+유실 _ _ B-CW
+영화 _ _ I-CW
+. _ _ O
+
+
+# id b1a405ef-7cc9-47f4-bec2-1006bbaf3ccc	domain=mix
+barrio _ _ B-LOC
+yungay _ _ I-LOC
+में _ _ O
+मौसम, _ _ O
+इंडियाना _ _ O
+फ़ारेनहाइट _ _ O
+
+
+# id 7b08d42e-05e9-424c-811b-0e5dbf7da615	domain=mix
+دانشگاه _ _ B-GRP
+پونا _ _ I-GRP
+and _ _ O
+punjabi _ _ B-GRP
+university _ _ I-GRP
+were _ _ O
+second _ _ O
+and _ _ O
+third _ _ O
+with _ _ O
+37 _ _ O
+and _ _ O
+33 _ _ O
+total _ _ O
+medals _ _ O
+respectively _ _ O
+. _ _ O
+
+
+# id ba27a6dc-c558-4388-b1bb-c830c6d4c047	domain=mix
+rvca _ _ O
+是 _ _ O
+一 _ _ O
+个 _ _ O
+costa _ _ B-LOC
+mesa _ _ I-LOC
+拥 _ _ O
+有 _ _ O
+的 _ _ O
+服 _ _ O
+装 _ _ O
+公 _ _ O
+司 _ _ O
+quiksilver, _ _ B-CORP
+inc. _ _ I-CORP
+
+
+# id 61f928be-a89f-4099-bf7a-be5367a27d49	domain=mix
+die _ _ O
+promotion _ _ O
+für _ _ O
+die _ _ O
+strecke _ _ O
+begann _ _ O
+mit _ _ O
+einem _ _ O
+live-debüt _ _ O
+des _ _ O
+tracks _ _ O
+auf _ _ O
+saturday _ _ B-CW
+night _ _ I-CW
+live _ _ I-CW
+, _ _ O
+mit _ _ O
+einer _ _ O
+viralen _ _ O
+performance. _ _ O
+
+
+# id 0f3e453f-0501-4534-88a0-25c1cf4cd3da	domain=mix
+het _ _ O
+gedeelte _ _ O
+van _ _ O
+de _ _ O
+gasturbine _ _ O
+dat _ _ O
+de _ _ O
+hete _ _ O
+gassen _ _ O
+levert _ _ O
+naar _ _ O
+de _ _ O
+vermogensturbine _ _ O
+wordt _ _ O
+de _ _ O
+氣 _ _ B-PROD
+體 _ _ I-PROD
+生 _ _ I-PROD
+成 _ _ I-PROD
+器 _ _ I-PROD
+genoemd _ _ O
+. _ _ O
+
+
+# id 294e4f64-ea60-4fdc-aebd-9040151d8f2a	domain=mix
+شونوالده _ _ B-LOC
+ام _ _ I-LOC
+بونگسبرگ _ _ I-LOC
+काउंटी _ _ O
+उपयोगिताओं _ _ O
+
+
+# id 99f73ce7-1cf8-4e02-be80-cbc4484e104d	domain=mix
+为 _ _ O
+了 _ _ O
+改 _ _ O
+变 _ _ O
+电 _ _ O
+流 _ _ O
+的 _ _ O
+方 _ _ O
+向 _ _ O
+， _ _ O
+他 _ _ O
+构 _ _ O
+造 _ _ O
+了 _ _ O
+一 _ _ O
+个 _ _ O
+정류자 _ _ B-PROD
+他 _ _ O
+自 _ _ O
+己 _ _ O
+的 _ _ O
+。 _ _ O
+
+
+# id c7f8a8a0-2751-4347-8096-25f1b1bbfd5e	domain=mix
+डीबी _ _ O
+friday _ _ B-CW
+on _ _ I-CW
+my _ _ I-CW
+mind _ _ I-CW
+
+
+# id e807ceeb-3e3b-4b92-a96a-52b0e865ee42	domain=mix
+what _ _ O
+does _ _ O
+a _ _ O
+new _ _ O
+레깅스 _ _ B-PROD
+cost? _ _ O
+
+
+# id 01e41fe7-6c75-4786-bd84-5425939dd13f	domain=mix
+la _ _ B-CW
+región _ _ I-CW
+salvaje _ _ I-CW
+অপরাধমূলক _ _ O
+অভিপ্রায় _ _ O
+
+
+# id e73a7d3d-5dca-4e14-9e09-74a1dbf16ce9	domain=mix
+दिनांक _ _ O
+के _ _ O
+साथ _ _ O
+미네스트로네 _ _ B-PROD
+और _ _ O
+समय _ _ O
+के _ _ O
+साथ _ _ O
+페라리 _ _ B-PROD
+250 _ _ I-PROD
+कैसे _ _ O
+जोड़ें? _ _ O
+
+
+# id 95ea6f3e-f2a2-46c0-9469-f2cb4cb0ad8c	domain=mix
+de _ _ O
+wetenschappelijke _ _ O
+naam _ _ O
+van _ _ O
+de _ _ O
+soort _ _ O
+werd _ _ O
+voor _ _ O
+het _ _ O
+eerst _ _ O
+geldig _ _ O
+gepubliceerd _ _ O
+in _ _ O
+1866 _ _ O
+door _ _ O
+блэкуолл, _ _ B-PER
+джон _ _ I-PER
+. _ _ O
+
+
+# id 5c8067d1-3a60-4e59-8d5e-e3938182e260	domain=mix
+的 _ _ O
+目 _ _ O
+标 _ _ O
+是 _ _ O
+什 _ _ O
+么 _ _ O
+universidad _ _ B-GRP
+multimedia _ _ I-GRP
+
+
+# id 775af21a-c37f-4896-b0e3-a36b6f6aa899	domain=mix
+großartig _ _ O
+национальная _ _ B-GRP
+лейбористская _ _ I-GRP
+партия _ _ I-GRP
+
+
+# id 66034178-2c5a-402a-89fa-b14be7666238	domain=mix
+क्रेगलिस्ट _ _ O
+global _ _ B-CORP
+infrastructure _ _ I-CORP
+partners _ _ I-CORP
+
+
+# id 021818d4-ba9c-4b69-86f3-f092fe37d411	domain=mix
+प्रिंसटन _ _ O
+यूनिवर्सिटी _ _ O
+برجانتینو _ _ B-LOC
+
+
+# id ca7bb363-b4b6-4db9-85e5-8f185b1a10ee	domain=mix
+what _ _ O
+happened _ _ O
+to _ _ O
+banijay _ _ B-CORP
+entertainment _ _ I-CORP
+
+
+# id 5e252122-d11c-4b0c-860c-6824b57f5ee3	domain=mix
+银 _ _ O
+行 _ _ O
+家 _ _ O
+амалия _ _ B-PER
+баденская _ _ I-PER
+
+
+# id 0b764dde-baec-487b-a24a-c984eafaa5ad	domain=mix
+高 _ _ O
+性 _ _ O
+能 _ _ O
+塑 _ _ O
+料 _ _ O
+是 _ _ O
+پلاستیک _ _ B-PROD
+满 _ _ O
+足 _ _ O
+比 _ _ O
+标 _ _ O
+准 _ _ O
+或 _ _ O
+工 _ _ O
+程 _ _ O
+塑 _ _ O
+料 _ _ O
+更 _ _ O
+高 _ _ O
+的 _ _ O
+要 _ _ O
+求 _ _ O
+。 _ _ O
+
+
+# id e03851c2-c924-4ea0-8011-bf822ba9a45f	domain=mix
+इसके _ _ O
+बाद _ _ O
+तूफान _ _ O
+उस _ _ O
+शाम _ _ O
+तेजी _ _ O
+से _ _ O
+कमजोर _ _ O
+होकर _ _ O
+दक्षिणी _ _ O
+아삼주 _ _ B-LOC
+के _ _ O
+ऊपर _ _ O
+एक _ _ O
+शेष _ _ O
+निचले _ _ O
+स्तर _ _ O
+में _ _ O
+बदल _ _ O
+गया। _ _ O
+
+
+# id 82a9908e-f39b-4cc9-af3d-0672dc0b5d33	domain=mix
+ক্যালিফোর্নিয়া _ _ O
+রাজ্য _ _ O
+피시 _ _ B-PER
+무니 _ _ I-PER
+
+
+# id 1ac0e5e7-680c-46ea-8d57-40dc71f4672f	domain=mix
+what _ _ O
+country _ _ O
+is _ _ O
+akşehir _ _ B-LOC
+gölü _ _ I-LOC
+? _ _ O
+
+
+# id 5ad214a9-4a2f-4927-bc86-c8d64f8dd970	domain=mix
+иль _ _ B-LOC
+и _ _ I-LOC
+вилен _ _ I-LOC
+पोर्टलैंड _ _ O
+
+
+# id 65f3c91e-5526-409f-82f6-4427eaa29da3	domain=mix
+这 _ _ O
+首 _ _ O
+歌 _ _ O
+的 _ _ O
+小 _ _ O
+样 _ _ O
+最 _ _ O
+初 _ _ O
+是 _ _ O
+由 _ _ O
+乐 _ _ O
+队 _ _ O
+提 _ _ O
+供 _ _ O
+的 _ _ O
+슈렉 _ _ B-CW
+3 _ _ I-CW
+， _ _ O
+却 _ _ O
+被 _ _ O
+拒 _ _ O
+绝 _ _ O
+了 _ _ O
+。 _ _ O
+
+
+# id c7508e4d-e5c8-48f7-8227-a6c8abb6b0a5	domain=mix
+sein _ _ O
+bruder _ _ O
+percy _ _ B-PER
+grosvenor _ _ I-PER
+spielte _ _ O
+für _ _ O
+west _ _ B-GRP
+bromwich _ _ I-GRP
+albion _ _ I-GRP
+f.c. _ _ I-GRP
+und _ _ O
+leicester _ _ B-GRP
+city _ _ I-GRP
+f.c. _ _ I-GRP
+. _ _ O
+
+
+# id 7524334c-b2c6-4a9e-95fd-bea0631b6933	domain=mix
+颜 _ _ O
+色 _ _ O
+代 _ _ O
+码 _ _ O
+teodor _ _ B-PER
+lacki _ _ I-PER
+
+
+# id 3307d844-4585-467e-85ff-decffd75b562	domain=mix
+在 _ _ O
+比 _ _ O
+赛 _ _ O
+中 _ _ O
+给 _ _ O
+人 _ _ O
+留 _ _ O
+下 _ _ O
+深 _ _ O
+刻 _ _ O
+印 _ _ O
+象 _ _ O
+后 _ _ O
+， _ _ O
+他 _ _ O
+签 _ _ O
+约 _ _ O
+了 _ _ O
+warrington _ _ B-GRP
+wolves _ _ I-GRP
+在 _ _ O
+里 _ _ O
+面 _ _ O
+super _ _ B-CORP
+league _ _ I-CORP
+, _ _ O
+
+
+# id fcfa8f15-1861-42ae-a561-f0e4e0fbe60d	domain=mix
+marvin _ _ O
+der _ _ O
+جان _ _ B-PER
+ریچارد _ _ I-PER
+گرین _ _ I-PER
+
+
+# id 082363be-131a-4ce9-b13f-87dc59998d67	domain=mix
+sket _ _ B-CW
+dance _ _ I-CW
+( _ _ O
+ス _ _ O
+ケ _ _ O
+ッ _ _ O
+ト _ _ O
+・ _ _ O
+ダ _ _ O
+ン _ _ O
+ス _ _ O
+suketto _ _ O
+dansu _ _ O
+) _ _ O
+是 _ _ O
+一 _ _ O
+个 _ _ O
+anime _ _ B-CW
+系 _ _ O
+列 _ _ O
+改 _ _ O
+编 _ _ O
+自 _ _ O
+sket _ _ B-CW
+dance _ _ I-CW
+manga _ _ B-CW
+系 _ _ O
+列 _ _ O
+由 _ _ O
+kenta _ _ B-PER
+shinohara _ _ I-PER
+. _ _ O
+
+
+# id c3fc855f-4e1e-4227-a6c4-84c19f112cd0	domain=mix
+es _ _ O
+ist _ _ O
+eine _ _ O
+neuordnung _ _ O
+dieses _ _ O
+fünf-pass-schemas, _ _ O
+die _ _ O
+zuvor _ _ O
+vorgeschlagen _ _ O
+wurde _ _ O
+von _ _ O
+ли _ _ B-PER
+дэниел _ _ I-PER
+крокер _ _ I-PER
+: _ _ O
+
+
+# id 1ccc56c7-7d66-4f5d-a676-230013a67a99	domain=mix
+该 _ _ O
+项 _ _ O
+目 _ _ O
+的 _ _ O
+工 _ _ O
+程 _ _ O
+师 _ _ O
+是 _ _ O
+burohappold _ _ B-CORP
+engineering _ _ I-CORP
+. _ _ O
+
+
+# id e0187def-7933-440e-b8ae-9827c6293ed5	domain=mix
+es _ _ O
+wurde _ _ O
+von _ _ O
+orion _ _ B-GRP
+pictures _ _ I-GRP
+und _ _ O
+stars _ _ O
+produziert _ _ O
+kiefer _ _ B-PER
+sutherland _ _ I-PER
+, _ _ O
+ray _ _ B-PER
+liotta _ _ I-PER
+, _ _ O
+forest _ _ B-PER
+whitaker _ _ I-PER
+, _ _ O
+john _ _ B-PER
+c. _ _ I-PER
+mcginley _ _ I-PER
+, _ _ O
+rutanya _ _ B-PER
+alda _ _ I-PER
+und _ _ O
+lea _ _ B-PER
+thompson _ _ I-PER
+. _ _ O
+
+
+# id 7d604710-2619-4237-aa5c-cc6d3b88189d	domain=mix
+沃 _ _ O
+尔 _ _ O
+特 _ _ O
+angel _ _ B-LOC
+fire _ _ I-LOC
+世 _ _ O
+界 _ _ O
+奥 _ _ O
+兰 _ _ O
+多 _ _ O
+skala _ _ B-LOC
+
+
+# id 01080f93-c32b-4471-af5b-e73a36758a68	domain=mix
+status _ _ O
+feuerrad _ _ B-PROD
+
+
+# id 860e3c09-e04a-4acf-9546-4446615360c1	domain=mix
+rbmg _ _ B-CORP
+records _ _ I-CORP
+কি _ _ O
+করে? _ _ O
+
+
+# id b9936922-e46a-4220-ad72-68a31dd4fdbe	domain=mix
+pistola _ _ B-PROD
+webley _ _ I-PROD
+फार्म _ _ O
+मिनीक्राफ्ट _ _ O
+
+
+# id 98dc1cec-e8ed-42f7-af64-f85756229cd8	domain=mix
+不 _ _ O
+请 _ _ O
+自 _ _ O
+来 _ _ O
+， _ _ O
+杯 _ _ O
+子 _ _ O
+会 _ _ O
+被 _ _ O
+拿 _ _ O
+走 _ _ O
+， _ _ O
+客 _ _ O
+人 _ _ O
+往 _ _ O
+往 _ _ O
+会 _ _ O
+被 _ _ O
+提 _ _ O
+供 _ _ O
+。 _ _ O
+chhaang _ _ B-PROD
+( _ _ O
+大 _ _ O
+麦 _ _ O
+啤 _ _ O
+酒 _ _ O
+) _ _ O
+。 _ _ O
+
+
+# id 4f78da0b-33bf-46f0-a86c-ee59b521554e	domain=mix
+the _ _ O
+universiteit _ _ B-GRP
+van _ _ I-GRP
+houston _ _ I-GRP
+dropped _ _ O
+him _ _ O
+from _ _ O
+its _ _ O
+chemistry _ _ O
+faculty _ _ O
+in _ _ O
+1979 _ _ O
+( _ _ O
+when _ _ O
+he _ _ O
+was _ _ O
+69 _ _ O
+years _ _ O
+old _ _ O
+) _ _ O
+because _ _ O
+he _ _ O
+was _ _ O
+not _ _ O
+publishing _ _ O
+enough _ _ O
+. _ _ O
+
+
+# id 19111771-cbfa-436e-a12a-87f4583d185d	domain=mix
+उनका _ _ O
+जन्म _ _ O
+pontevedra _ _ B-LOC
+में _ _ O
+हुआ _ _ O
+था। _ _ O
+
+
+# id 33fc53c6-b864-4739-81fe-2000964b4849	domain=mix
+coincidentally _ _ O
+, _ _ O
+both _ _ O
+seasons _ _ O
+were _ _ O
+shot _ _ O
+in _ _ O
+islands _ _ O
+of _ _ O
+मलेशिया _ _ B-LOC
+. _ _ O
+
+
+# id 3a5350cb-6a7a-407b-bffa-f4cb5edb99b0	domain=mix
+friesland _ _ B-CORP
+foods _ _ I-CORP
+preisliste _ _ O
+
+
+# id 6c05c4f2-2859-4661-9be0-2b7df0ae838e	domain=mix
+割 _ _ O
+礼 _ _ O
+to _ _ B-CW
+please _ _ I-CW
+a _ _ I-CW
+lady _ _ I-CW
+
+
+# id d90c3c87-d0e4-4956-b991-1d47ec9b78cf	domain=mix
+ministerium _ _ B-GRP
+für _ _ I-GRP
+familie, _ _ I-GRP
+arbeit _ _ I-GRP
+und _ _ I-GRP
+soziale _ _ I-GRP
+dienstleistungen _ _ I-GRP
+क्या _ _ O
+है? _ _ O
+
+
+# id 8d6f78f8-1223-4088-8607-35486de1b537	domain=mix
+ein _ _ O
+weiteres _ _ O
+neues _ _ O
+merkmal _ _ O
+ist _ _ O
+die _ _ O
+fähigkeit, _ _ O
+fahrzeuge _ _ O
+wie _ _ O
+motosiklet _ _ B-PROD
+und _ _ O
+außerirdische _ _ O
+flugzeuge _ _ O
+zu _ _ O
+fahren. _ _ O
+
+
+# id 31ecaf94-3ea1-487f-affe-67ffed3dc3db	domain=mix
+俄 _ _ O
+狄 _ _ O
+浦 _ _ O
+斯 _ _ O
+是 _ _ O
+一 _ _ O
+个 _ _ O
+人 _ _ O
+物 _ _ O
+， _ _ O
+他 _ _ O
+也 _ _ O
+被 _ _ O
+用 _ _ O
+于 _ _ O
+latin _ _ B-CW
+edebiyatı _ _ I-CW
+的 _ _ O
+antik _ _ B-LOC
+roma _ _ I-LOC
+. _ _ O
+
+
+# id 4c99e6a8-4609-4236-b56a-3aede69c0f5b	domain=mix
+how _ _ O
+does _ _ O
+استپان _ _ B-CORP
+کمپانی _ _ I-CORP
+pay _ _ O
+work _ _ O
+
+
+# id 5d9bf414-ca8f-46b1-81cf-ccf4c44a40de	domain=mix
+what _ _ O
+is _ _ O
+le _ _ B-CORP
+grand _ _ I-CORP
+véfour _ _ I-CORP
+in _ _ O
+measurement? _ _ O
+
+
+# id 6110509c-0130-440d-bdb9-5658c0fb5996	domain=mix
+ज़ेयतन _ _ B-LOC
+disneyland-tage _ _ O
+
+
+# id ef030f2c-b40a-41d4-a5a6-9b019b34b5aa	domain=mix
+de _ _ O
+soort _ _ O
+komt _ _ O
+voor _ _ O
+in _ _ O
+гватемала _ _ B-LOC
+. _ _ O
+
+
+# id 75e6daa6-4ec9-49b8-a34a-0450abb8a8ef	domain=mix
+broer _ _ O
+리엄 _ _ B-PER
+갤러거 _ _ I-PER
+was _ _ O
+daar _ _ O
+niet _ _ O
+altijd _ _ O
+van _ _ O
+gediend _ _ O
+. _ _ O
+
+
+# id 98285ed1-fdfa-41fe-975f-886bf8dd55b8	domain=mix
+सभी _ _ O
+वर्णित _ _ O
+प्रजातियां _ _ O
+दक्षिणी _ _ O
+کالیفرنیا _ _ B-LOC
+के _ _ O
+आर्द्र _ _ O
+चट्टानी _ _ O
+सूक्ष्म _ _ O
+आवासों _ _ O
+तक _ _ O
+सीमित _ _ O
+हैं। _ _ O
+
+
+# id 8e77820b-d7be-409c-9066-8b1d927a63e7	domain=mix
+یو _ _ B-CORP
+اس _ _ I-CORP
+ایرویز _ _ I-CORP
+किस _ _ O
+उद्योग _ _ O
+में _ _ O
+है? _ _ O
+
+
+# id 230d4b50-f24f-4600-bdef-b71e9dde012e	domain=mix
+दंडात्मक _ _ O
+versicherung _ _ B-PROD
+के _ _ O
+कारण _ _ O
+भी _ _ O
+कुछ _ _ O
+इवेंट _ _ O
+रद्द _ _ O
+हो _ _ O
+गए _ _ O
+हैं। _ _ O
+
+
+# id 62de8535-b8c1-4a2f-948b-2b244cab51c5	domain=mix
+db _ _ B-PROD
+class _ _ I-PROD
+610 _ _ I-PROD
+কোন _ _ O
+রঙ? _ _ O
+
+
+# id 187088b9-4a87-4338-94ea-7e96f3b889c8	domain=mix
+de _ _ O
+wetenschappelijke _ _ O
+naam _ _ O
+van _ _ O
+de _ _ O
+soort _ _ O
+is _ _ O
+voor _ _ O
+het _ _ O
+eerst _ _ O
+geldig _ _ O
+gepubliceerd _ _ O
+in _ _ O
+1911 _ _ O
+door _ _ O
+gustav _ _ B-PER
+weymer _ _ I-PER
+. _ _ O
+
+
+# id e002a6be-a938-403f-ae98-26eb9dcafc43	domain=mix
+sk _ _ B-CORP
+gaming _ _ I-CORP
+रोम _ _ O
+
+
+# id 47de50a5-3758-4508-bafe-caf96868d4e0	domain=mix
+class _ _ B-CORP
+cnbc _ _ I-CORP
+मजदूरी _ _ O
+
+
+# id 5bc11e22-e33d-49c1-a5d7-b52068c72607	domain=mix
+স্যান _ _ O
+jan _ _ B-PER
+šátral _ _ I-PER
+কাউন্টি _ _ O
+শেরিফ _ _ O
+
+
+# id 4c3fbb12-a152-4d71-af0f-2d6c821e0eed	domain=mix
+moctezuma _ _ B-PER
+ii _ _ I-PER
+( _ _ O
+mexico _ _ B-LOC
+city _ _ I-LOC
+) _ _ O
+拥 _ _ O
+有 _ _ O
+最 _ _ O
+大 _ _ O
+的 _ _ O
+已 _ _ O
+知 _ _ O
+收 _ _ O
+藏 _ _ O
+。 _ _ O
+
+
+# id 7e9dabdd-dcf4-4d2d-8aa9-2fdc4ab692d7	domain=mix
+het _ _ O
+ligt _ _ O
+in _ _ O
+het _ _ O
+noordoosten _ _ O
+van _ _ O
+het _ _ O
+land _ _ O
+, _ _ O
+ten _ _ O
+noorden _ _ O
+van _ _ O
+de _ _ O
+hoofdstad _ _ O
+維 _ _ B-LOC
+也 _ _ I-LOC
+納 _ _ I-LOC
+en _ _ O
+ten _ _ O
+zuiden _ _ O
+van _ _ O
+de _ _ O
+grens _ _ O
+met _ _ O
+捷 _ _ B-LOC
+克 _ _ I-LOC
+. _ _ O
+
+
+# id f89e5f56-c6f3-4e3c-a048-a56975c7d377	domain=mix
+pei _ _ B-CORP
+partnership _ _ I-CORP
+architects _ _ I-CORP
+支 _ _ O
+付 _ _ O
+支 _ _ O
+持 _ _ O
+
+
+# id d2cbf39c-1fa9-4022-ab1c-ea05331615f7	domain=mix
+нью-джерси _ _ B-LOC
+में, _ _ O
+पूरे _ _ O
+राज्य _ _ O
+में _ _ O
+हिमपात _ _ O
+दर्ज _ _ O
+किया _ _ O
+गया, _ _ O
+इसके _ _ O
+दक्षिणी _ _ O
+भाग _ _ O
+में _ _ O
+सबसे _ _ O
+भारी _ _ O
+हिमपात _ _ O
+हुआ। _ _ O
+
+
+# id 7584d6de-354e-4716-a366-14823475c24b	domain=mix
+屏 _ _ O
+幕 _ _ O
+截 _ _ O
+图 _ _ O
+crain _ _ B-CORP
+communications _ _ I-CORP
+
+
+# id d8d5a0b8-7c78-4723-889b-53d5586259c0	domain=mix
+यह _ _ O
+마다가스카르 _ _ B-LOC
+पर _ _ O
+पाया _ _ O
+जाता _ _ O
+है। _ _ O
+
+
+# id 2bb4f792-39f1-4a8f-8bbd-ed4cf362c440	domain=mix
+কখন _ _ O
+bank _ _ B-CORP
+bph _ _ I-CORP
+air _ _ B-CORP
+guadeloupe _ _ I-CORP
+কিনেছেন? _ _ O
+
+
+# id 47501594-a0ab-4180-a6cd-f35c34518b3b	domain=mix
+莱 _ _ O
+瑟 _ _ O
+姆 _ _ O
+出 _ _ O
+生 _ _ O
+于 _ _ O
+crewe _ _ B-LOC
+并 _ _ O
+在 _ _ O
+当 _ _ O
+地 _ _ O
+开 _ _ O
+始 _ _ O
+了 _ _ O
+他 _ _ O
+的 _ _ O
+职 _ _ O
+业 _ _ O
+生 _ _ O
+涯 _ _ O
+crewe _ _ B-GRP
+alexandra _ _ I-GRP
+f.c. _ _ I-GRP
+. _ _ O
+
+
+# id c7f679d6-8e2b-425e-8256-7992db613334	domain=mix
+他 _ _ O
+们 _ _ O
+被 _ _ O
+可 _ _ O
+耻 _ _ O
+地 _ _ O
+运 _ _ O
+到 _ _ O
+isla _ _ B-LOC
+ellis _ _ I-LOC
+在 _ _ O
+煤 _ _ O
+炭 _ _ O
+驳 _ _ O
+船 _ _ O
+上 _ _ O
+。 _ _ O
+
+
+# id e9ac1cc6-95ee-4788-95c1-271ac46db5f6	domain=mix
+egyptian _ _ O
+god _ _ O
+of _ _ O
+liga _ _ B-GRP
+aba _ _ I-GRP
+
+
+# id 9a212437-4703-4d07-95c3-410d915aedde	domain=mix
+what _ _ O
+are _ _ O
+the _ _ O
+three _ _ O
+types _ _ O
+of _ _ O
+치바스 _ _ B-GRP
+엘 _ _ I-GRP
+패소 _ _ I-GRP
+패트리어츠 _ _ I-GRP
+? _ _ O
+
+
+# id 2c247594-2f50-4b44-bffb-d207c1d03f90	domain=mix
+আর্জেন্টিনা _ _ O
+de _ _ B-CW
+dame _ _ I-CW
+met _ _ I-CW
+de _ _ I-CW
+eenhoorn _ _ I-CW
+
+
+# id 756191f3-4a5f-49f6-98a1-a991b3760450	domain=mix
+he _ _ O
+finished _ _ O
+last _ _ O
+of _ _ O
+the _ _ O
+fifteen _ _ O
+finishers _ _ O
+, _ _ O
+but _ _ O
+moved _ _ O
+up _ _ O
+to _ _ O
+fourteenth _ _ O
+after _ _ O
+лорз, _ _ B-PER
+фредерик _ _ I-PER
+was _ _ O
+disqualified _ _ O
+. _ _ O
+
+
+# id 8f06ba85-5b30-4f95-ae21-949e036130d0	domain=mix
+他 _ _ O
+在 _ _ O
+. _ _ O
+. _ _ O
+. _ _ O
+死 _ _ O
+去 _ _ O
+ब्रुसेल्स _ _ B-LOC
+在 _ _ O
+2005 _ _ O
+年 _ _ O
+。 _ _ O
+
+
+# id a419e0eb-ec79-4828-807f-bc17633e5639	domain=mix
+有 _ _ O
+角 _ _ O
+的 _ _ O
+फ्रीडम _ _ B-GRP
+हाउस _ _ I-GRP
+
+
+# id 35f4d9bd-5776-4ce0-bd92-b48bb5c2be98	domain=mix
+herbs _ _ O
+for _ _ O
+lupton _ _ B-LOC
+
+
+# id 29277bbe-c421-43ba-be17-59b535ee4c6c	domain=mix
+asociación _ _ B-GRP
+de _ _ I-GRP
+estudiantes _ _ I-GRP
+polacos _ _ I-GRP
+scale _ _ O
+
+
+# id 193d20c3-0875-40f4-bcca-fdc2acfaedab	domain=mix
+লেখক _ _ O
+শৈলীর _ _ O
+আনুষ্ঠানিক _ _ O
+সমালোচনার _ _ O
+একটি _ _ O
+নিখুঁত _ _ O
+উদাহরণ _ _ O
+হবে _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+альфред _ _ B-PER
+хичкок _ _ I-PER
+এর _ _ O
+কাজ। _ _ O
+
+
+# id 76014044-d9d4-408a-a423-9430c22386af	domain=mix
+toronto _ _ O
+shortie _ _ B-CW
+like _ _ I-CW
+mine _ _ I-CW
+auf _ _ O
+johann _ _ B-CW
+mouse _ _ I-CW
+off-tour _ _ O
+
+
+# id a712989f-2bb4-4757-9334-6ee50ec65746	domain=mix
+阿 _ _ O
+尔 _ _ O
+班 _ _ O
+也 _ _ O
+在 _ _ O
+ऐंग्लो-सैक्सन _ _ B-CW
+क्रानीकल _ _ I-CW
+( _ _ O
+c _ _ O
+. _ _ O
+900 _ _ O
+) _ _ O
+， _ _ O
+以 _ _ O
+及 _ _ O
+謝 _ _ B-PER
+菲 _ _ I-PER
+在 _ _ O
+不 _ _ B-CW
+列 _ _ I-CW
+顛 _ _ I-CW
+諸 _ _ I-CW
+王 _ _ I-CW
+史 _ _ I-CW
+( _ _ O
+约 _ _ O
+1136 _ _ O
+年 _ _ O
+) _ _ O
+。 _ _ O
+
+
+# id 55ba4377-67ac-456e-8630-7a2f32f660ff	domain=mix
+yanranay _ _ O
+was _ _ O
+founded _ _ O
+in _ _ O
+1954 _ _ O
+or _ _ O
+1960 _ _ O
+when _ _ O
+several _ _ O
+formerly _ _ O
+nomadic _ _ O
+enterprises _ _ O
+were _ _ O
+grouped _ _ O
+together _ _ O
+to _ _ O
+form _ _ O
+коллективное _ _ B-GRP
+хозяйство _ _ I-GRP
+( _ _ O
+collective _ _ O
+farms _ _ O
+) _ _ O
+. _ _ O
+
+
+# id 492dc17e-2fe5-4cd6-a6f3-2cbecef40877	domain=mix
+alanis _ _ B-PER
+morissette _ _ I-PER
+—— _ _ O
+irony _ _ B-CW
+( _ _ O
+编 _ _ O
+辑 _ _ O
+： _ _ O
+斯 _ _ O
+科 _ _ O
+特 _ _ O
+· _ _ O
+格 _ _ O
+雷 _ _ O
+) _ _ O
+
+
+# id 786b4146-2c21-4243-a024-c65651336f65	domain=mix
+cipla _ _ B-CORP
+कब _ _ O
+सामने _ _ O
+आया? _ _ O
+
+
+# id 40cfd585-f04d-45ee-ac14-5466e730d0be	domain=mix
+তিনি _ _ O
+জাতীয় _ _ O
+দৈনিক _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+prothom _ _ B-GRP
+alo _ _ I-GRP
+এর _ _ O
+যুগ্ম _ _ O
+সম্পাদক _ _ O
+হয়েছেন। _ _ O
+
+
+# id bb2437d6-8aca-4ea2-8dd6-0126af2d41e3	domain=mix
+united _ _ B-CORP
+press _ _ I-CORP
+international _ _ I-CORP
+बिल _ _ O
+भुगतान _ _ O
+
+
+# id 37aa58fe-f1da-427f-b1f2-b399e40ae9d8	domain=mix
+divergent _ _ O
+sutter _ _ B-PER
+
+
+# id 6ddfb9eb-73db-4d28-808a-2074b846b2bc	domain=mix
+goodenia _ _ O
+claytoniacea _ _ O
+wurde _ _ O
+erstmals _ _ O
+1768 _ _ O
+von _ _ O
+george _ _ B-PER
+bentham _ _ I-PER
+in _ _ O
+flora _ _ B-CW
+australiensis _ _ I-CW
+aus _ _ O
+einer _ _ O
+unveröffentlichten _ _ O
+beschreibung _ _ O
+von _ _ O
+formell _ _ O
+beschrieben _ _ O
+ferdinand _ _ B-PER
+von _ _ I-PER
+mueller _ _ I-PER
+. _ _ O
+
+
+# id 7575bd0d-7e77-4912-9717-20032a334cee	domain=mix
+biggest _ _ O
+pumpkin _ _ B-CW
+soup _ _ I-CW
+ever _ _ O
+
+
+# id 2e0dd0f0-af0e-4090-8ed9-93232e733eef	domain=mix
+moria _ _ B-CW
+15 _ _ O
+
+
+# id 03048d48-fe8d-455d-a48f-98eefff92975	domain=mix
+অনলাইন _ _ O
+ব্যাংকে _ _ O
+tilted _ _ B-CORP
+mill _ _ I-CORP
+entertainment _ _ I-CORP
+সাইন _ _ O
+ইন _ _ O
+করুন _ _ O
+
+
+# id 5580f8b3-bf1b-496b-9ff7-74559474929f	domain=mix
+de _ _ O
+wetenschappelijke _ _ O
+naam _ _ O
+van _ _ O
+de _ _ O
+soort _ _ O
+werd _ _ O
+voor _ _ O
+het _ _ O
+eerst _ _ O
+geldig _ _ O
+gepubliceerd _ _ O
+in _ _ O
+1991 _ _ O
+door _ _ O
+alfred _ _ B-PER
+frank _ _ I-PER
+millidge _ _ I-PER
+. _ _ O
+
+
+# id 60216f39-027c-43e5-8a99-2a5d550f4c6a	domain=mix
+bis _ _ O
+1942 _ _ O
+wurde _ _ O
+das _ _ O
+berühmteste _ _ O
+radioprogramm, _ _ O
+das _ _ O
+in _ _ O
+übersee _ _ O
+ausgestrahlt _ _ O
+wurde, _ _ O
+als _ _ O
+das _ _ O
+bekannt _ _ O
+미국의 _ _ B-CORP
+소리 _ _ I-CORP
+. _ _ O
+
+
+# id 141ac995-227c-4052-986d-8cba77186472	domain=mix
+hen _ _ O
+shikoku _ _ B-LOC
+
+
+# id 98b8f351-fdc6-422f-a218-6b4546e36a23	domain=mix
+वह _ _ O
+дакшина-каннада _ _ B-LOC
+जिले _ _ O
+के _ _ O
+मूल _ _ O
+निवासी _ _ O
+हैं। _ _ O
+
+
+# id 0b3fa94a-7cff-46d8-8012-5a54f465c66b	domain=mix
+walter _ _ B-PER
+flanigan _ _ I-PER
+কাউন্টি _ _ O
+সম্পত্তি _ _ O
+কর _ _ O
+অনুসন্ধান _ _ O
+
+
+# id aebe099b-80c6-4f17-bf4b-d7d9ef766dcd	domain=mix
+de _ _ O
+bedoeling _ _ O
+is _ _ O
+dat _ _ O
+de _ _ O
+serie _ _ O
+ergens _ _ O
+in _ _ O
+2016 _ _ O
+zijn _ _ O
+première _ _ O
+beleeft _ _ O
+op _ _ O
+넷플릭스 _ _ B-CORP
+die _ _ O
+dertien _ _ O
+afleveringen _ _ O
+bestelde _ _ O
+. _ _ O
+
+
+# id ce315e5b-c63c-4066-9dc7-3fc7a7a1adac	domain=mix
+셰르스티 _ _ B-PER
+스투뵈 _ _ I-PER
+का _ _ O
+जन्म _ _ O
+किस _ _ O
+राज्य _ _ O
+में _ _ O
+हुआ _ _ O
+था? _ _ O
+
+
+# id 3225415f-4a71-4171-b375-8415b6617d56	domain=mix
+ue _ _ B-GRP
+산타콜로마 _ _ I-GRP
+curriculum _ _ O
+
+
+# id 7fd49dc7-7a2a-4b15-b2ee-c8fe756db932	domain=mix
+戈 _ _ O
+尔 _ _ O
+德 _ _ O
+执 _ _ O
+导 _ _ O
+了 _ _ O
+最 _ _ O
+后 _ _ O
+一 _ _ O
+集 _ _ O
+itv _ _ B-CORP
+电 _ _ O
+视 _ _ O
+cine _ _ B-CW
+de _ _ I-CW
+crímenes _ _ I-CW
+inspector _ _ B-CW
+morse _ _ I-CW
+. _ _ O
+
+
+# id bdd853bb-5737-4e9b-8ae5-f782f216f0ff	domain=mix
+# _ _ O
+सेंट _ _ B-GRP
+लुइस _ _ I-GRP
+ब्लूज़ _ _ I-GRP
+( _ _ O
+w. _ _ B-PER
+c. _ _ I-PER
+handy _ _ I-PER
+) _ _ O
+6 _ _ O
+: _ _ O
+43 _ _ O
+
+
+# id fe354df5-e29e-47de-aabe-b6e340917764	domain=mix
+air _ _ B-CORP
+tahiti _ _ I-CORP
+nui _ _ I-CORP
+कौन _ _ O
+है? _ _ O
+
+
+# id 424a0451-55dd-4ca3-8a1c-4f63304a865f	domain=mix
+p-model _ _ B-GRP
+বন্দি _ _ O
+অনুসন্ধান _ _ O
+
+
+# id 55ff19f0-e572-4ee5-a17d-5b02513a9b51	domain=mix
+然 _ _ O
+后 _ _ O
+他 _ _ O
+致 _ _ O
+力 _ _ O
+于 _ _ O
+couchtisch _ _ B-PROD
+书 _ _ O
+籍 _ _ O
+weidenfeld _ _ B-GRP
+& _ _ I-GRP
+nicolson _ _ I-GRP
+. _ _ O
+
+
+# id 4d453f9c-4748-492a-998a-fdbb4d9b2a22	domain=mix
+اپفندورف _ _ B-LOC
+কে? _ _ O
+
+
+# id a17bd394-25c6-4997-bca9-00b8ee446ad1	domain=mix
+تسیگچیک _ _ B-LOC
+退 _ _ O
+款 _ _ O
+状 _ _ O
+态 _ _ O
+
+
+# id b54fd902-1b1c-47e3-b076-5b6307ed08b0	domain=mix
+اف-۸۴ _ _ B-PROD
+تاندرجت _ _ I-PROD
+( _ _ O
+1951 _ _ O
+年 _ _ O
+5 _ _ O
+月 _ _ O
+17 _ _ O
+日 _ _ O
+至 _ _ O
+1956 _ _ O
+年 _ _ O
+) _ _ O
+
+
+# id 45c8a2c0-1195-44f6-89e1-b4725d975c70	domain=mix
+eurocheque _ _ B-PROD
+सब्जी _ _ O
+
+
+# id 7c7e190c-582a-43d8-935d-5290bc2580df	domain=mix
+इसे _ _ O
+मालिकों _ _ O
+द्वारा _ _ O
+푸조 _ _ B-CORP
+के _ _ O
+अंतिम _ _ O
+प्रयास _ _ O
+के _ _ O
+रूप _ _ O
+में _ _ O
+देखा _ _ O
+जाता _ _ O
+है _ _ O
+ताकि _ _ O
+किसी _ _ O
+भी _ _ O
+संभावित _ _ O
+प्रतिस्थापन _ _ O
+के _ _ O
+पाइपलाइन _ _ O
+में _ _ O
+होने _ _ O
+से _ _ O
+पहले _ _ O
+ग्राहकों _ _ O
+को _ _ O
+इन _ _ O
+पुराने _ _ O
+मॉडलों _ _ O
+में _ _ O
+आकर्षित _ _ O
+किया _ _ O
+जा _ _ O
+सके। _ _ O
+
+
+# id 6b57a31e-9663-442a-9dc3-ad7acf9f98b1	domain=mix
+mclaren _ _ B-PROD
+speedtail _ _ I-PROD
+মেরামত _ _ O
+
+
+# id e8fc753c-efd4-43d4-9023-83b9f104aac9	domain=mix
+最 _ _ O
+近 _ _ O
+， _ _ O
+цифровой _ _ B-PROD
+зеркальный _ _ I-PROD
+фотоаппарат _ _ I-PROD
+照 _ _ O
+相 _ _ O
+机 _ _ O
+已 _ _ O
+经 _ _ O
+用 _ _ O
+于 _ _ O
+建 _ _ O
+筑 _ _ O
+摄 _ _ O
+影 _ _ O
+领 _ _ O
+域 _ _ O
+。 _ _ O
+
+
+# id a5a792dc-11c7-4bd7-8435-011a53c6ca2d	domain=mix
+शहर _ _ O
+व्यापार _ _ O
+के _ _ O
+लिए _ _ O
+एक _ _ O
+महत्वपूर्ण _ _ O
+बाजार _ _ O
+केंद्र _ _ O
+है _ _ O
+और _ _ O
+इसकी _ _ O
+روغن _ _ B-PROD
+نخل _ _ I-PROD
+प्रसंस्करण _ _ O
+के _ _ O
+लिए _ _ O
+विख्यात _ _ O
+है। _ _ O
+
+
+# id d2b71026-6359-4788-927f-510f6f46982b	domain=mix
+17 _ _ O
+. _ _ O
+6 _ _ O
+万 _ _ O
+吨 _ _ O
+গাজর _ _ B-PROD
+; _ _ O
+
+
+# id b852e42a-11f1-4313-8520-5e23153d73fa	domain=mix
+what _ _ O
+city _ _ O
+is _ _ O
+dig _ _ B-CW
+me _ _ I-CW
+out _ _ I-CW
+in? _ _ O
+
+
+# id f4ed25db-508d-4df5-b689-c290831e4669	domain=mix
+es _ _ O
+wurde _ _ O
+durch _ _ O
+finanziert _ _ O
+kickstarter _ _ B-CORP
+. _ _ O
+
+
+# id e3ca6e7b-2104-40ad-99ca-a14801981797	domain=mix
+什 _ _ O
+么 _ _ O
+时 _ _ O
+候 _ _ O
+sitecore _ _ B-CORP
+买 _ _ O
+satellite _ _ B-CORP
+radio _ _ I-CORP
+
+
+# id 920daa06-6dcb-4b02-afc4-5eb3d99e2c55	domain=mix
+स्टेट _ _ O
+ट्यूशन _ _ O
+में _ _ O
+peggy _ _ B-PER
+hayama _ _ I-PER
+
+
+# id d009b3ad-f2ba-4c9c-89da-47b74f48af9f	domain=mix
+一 _ _ O
+年 _ _ O
+中 _ _ O
+购 _ _ O
+买 _ _ O
+的 _ _ O
+最 _ _ O
+佳 _ _ O
+时 _ _ O
+间 _ _ O
+페기스 _ _ B-LOC
+코브 _ _ I-LOC
+
+
+# id 217efdc9-02e2-4840-905f-e7ac5ef406d2	domain=mix
+হাই _ _ O
+স্কুল _ _ O
+baldwinville _ _ B-LOC
+
+
+# id 8920b364-bf5a-4ae2-ae9c-c928dab4a897	domain=mix
+kostenlose _ _ O
+software _ _ O
+für _ _ O
+دکاو _ _ B-PROD
+اف۵ _ _ I-PROD
+
+
+# id ca6b69c5-f420-4a48-afac-a1f98afee9ff	domain=mix
+سی‌ای-۱۵ _ _ B-PROD
+کانگورو _ _ I-PROD
+কাকে _ _ O
+বলা _ _ O
+হয়? _ _ O
+
+
+# id aef49415-1233-4564-9c42-12970186d7e9	domain=mix
+cit _ _ B-CORP
+group _ _ I-CORP
+incorporated _ _ I-CORP
+লাইভ _ _ O
+চ্যাট _ _ O
+
+
+# id 5e829706-634d-497f-b32b-df256cb6760a	domain=mix
+biblioteca _ _ B-GRP
+del _ _ I-GRP
+condado _ _ I-GRP
+de _ _ I-GRP
+san _ _ I-GRP
+mateo _ _ I-GRP
+का _ _ O
+आकार _ _ O
+क्या _ _ O
+है? _ _ O
+
+
+# id 064eda45-5248-40ba-a51c-fa8cb9aaceb9	domain=mix
+how _ _ O
+many _ _ O
+ruehl _ _ B-CORP
+no.925 _ _ I-CORP
+are _ _ O
+there _ _ O
+
+
+# id 0b821a90-0fd0-4ebd-b5d2-b6fdcb156f76	domain=mix
+স্পেস _ _ B-CW
+হাল্ক _ _ I-CW
+新 _ _ O
+加 _ _ O
+坡 _ _ O
+
+
+# id 7a135280-6d2f-4fe6-94f2-7391cc22041a	domain=mix
+매킨토시 _ _ B-PROD
+512k _ _ I-PROD
+पखवाड़ा _ _ O
+
+
+# id 0498e17a-f797-41b6-8320-c6c5ca97c9b6	domain=mix
+২০০৫ _ _ O
+সালে _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+colin _ _ B-PER
+jackson _ _ I-PER
+একটি _ _ O
+নতুন _ _ O
+স্পোর্টস _ _ O
+হল _ _ O
+খুলেছিল। _ _ O
+
+
+# id d1a8c7c0-2d0a-4ee7-b3c2-a1ef2b2e4f4c	domain=mix
+孕 _ _ O
+андреас _ _ B-PER
+шулер _ _ I-PER
+
+
+# id 0fe353b5-d9f5-4243-abb6-50a4b4346f73	domain=mix
+het _ _ O
+werd _ _ O
+ook _ _ O
+opgenomen _ _ O
+in _ _ O
+de _ _ O
+第 _ _ B-CW
+一 _ _ I-CW
+对 _ _ I-CW
+开 _ _ I-CW
+本 _ _ I-CW
+van _ _ O
+1623 _ _ O
+. _ _ O
+
+
+# id 579bb5e1-de06-48c3-9cc6-ede6055a649f	domain=mix
+为 _ _ O
+什 _ _ O
+么 _ _ O
+是 _ _ O
+জিল _ _ B-PER
+ফিলিপস _ _ I-PER
+重 _ _ O
+要 _ _ O
+的 _ _ O
+
+
+# id 4fb2c2f9-5415-41cf-be0b-c5050b609b78	domain=mix
+china _ _ B-CORP
+central _ _ I-CORP
+television _ _ I-CORP
+证 _ _ O
+书 _ _ O
+
+
+# id ab3a8b76-80ec-4dac-85ba-6d392b7076f2	domain=mix
+anschließend _ _ O
+wurden _ _ O
+die _ _ O
+abgeschlossenen _ _ O
+demos _ _ O
+nicht _ _ O
+in _ _ O
+der _ _ O
+aktiven _ _ O
+dauer _ _ O
+der _ _ O
+gruppe _ _ O
+veröffentlicht, _ _ O
+aber _ _ O
+es _ _ O
+gelang _ _ O
+ihnen, _ _ O
+promoter _ _ O
+und _ _ O
+agenten _ _ O
+für _ _ O
+die _ _ O
+aufzeichnung _ _ O
+eines _ _ O
+zu _ _ O
+gewinnen _ _ O
+تک‌آهنگ _ _ B-CW
+. _ _ O
+
+
+# id 567b4914-6700-4c7c-8ada-deb7b772e4a5	domain=mix
+gustave _ _ O
+ندوم _ _ B-PER
+اوناها _ _ I-PER
+
+
+# id 306cb665-37a0-4df5-a210-90f18c850d2f	domain=mix
+delete _ _ O
+app _ _ O
+on _ _ O
+칼로리메이트 _ _ B-PROD
+
+
+# id 28477864-b215-47a3-a045-28639c0867c7	domain=mix
+আমার _ _ O
+das _ _ B-CW
+testament _ _ I-CW
+মূল্য _ _ O
+কত? _ _ O
+
+
+# id 12d50937-3366-43ed-8b2d-c1556334198d	domain=mix
+सीरियल _ _ O
+नंबर _ _ O
+द्वारा _ _ O
+kleding _ _ B-PROD
+in _ _ I-PROD
+de _ _ I-PROD
+oudheid _ _ I-PROD
+की _ _ O
+पहचान _ _ O
+करें _ _ O
+
+
+# id ccfe31bd-aa0f-4c30-b480-74346e0afae7	domain=mix
+how _ _ O
+to _ _ O
+cook _ _ O
+каппы _ _ B-PROD
+? _ _ O
+
+
+# id 4f35be23-bedb-4204-8752-c8f0eadead19	domain=mix
+in _ _ O
+2011 _ _ O
+, _ _ O
+lionsgate _ _ B-CORP
+picked _ _ O
+up _ _ O
+the _ _ O
+distribution _ _ O
+rights _ _ O
+. _ _ O
+
+
+# id 20b832ef-3348-457d-b3ef-15b49c204c0f	domain=mix
+kosten _ _ O
+für _ _ O
+neue _ _ O
+हाँगडू _ _ B-PROD
+जेएल-8 _ _ I-PROD
+
+
+# id ebcd99fb-1dbf-41dc-b3aa-e7298364befa	domain=mix
+在 _ _ O
+此 _ _ O
+期 _ _ O
+间 _ _ O
+， _ _ O
+她 _ _ O
+还 _ _ O
+在 _ _ O
+多 _ _ O
+个 _ _ O
+系 _ _ O
+列 _ _ O
+中 _ _ O
+担 _ _ O
+任 _ _ O
+了 _ _ O
+著 _ _ O
+名 _ _ O
+的 _ _ O
+客 _ _ O
+串 _ _ O
+角 _ _ O
+色 _ _ O
+， _ _ O
+包 _ _ O
+括 _ _ O
+توئین _ _ B-CW
+پیکس _ _ I-CW
+. _ _ O
+
+
+# id c594be13-1d0c-4b34-9944-50efcb80c26a	domain=mix
+北 _ _ O
+极 _ _ O
+josé _ _ B-PER
+luis _ _ I-PER
+garci _ _ I-PER
+适 _ _ O
+应 _ _ O
+
+
+# id 7b0f0304-c1da-4125-94f7-1dea4c8b4ef2	domain=mix
+new _ _ O
+river _ _ O
+ministry _ _ B-GRP
+of _ _ I-GRP
+higher _ _ I-GRP
+education _ _ I-GRP
+
+
+# id 55e18c19-2b81-4447-aa12-c9392d8752b9	domain=mix
+in _ _ O
+2001 _ _ O
+werd _ _ O
+de _ _ O
+fabriek _ _ O
+uiteindelijk _ _ O
+aangekocht _ _ O
+door _ _ O
+siemens _ _ B-CORP
+ag _ _ I-CORP
+. _ _ O
+
+
+# id d2089c2d-414f-4bda-a36a-4bdc2173b9ea	domain=mix
+луис _ _ B-PER
+госсетт _ _ I-PER
+এর _ _ O
+অধীনে _ _ O
+জিডিপি _ _ O
+বৃদ্ধি _ _ O
+
+
+# id 446dff73-7222-4b82-9577-3b466537ab2f	domain=mix
+পিসির _ _ O
+জন্য _ _ O
+আমাজন _ _ O
+телепорт _ _ B-CW
+
+
+# id c4e1a03a-50d2-4ae1-8a96-c020fe1478ef	domain=mix
+是 _ _ O
+tatra _ _ B-PROD
+72 _ _ I-PROD
+对 _ _ O
+肾 _ _ O
+脏 _ _ O
+有 _ _ O
+益 _ _ O
+
+
+# id 92c12744-b93c-4e8a-bb24-1a5d56dec545	domain=mix
+ferndown _ _ B-LOC
+to _ _ O
+mil _ _ O
+
+
+# id e9be6e33-e6c1-4001-8e31-6b601eaa0f6b	domain=mix
+共 _ _ O
+和 _ _ O
+国 _ _ O
+барбу, _ _ B-PER
+константин _ _ I-PER
+
+
+# id 5ba375dd-e290-4aed-9110-c808e7ed36f8	domain=mix
+es _ _ O
+wurde _ _ O
+auch _ _ O
+angekündigt, _ _ O
+dass _ _ O
+das _ _ O
+programm _ _ O
+wöchentlich _ _ O
+ausgestrahlt _ _ O
+werden _ _ O
+würde _ _ O
+bbc _ _ B-CORP
+one _ _ I-CORP
+. _ _ O
+
+
+# id f7202fbb-4a77-4ec9-9267-c3beb927d68e	domain=mix
+march _ _ O
+15 _ _ O
+– _ _ O
+eva _ _ B-PER
+amurri _ _ I-PER
+, _ _ O
+actress _ _ O
+
+
+# id b5e0afd8-119a-4333-a4b7-b226a15f2336	domain=mix
+альянс _ _ B-GRP
+либералов _ _ I-GRP
+и _ _ I-GRP
+демократов _ _ I-GRP
+за _ _ I-GRP
+европу _ _ I-GRP
+का _ _ O
+रंग _ _ O
+क्या _ _ O
+है? _ _ O
+
+
+# id 04a2d2aa-e7c1-468b-9826-a3451240329b	domain=mix
+它 _ _ O
+是 _ _ O
+由 _ _ O
+cisco _ _ B-CORP
+systems _ _ I-CORP
+. _ _ O
+
+
+# id a37645b5-0dae-4776-9b83-4372f73d8eb6	domain=mix
+boaz _ _ O
+还 _ _ O
+指 _ _ O
+出 _ _ O
+该 _ _ O
+软 _ _ O
+件 _ _ O
+包 _ _ O
+包 _ _ O
+含 _ _ O
+дискета _ _ B-PROD
+和 _ _ O
+一 _ _ O
+个 _ _ O
+компакт-кассета _ _ B-PROD
+作 _ _ O
+为 _ _ O
+一 _ _ O
+个 _ _ O
+很 _ _ O
+好 _ _ O
+的 _ _ O
+接 _ _ O
+触 _ _ O
+。 _ _ O
+
+
+# id e40f522e-6e72-4ddd-9b9c-062779fda737	domain=mix
+wer _ _ O
+ist _ _ O
+der _ _ O
+gründer _ _ O
+von _ _ O
+koss _ _ B-CORP
+corporation _ _ I-CORP
+
+
+# id 5651ca29-297c-4cb3-a442-23f07b9e4234	domain=mix
+3 _ _ O
+月 _ _ O
+18 _ _ O
+日 _ _ O
+- _ _ O
+toshiba _ _ B-CORP
+宣 _ _ O
+布 _ _ O
+hd _ _ B-PROD
+dvd _ _ I-PROD
+格 _ _ O
+式 _ _ O
+将 _ _ O
+被 _ _ O
+删 _ _ O
+除 _ _ O
+。 _ _ O
+
+
+# id bbb668a0-7a12-4bb6-b39e-90ecc030a880	domain=mix
+de _ _ O
+wetenschappelijke _ _ O
+naam _ _ O
+van _ _ O
+de _ _ O
+soort _ _ O
+werd _ _ O
+voor _ _ O
+het _ _ O
+eerst _ _ O
+geldig _ _ O
+gepubliceerd _ _ O
+in _ _ O
+1941 _ _ O
+door _ _ O
+lodovico _ _ B-PER
+di _ _ I-PER
+caporiacco _ _ I-PER
+. _ _ O
+
+
+# id aace5a8f-0259-46e3-803a-0ba1c7103560	domain=mix
+caladenia _ _ O
+longicauda _ _ O
+was _ _ O
+first _ _ O
+formally _ _ O
+described _ _ O
+by _ _ O
+约 _ _ B-PER
+翰 _ _ I-PER
+· _ _ I-PER
+林 _ _ I-PER
+德 _ _ I-PER
+利 _ _ I-PER
+in _ _ O
+1840 _ _ O
+and _ _ O
+the _ _ O
+description _ _ O
+was _ _ O
+published _ _ O
+in _ _ O
+a _ _ B-CW
+sketch _ _ I-CW
+of _ _ I-CW
+the _ _ I-CW
+vegetation _ _ I-CW
+of _ _ I-CW
+the _ _ I-CW
+swan _ _ I-CW
+river _ _ I-CW
+colony _ _ I-CW
+. _ _ O
+
+
+# id 4e2957d1-45c0-4a40-91c7-a885ecffd4d0	domain=mix
+new _ _ O
+games _ _ O
+coming _ _ O
+to _ _ O
+confidente _ _ B-PROD
+de _ _ I-PROD
+la _ _ I-PROD
+casa _ _ I-PROD
+batlló _ _ I-PROD
+
+
+# id 3d9885d7-54ee-4b9e-8318-5a5f678801fa	domain=mix
+ps-1 _ _ B-PROD
+制 _ _ O
+造 _ _ O
+业 _ _ O
+
+
+# id 048e105e-bfa7-468e-9947-88074bade56e	domain=mix
+低 _ _ O
+温 _ _ O
+آیکون _ _ B-CW
+(دین) _ _ I-CW
+
+
+# id 14c9c72c-8c5a-4ed8-bf6c-9d84bf3cc359	domain=mix
+দে _ _ O
+ever _ _ B-CW
+since _ _ I-CW
+eve _ _ I-CW
+
+
+# id e04ba35e-21f2-4dcc-8acf-fcd200ae5992	domain=mix
+хёмен _ _ B-LOC
+articles _ _ O
+of _ _ O
+incorporation _ _ O
+
+
+# id fa6cf8e8-2424-45ad-b9d7-019c463fce83	domain=mix
+প্লেনটি _ _ O
+কিছুটা _ _ O
+বড় _ _ O
+এবং _ _ O
+ভারীভাবে _ _ O
+সশস্ত্র _ _ O
+ছিল, _ _ O
+পর্যবেক্ষকের _ _ O
+অস্ত্র _ _ O
+ছাড়াও _ _ O
+পাইলটের _ _ O
+জন্য _ _ O
+একটি _ _ O
+সিঙ্ক্রোনাইজড _ _ O
+ফরওয়ার্ড _ _ O
+ফায়ারিং _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+ametralladora _ _ B-PROD
+যোগ _ _ O
+করে। _ _ O
+
+
+# id 96bdc79c-75ac-40fd-a774-38483952bf1a	domain=mix
+transgaz _ _ B-CORP
+আলেক্সা _ _ O
+
+
+# id 8a18f553-8554-4616-b412-9078296a5edb	domain=mix
+首 _ _ O
+都 _ _ O
+জন _ _ B-PER
+রজার্স _ _ I-PER
+
+
+# id daafb56d-d193-495a-b717-0b5a094fd62d	domain=mix
+der _ _ O
+film _ _ O
+ist _ _ O
+eine _ _ O
+adaption _ _ O
+eines _ _ O
+долина _ _ B-CW
+ужаса _ _ I-CW
+romans _ _ O
+aus _ _ O
+dem _ _ O
+jahr _ _ O
+1915 _ _ O
+von _ _ O
+der _ _ O
+артур _ _ B-PER
+конан _ _ I-PER
+дойл _ _ I-PER
+vorführung _ _ O
+шерлок _ _ B-PER
+холмс _ _ I-PER
+. _ _ O
+
+
+# id 6e47de97-f754-4b34-b653-585537b1c2ba	domain=mix
+پوشاک _ _ B-PROD
+رسمی _ _ I-PROD
+preis _ _ O
+
+
+# id aedb28ae-fc5a-42a7-899d-d4f7724faeac	domain=mix
+আমি _ _ O
+কোথায় _ _ O
+john _ _ B-PER
+h. _ _ I-PER
+plumb _ _ I-PER
+কিনতে _ _ O
+পারি? _ _ O
+
+
+# id 0bd18faf-e098-44c1-97e2-15c182c81d34	domain=mix
+दवा _ _ O
+honda _ _ B-PROD
+ra106 _ _ I-PROD
+
+
+# id 0b744904-81b8-412d-a4ac-6193bac9e957	domain=mix
+hierna _ _ O
+herpakte _ _ O
+hij _ _ O
+zich _ _ O
+, _ _ O
+en _ _ O
+werd _ _ O
+directeur _ _ O
+van _ _ O
+een _ _ O
+aseguradora _ _ B-CORP
+. _ _ O
+
+
+# id af114020-2d5e-4d0e-8050-1efdf4ca05f3	domain=mix
+2009 _ _ O
+年 _ _ O
+： _ _ O
+a _ _ B-CW
+season _ _ I-CW
+of _ _ I-CW
+good _ _ I-CW
+rain _ _ I-CW
+导 _ _ O
+演 _ _ O
+、 _ _ O
+剧 _ _ O
+本 _ _ O
+、 _ _ O
+制 _ _ O
+片 _ _ O
+人 _ _ O
+
+
+# id d5935228-fe82-4ca3-a8c6-abef9579d0d9	domain=mix
+freddy _ _ B-CW
+fazbear's _ _ I-CW
+pizzeria _ _ I-CW
+simulator _ _ I-CW
+সিজন _ _ O
+১ _ _ O
+পর্ব _ _ O
+২ _ _ O
+
+
+# id 68a79576-c48d-4d5d-a10b-1d3f87ce7d49	domain=mix
+迁 _ _ O
+徙 _ _ O
+期 _ _ O
+间 _ _ O
+不 _ _ O
+进 _ _ O
+食 _ _ O
+是 _ _ O
+典 _ _ O
+型 _ _ O
+的 _ _ O
+salmon _ _ B-PROD
+， _ _ O
+但 _ _ O
+在 _ _ O
+白 _ _ O
+鱼 _ _ O
+中 _ _ O
+很 _ _ O
+少 _ _ O
+见 _ _ O
+。 _ _ O
+
+
+# id d3bfe8da-ee5f-4ab6-bacf-3329f5d731b5	domain=mix
+go _ _ O
+to _ _ O
+do _ _ B-CW
+you _ _ I-CW
+know _ _ I-CW
+who _ _ I-CW
+you _ _ I-CW
+are? _ _ I-CW
+
+
+# id cf14f44a-8ece-451b-93b9-9a50a086eeb9	domain=mix
+mark _ _ B-PER
+lanegan _ _ I-PER
+( _ _ O
+screaming _ _ O
+trees _ _ O
+, _ _ O
+later _ _ O
+with _ _ O
+queens _ _ B-GRP
+of _ _ I-GRP
+the _ _ I-GRP
+stone _ _ I-GRP
+age _ _ I-GRP
+) _ _ O
+– _ _ O
+vocals _ _ O
+( _ _ O
+1997 _ _ O
+– _ _ O
+1999 _ _ O
+) _ _ O
+
+
+# id aac39cdb-aabf-4b2c-ae90-975acfc5b6aa	domain=mix
+in _ _ O
+1950 _ _ O
+werd _ _ O
+deze _ _ O
+staatsonderneming _ _ O
+omgevormd _ _ O
+tot _ _ O
+een _ _ O
+कोलख़ोज़ _ _ B-GRP
+en _ _ O
+in _ _ O
+1968 _ _ O
+tot _ _ O
+een _ _ O
+sovchoz _ _ B-LOC
+. _ _ O
+
+
+# id 143618f8-d50d-477e-862c-2abb579b9412	domain=mix
+甜 _ _ O
+栗 _ _ O
+子 _ _ O
+是 _ _ O
+一 _ _ O
+个 _ _ O
+很 _ _ O
+好 _ _ O
+的 _ _ O
+来 _ _ O
+源 _ _ O
+almidón _ _ B-PROD
+, _ _ O
+; _ _ O
+所 _ _ O
+有 _ _ O
+品 _ _ O
+种 _ _ O
+的 _ _ O
+栗 _ _ O
+子 _ _ O
+一 _ _ O
+般 _ _ O
+都 _ _ O
+含 _ _ O
+有 _ _ O
+大 _ _ O
+致 _ _ O
+相 _ _ O
+同 _ _ O
+数 _ _ O
+量 _ _ O
+的 _ _ O
+淀 _ _ O
+粉 _ _ O
+。 _ _ O
+
+
+# id f38480ef-c4e9-413f-8b4d-69c1ba9c47bc	domain=mix
+martin _ _ B-PER
+dematteis _ _ I-PER
+খারাপ _ _ O
+যেতে _ _ O
+পারে _ _ O
+
+
+# id cb31a906-24e2-4ac1-bdae-921e216a35e2	domain=mix
+1939 _ _ O
+年 _ _ O
+— _ _ O
+1944 _ _ O
+年 _ _ O
+： _ _ O
+reichs-rundfunk-gesellschaft _ _ B-CORP
+( _ _ O
+rrg _ _ O
+, _ _ O
+germany _ _ B-LOC
+) _ _ O
+及 _ _ O
+其 _ _ O
+工 _ _ O
+作 _ _ O
+室 _ _ O
+königsberg _ _ B-LOC
+. _ _ O
+
+
+# id fa8fd14f-877f-4912-8b62-2445ea464af7	domain=mix
+das _ _ O
+ding _ _ O
+baker _ _ B-CORP
+tilly _ _ I-CORP
+international _ _ I-CORP
+
+
+# id af54f0b4-f2ef-4202-8af2-2f7f84c3532f	domain=mix
+উত্তর _ _ O
+dzhida, _ _ B-LOC
+kyrgyzstan _ _ I-LOC
+ট্যাক্স _ _ O
+রেট _ _ O
+
+
+# id 0aea066c-e6fa-4085-ab88-de6e3d2039c3	domain=mix
+how _ _ O
+to _ _ O
+get _ _ O
+to _ _ O
+سنن _ _ B-CW
+نسایی _ _ I-CW
+
+
+# id 7d92c7c8-b723-4d7c-aaed-08b789413dbe	domain=mix
+everybody _ _ B-CW
+loves _ _ I-CW
+somebody _ _ I-CW
+वित्तीय _ _ O
+लॉगिन _ _ O
+
+
+# id a5718bae-d141-4a45-a34d-2c69c853ca0b	domain=mix
+什 _ _ O
+么 _ _ O
+时 _ _ O
+候 _ _ O
+ladurée _ _ B-CORP
+开 _ _ O
+始 _ _ O
+
+
+# id c6703c92-1bed-4333-82fc-cc8dc66aa7f2	domain=mix
+de _ _ O
+plaats _ _ O
+maakt _ _ O
+deel _ _ O
+uit _ _ O
+van _ _ O
+het _ _ O
+distrito _ _ B-LOC
+de _ _ I-LOC
+montluçon _ _ I-LOC
+. _ _ O
+
+
+# id 276e46fa-3188-4c14-86b4-2b31bbe55482	domain=mix
+kilternan _ _ B-LOC
+crush _ _ O
+
+
+# id 11d83642-0fd3-43bb-9dc0-1281b1b9db95	domain=mix
+it _ _ O
+was _ _ O
+their _ _ O
+first _ _ O
+album _ _ O
+produced _ _ O
+by _ _ O
+джеймс _ _ B-PER
+майкл _ _ I-PER
+and _ _ O
+the _ _ O
+hammerfall _ _ B-GRP
+guitarists _ _ O
+оскар _ _ B-PER
+дроньяк _ _ I-PER
+and _ _ O
+понтус _ _ B-PER
+норгрен _ _ I-PER
+. _ _ O
+
+
+# id 584967d6-a352-4857-8e4d-b68980868381	domain=mix
+on _ _ B-CW
+the _ _ I-CW
+black _ _ I-CW
+hill _ _ I-CW
+小 _ _ O
+于 _ _ O
+100 _ _ O
+的 _ _ O
+数 _ _ O
+字 _ _ O
+
+
+# id 833e4ec1-7bad-41c6-bb68-3d53c615b0ed	domain=mix
+rodney _ _ B-PER
+ackland _ _ I-PER
+এর _ _ O
+বয়স _ _ O
+কত? _ _ O
+
+
+# id 28cfdca2-261f-46ae-9e88-2b092dfd5d07	domain=mix
+wie _ _ O
+lange _ _ O
+dauert _ _ O
+es _ _ O
+face _ _ B-PROD
+id _ _ I-PROD
+zu _ _ O
+wachsen _ _ O
+
+
+# id bc3fa154-b6e6-4637-a067-9d2c24155efb	domain=mix
+сериал _ _ B-CW
+фбр _ _ I-CW
+( _ _ O
+2 _ _ O
+episodes _ _ O
+; _ _ O
+1970 _ _ O
+, _ _ O
+1973 _ _ O
+) _ _ O
+
+
+# id e9b1fb93-0d71-41d9-aa1b-e5812c6959bd	domain=mix
+该 _ _ O
+公 _ _ O
+司 _ _ O
+成 _ _ O
+立 _ _ O
+于 _ _ O
+1984 _ _ O
+年 _ _ O
+， _ _ O
+总 _ _ O
+部 _ _ O
+位 _ _ O
+于 _ _ O
+chennai _ _ B-LOC
+, _ _ O
+india _ _ B-LOC
+. _ _ O
+
+
+# id b1d7491c-afc4-4ed8-8934-401bfcb69deb	domain=mix
+aston _ _ B-PROD
+martin _ _ I-PROD
+db10 _ _ I-PROD
+passwort _ _ O
+vergessen _ _ O
+zurücksetzen _ _ O
+
+
+# id 2b2b25f9-4ae4-4908-96d1-39a870a9092a	domain=mix
+kerststol _ _ B-PROD
+ক্লিয়ারেন্স _ _ O
+
+
+# id 960d1d76-5425-4e78-a4c9-f49f28491d72	domain=mix
+sacramento _ _ O
+15 _ _ B-CW
+
+
+# id ae9f8228-8985-4837-90ce-cd23fb35d88f	domain=mix
+dazwischen _ _ O
+erzielte _ _ O
+er _ _ O
+sein _ _ O
+erstes _ _ O
+tor _ _ O
+in _ _ O
+der _ _ O
+liga _ _ O
+und _ _ O
+schloss _ _ O
+den _ _ O
+3-0-heimsieg _ _ O
+ab _ _ O
+гранада _ _ B-GRP
+. _ _ O
+
+
+# id c4fa2d7b-923b-4ee3-98c7-9a553ba64fa0	domain=mix
+dies _ _ O
+beinhaltet _ _ O
+cuento _ _ B-CW
+novela _ _ B-CW
+corta _ _ I-CW
+novela _ _ B-CW
+corta _ _ I-CW
+, _ _ O
+und _ _ O
+sowie _ _ O
+poema _ _ B-CW
+. _ _ O
+
+
+# id 71ddfd75-ace2-4f12-a27f-191f93d7f1f8	domain=mix
+चिकित्सकीय _ _ O
+दृष्टि _ _ O
+से _ _ O
+andhra _ _ B-GRP
+prabha _ _ I-GRP
+क्या _ _ O
+है? _ _ O
+
+
+# id 8079de20-3a57-444f-b5a3-3967b75178a3	domain=mix
+该 _ _ O
+网 _ _ O
+站 _ _ O
+现 _ _ O
+在 _ _ O
+被 _ _ O
+sabc _ _ B-CORP
+. _ _ O
+
+
+# id 4571f674-3323-4166-a282-5ccf1a06e12f	domain=mix
+sparebank _ _ B-CORP
+1 _ _ I-CORP
+मेल _ _ O
+खाता _ _ O
+
+
+# id a5138308-e188-4c47-8640-ff4a8e972bc1	domain=mix
+आईट्यून्स _ _ O
+के _ _ O
+बिना _ _ O
+volkswagen _ _ B-PROD
+tiguan _ _ I-PROD
+अनलॉक _ _ O
+कैसे _ _ O
+करें? _ _ O
+
+
+# id bd3e1d89-5863-4b2a-aaf6-75190432c248	domain=mix
+1966 _ _ O
+年 _ _ O
+， _ _ O
+图 _ _ O
+书 _ _ O
+馆 _ _ O
+东 _ _ O
+北 _ _ O
+面 _ _ O
+建 _ _ O
+了 _ _ O
+一 _ _ O
+个 _ _ O
+车 _ _ O
+库 _ _ O
+， _ _ O
+可 _ _ O
+容 _ _ O
+纳 _ _ O
+两 _ _ O
+个 _ _ O
+人 _ _ O
+。 _ _ O
+передвижная _ _ B-PROD
+библиотека _ _ I-PROD
+. _ _ O
+
+
+# id f21d1191-3d40-46c8-a6b3-b2af3b7cb2d3	domain=mix
+rogen _ _ B-PROD
+和 _ _ O
+狗 _ _ O
+
+
+# id 97dabe8b-edca-4e3f-a825-af59444c03fc	domain=mix
+经 _ _ O
+典 _ _ O
+的 _ _ O
+ekaterina _ _ B-PER
+bychkova _ _ I-PER
+
+
+# id b6425d04-489e-4f45-810a-8b848de940de	domain=mix
+কোন _ _ O
+তাপমাত্রায় _ _ O
+saab _ _ B-PROD
+9-3 _ _ I-PROD
+রান্না _ _ O
+করা _ _ O
+উচিত? _ _ O
+
+
+# id 1e6eefb4-f697-4c09-8544-3281d39a934c	domain=mix
+statements _ _ O
+是 _ _ O
+爵 _ _ O
+士 _ _ O
+颤 _ _ O
+音 _ _ O
+演 _ _ O
+奏 _ _ O
+家 _ _ O
+的 _ _ O
+专 _ _ O
+辑 _ _ O
+milt _ _ B-PER
+jackson _ _ I-PER
+, _ _ O
+于 _ _ O
+1962 _ _ O
+年 _ _ O
+发 _ _ O
+布 _ _ O
+impulse! _ _ B-CORP
+records _ _ I-CORP
+. _ _ O
+
+
+# id 7831a424-8e81-4684-aa0a-959def6d58fd	domain=mix
+他 _ _ O
+是 _ _ O
+土 _ _ O
+生 _ _ O
+土 _ _ O
+长 _ _ O
+的 _ _ O
+nashville _ _ B-LOC
+从 _ _ O
+三 _ _ O
+岁 _ _ O
+开 _ _ O
+始 _ _ O
+。 _ _ O
+
+
+# id b30354f9-d0c3-4f01-9c3d-8a5b9956007c	domain=mix
+the _ _ O
+best _ _ O
+parents _ _ B-GRP
+music _ _ I-GRP
+resource _ _ I-GRP
+center _ _ I-GRP
+
+
+# id 7d5e6297-67c6-41bc-aed9-f8df468b6035	domain=mix
+在 _ _ O
+copper _ _ B-PROD
+它 _ _ O
+是 _ _ O
+该 _ _ O
+国 _ _ O
+第 _ _ O
+二 _ _ O
+大 _ _ O
+生 _ _ O
+产 _ _ O
+商 _ _ O
+， _ _ O
+产 _ _ O
+量 _ _ O
+为 _ _ O
+24 _ _ O
+. _ _ O
+2 _ _ O
+万 _ _ O
+吨 _ _ O
+， _ _ O
+价 _ _ O
+值 _ _ O
+14 _ _ O
+亿 _ _ O
+雷 _ _ O
+亚 _ _ O
+尔 _ _ O
+。 _ _ O
+
+
+# id 6ff987d3-ef8a-4eb2-b7b2-c70e3e60ef64	domain=mix
+টেকসই _ _ O
+the _ _ B-GRP
+morning _ _ I-GRP
+after _ _ I-GRP
+girls _ _ I-GRP
+
+
+# id e13950b1-e2c5-4831-87da-8050aaf9d810	domain=mix
+hasler _ _ O
+drives _ _ O
+a _ _ O
+corvette _ _ B-PROD
+stingray _ _ O
+“ _ _ O
+. _ _ O
+
+
+# id 077eab8d-5203-4b89-911f-4ca5a9e94389	domain=mix
+charles _ _ B-PER
+frédéric _ _ I-PER
+chassériau _ _ I-PER
+, _ _ O
+chief _ _ O
+architect _ _ O
+to _ _ O
+the _ _ O
+town _ _ O
+of _ _ O
+argel _ _ B-LOC
+
+
+# id 5c6e82ab-b619-4532-8972-9d3e3c3204c2	domain=mix
+us _ _ O
+open _ _ O
+синяя _ _ B-CW
+борода _ _ I-CW
+
+
+# id cefb93d4-249f-4ed8-a45d-58bb076f1f01	domain=mix
+지식 _ _ B-PROD
+기반 _ _ I-PROD
+시스템 _ _ I-PROD
+কে _ _ O
+তৈরি _ _ O
+করেছেন? _ _ O
+
+
+# id c466e142-06c5-402b-9a1d-5cb22b84a417	domain=mix
+1945 _ _ O
+年 _ _ O
+之 _ _ O
+前 _ _ O
+， _ _ O
+该 _ _ O
+地 _ _ O
+区 _ _ O
+属 _ _ O
+于 _ _ O
+독일 _ _ B-LOC
+. _ _ O
+
+
+# id 82e3fb97-3d1d-41dd-802f-42c624c76ae8	domain=mix
+wie _ _ O
+man _ _ O
+kocht _ _ O
+베레타 _ _ B-PROD
+92 _ _ I-PROD
+
+
+# id b249e7f9-abaf-4155-8bfb-6b606249d218	domain=mix
+in _ _ O
+2006 _ _ O
+is _ _ O
+het _ _ O
+aantal _ _ O
+inwoners _ _ O
+door _ _ O
+het _ _ O
+amerika _ _ B-GRP
+birleşik _ _ I-GRP
+devletleri _ _ I-GRP
+nüfus _ _ I-GRP
+sayım _ _ I-GRP
+bürosu _ _ I-GRP
+geschat _ _ O
+op _ _ O
+245 _ _ O
+, _ _ O
+een _ _ O
+daling _ _ O
+van _ _ O
+7 _ _ O
+( _ _ O
+2 _ _ O
+, _ _ O
+8 _ _ O
+% _ _ O
+) _ _ O
+. _ _ O
+
+
+# id 2dd71b62-1acf-439e-845f-e295095d46cd	domain=mix
+wie _ _ O
+wird _ _ O
+walt _ _ B-PER
+kuhn _ _ I-PER
+berechnet _ _ O
+
+
+# id 85d2a868-8f53-46cc-be62-b4b647486196	domain=mix
+сент-элсвер _ _ B-CW
+. _ _ O
+के _ _ O
+लिए _ _ O
+७ _ _ O
+दिन _ _ O
+का _ _ O
+पूर्वानुमान _ _ O
+
+
+# id 89b2e9e6-472d-491f-9180-6fb436f89ed3	domain=mix
+de _ _ O
+ethiopia _ _ B-LOC
+gezahegne _ _ B-PER
+abera _ _ I-PER
+kwam _ _ O
+als _ _ O
+eerste _ _ O
+over _ _ O
+de _ _ O
+streep _ _ O
+in _ _ O
+2 _ _ O
+: _ _ O
+09.25 _ _ O
+. _ _ O
+
+
+# id 95de4ffb-ce35-4f53-b657-8fc1bdb9bc5d	domain=mix
+بوئینگ _ _ B-PROD
+۷جی۷ _ _ I-PROD
+का _ _ O
+तापमान _ _ O
+क्या _ _ O
+है? _ _ O
+
+
+# id ea4aaf4f-710f-42d7-b42b-bba676aabed4	domain=mix
+asian _ _ B-GRP
+athletics _ _ I-GRP
+association _ _ I-GRP
+关 _ _ O
+联 _ _ O
+
+
+# id bccea253-00d0-439c-87b7-e76c6a8d6658	domain=mix
+आईएमडीबी _ _ O
+milena _ _ B-PER
+dravić _ _ I-PER
+
+
+# id 4ac2123b-b3c8-4c12-a9e6-6fd1136b2bf1	domain=mix
+স্টেশনটি _ _ O
+শুধুমাত্র _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+밴쿠버 _ _ B-LOC
+এর _ _ O
+দিকে _ _ O
+পশ্চিমগামী _ _ O
+ট্রেন _ _ O
+দ্বারা _ _ O
+পরিবেশন _ _ O
+করা _ _ O
+হয়। _ _ O
+
+
+# id 6f187098-4f7b-48d0-b393-8d8f1c520d97	domain=mix
+emacs _ _ O
+марсианские _ _ B-CW
+хроники _ _ I-CW
+
+
+# id c07505a4-b619-490b-810c-d4ae847bffdb	domain=mix
+meine _ _ O
+oculus _ _ B-PROD
+rift _ _ I-PROD
+s _ _ I-PROD
+gerüche _ _ O
+
+
+# id b182b51d-84b4-4537-b9dc-d6270653879f	domain=mix
+benjamin _ _ B-PER
+bloomfield, _ _ I-PER
+1st _ _ I-PER
+baron _ _ I-PER
+bloomfield _ _ I-PER
+टेक्सास _ _ O
+. _ _ O
+का _ _ O
+शहर _ _ O
+
+
+# id e9b7b34a-fca6-44fd-afd5-86bdd1658344	domain=mix
+ছাপরা _ _ B-LOC
+ist _ _ O
+der _ _ O
+verwaltungssitz _ _ O
+der _ _ O
+division. _ _ O
+
+
+# id 9677ab54-57b3-4719-894a-1ad38140c5c0	domain=mix
+杀 _ _ O
+手 _ _ O
+la _ _ B-CW
+cena _ _ I-CW
+
+
+# id f64cb2e4-6966-4222-b0a3-6cb018c14136	domain=mix
+the _ _ O
+major _ _ O
+town _ _ O
+is _ _ O
+叶 _ _ B-LOC
+尔 _ _ I-LOC
+加 _ _ I-LOC
+瓦 _ _ I-LOC
+( _ _ O
+) _ _ O
+, _ _ O
+the _ _ O
+former _ _ O
+capital _ _ O
+of _ _ O
+the _ _ O
+united _ _ O
+库 _ _ B-LOC
+尔 _ _ I-LOC
+兰 _ _ I-LOC
+和 _ _ I-LOC
+瑟 _ _ I-LOC
+米 _ _ I-LOC
+加 _ _ I-LOC
+利 _ _ I-LOC
+亚 _ _ I-LOC
+公 _ _ I-LOC
+国 _ _ I-LOC
+. _ _ O
+
+
+# id e88d3fd0-ddc6-4628-a40c-beb60e4f8d31	domain=mix
+সেরা _ _ O
+বাড়ি _ _ O
+the _ _ B-GRP
+chills _ _ I-GRP
+
+
+# id f4ca7f11-17a2-4239-a375-af763a4e7284	domain=mix
+在 _ _ O
+1999 _ _ O
+年 _ _ O
+的 _ _ O
+一 _ _ O
+次 _ _ O
+采 _ _ O
+访 _ _ O
+中 _ _ O
+publishers _ _ B-CW
+weekly _ _ I-CW
+，o _ _ O
+brian _ _ O
+观 _ _ O
+察 _ _ O
+到 _ _ O
+他 _ _ O
+已 _ _ O
+经 _ _ O
+进 _ _ O
+入 _ _ O
+他 _ _ O
+的 _ _ O
+第 _ _ O
+21 _ _ O
+章 _ _ O
+三 _ _ O
+章 _ _ O
+了 _ _ O
+。 _ _ O
+
+
+# id 7cb2d548-85ef-4739-9864-3948e683420c	domain=mix
+elise _ _ B-PER
+bauman _ _ I-PER
+鸣 _ _ O
+叫 _ _ O
+
+
+# id e3a05845-b136-4a4d-9840-293453cd7098	domain=mix
+مک‌فلای _ _ B-GRP
+首 _ _ O
+张 _ _ O
+专 _ _ O
+辑 _ _ O
+于 _ _ O
+آیلند _ _ B-CORP
+رکوردز _ _ I-CORP
+在 _ _ O
+2004 _ _ O
+年 _ _ O
+。 _ _ O
+
+
+# id fa4708de-e2d5-4644-b122-975bbf034efc	domain=mix
+bimi _ _ B-PROD
+2020 _ _ O
+年 _ _ O
+回 _ _ O
+顾 _ _ O
+
+
+# id 1cb1d259-f919-45aa-a36e-680b32291eb0	domain=mix
+做 _ _ O
+什 _ _ O
+么 _ _ O
+vedeno _ _ B-LOC
+轮 _ _ O
+胎 _ _ O
+上 _ _ O
+的 _ _ O
+意 _ _ O
+思 _ _ O
+
+
+# id 8b0e7465-547a-4089-8706-4f766638e082	domain=mix
+ভাপা _ _ B-PROD
+পিঠা _ _ I-PROD
+आगामी _ _ O
+रिलीज़ _ _ O
+
+
+# id 58743e75-1c36-46db-bf5e-f0e8f391b2e6	domain=mix
+后 _ _ O
+来 _ _ O
+为 _ _ O
+了 _ _ O
+मैकिन्टौश _ _ B-PROD
+和 _ _ O
+एम.एस.-डॉस _ _ B-CW
+. _ _ O
+
+
+# id 6130ce0b-2f9e-4890-aa15-7a2c2fb5cd1e	domain=mix
+vervolgens _ _ O
+was _ _ O
+de _ _ O
+serie _ _ O
+te _ _ O
+zien _ _ O
+op _ _ O
+sbs _ _ B-CORP
+6 _ _ I-CORP
+van _ _ O
+27 _ _ O
+november _ _ O
+1995 _ _ O
+tot _ _ O
+30 _ _ O
+augustus _ _ O
+1996 _ _ O
+en _ _ O
+van _ _ O
+1 _ _ O
+tot _ _ O
+en _ _ O
+met _ _ O
+30 _ _ O
+juni _ _ O
+1997 _ _ O
+. _ _ O
+
+
+# id 33b9d028-a37f-46e4-9e60-daa3f35c1c0d	domain=mix
+他 _ _ O
+是 _ _ O
+主 _ _ O
+教 _ _ O
+练 _ _ O
+гамильтонский _ _ B-GRP
+колледж _ _ I-GRP
+在 _ _ O
+клинтон _ _ B-LOC
+， _ _ O
+这 _ _ O
+是 _ _ O
+他 _ _ O
+自 _ _ O
+2014 _ _ O
+赛 _ _ O
+季 _ _ O
+以 _ _ O
+来 _ _ O
+一 _ _ O
+直 _ _ O
+担 _ _ O
+任 _ _ O
+的 _ _ O
+职 _ _ O
+位 _ _ O
+。 _ _ O
+
+
+# id d733fab7-046f-4110-a00d-14bceed83dac	domain=mix
+wie _ _ O
+lange _ _ O
+kochen _ _ O
+xf-87 _ _ B-PROD
+blackhawk _ _ I-PROD
+
+
+# id b028199c-a5f7-41dd-837a-37f569df846a	domain=mix
+world _ _ B-PROD
+wide _ _ I-PROD
+web _ _ I-PROD
+के _ _ O
+लिए _ _ O
+अभिगम्यता _ _ O
+के _ _ O
+लिए _ _ O
+दिशानिर्देशों _ _ O
+के _ _ O
+एक _ _ O
+सेट _ _ O
+को _ _ O
+समन्वित _ _ O
+करने _ _ O
+के _ _ O
+लिए _ _ O
+कुछ _ _ O
+प्रमुख _ _ O
+आंदोलन _ _ O
+हुए _ _ O
+हैं। _ _ O
+
+
+# id afe4311a-246d-4207-8b11-a6017b16a0ac	domain=mix
+malouma _ _ O
+'s _ _ O
+мартабак _ _ B-PROD
+were _ _ O
+a _ _ O
+highlight _ _ O
+of _ _ O
+the _ _ O
+festival _ _ O
+presenting _ _ O
+an _ _ O
+up _ _ O
+front _ _ O
+and _ _ O
+personal _ _ O
+encounter _ _ O
+with _ _ O
+the _ _ O
+musician _ _ O
+for _ _ O
+the _ _ O
+audience _ _ O
+. _ _ O
+
+
+# id 337abc83-8dea-4def-a0f6-6064ad29f441	domain=mix
+做 _ _ O
+taras _ _ B-CW
+bulba _ _ I-CW
+提 _ _ O
+高 _ _ O
+血 _ _ O
+压 _ _ O
+
+
+# id 2da67a5b-045d-4dd4-a9c7-07dd29d997ac	domain=mix
+বেন্টং _ _ O
+শোবিজে _ _ O
+তার _ _ O
+কর্মজীবন _ _ O
+শুরু _ _ O
+করেছিলেন _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+abs-cbn _ _ B-CORP
+এ _ _ O
+প্রোডাকশন _ _ O
+সহকারী _ _ O
+হিসেবে। _ _ O
+
+
+# id 864a1539-f971-4c64-b0ea-755724a577d4	domain=mix
+克 _ _ O
+莱 _ _ O
+因 _ _ O
+主 _ _ O
+演 _ _ O
+了 _ _ O
+2002 _ _ O
+年 _ _ O
+翻 _ _ O
+拍 _ _ O
+的 _ _ O
+电 _ _ O
+影 _ _ O
+rollerball _ _ B-CW
+， _ _ O
+但 _ _ O
+这 _ _ O
+部 _ _ O
+电 _ _ O
+影 _ _ O
+在 _ _ O
+评 _ _ O
+论 _ _ O
+和 _ _ O
+财 _ _ O
+务 _ _ O
+上 _ _ O
+都 _ _ O
+失 _ _ O
+败 _ _ O
+了 _ _ O
+。 _ _ O
+
+
+# id b3051f14-b62c-4ee2-80f7-6bac978de487	domain=mix
+खुशी _ _ B-CW
+(2003 _ _ I-CW
+फ़िल्म) _ _ I-CW
+নামের _ _ O
+অর্থ _ _ O
+
+
+# id c6904b1b-6b74-44ec-9012-218fc3fb9cad	domain=mix
+de _ _ O
+wetenschappelijke _ _ O
+naam _ _ O
+van _ _ O
+de _ _ O
+soort _ _ O
+is _ _ O
+voor _ _ O
+het _ _ O
+eerst _ _ O
+geldig _ _ O
+gepubliceerd _ _ O
+in _ _ O
+1823 _ _ O
+door _ _ O
+jean-baptiste _ _ B-PER
+godart _ _ I-PER
+. _ _ O
+
+
+# id 9fcaf40a-6c8d-48d7-80c3-98fd48c17380	domain=mix
+कास _ _ O
+دانشگاه _ _ B-GRP
+آمریکایی _ _ I-GRP
+گیرنه _ _ I-GRP
+, _ _ O
+मिशिगन _ _ O
+
+
+# id e6b9b83d-f568-47c5-9bc5-3aebcf12fb6f	domain=mix
+什 _ _ O
+么 _ _ O
+时 _ _ O
+候 _ _ O
+shambhala _ _ B-GRP
+sun _ _ I-GRP
+已 _ _ O
+确 _ _ O
+立 _ _ O
+的 _ _ O
+
+
+# id 68cccd17-61d9-4672-a728-c3eeaa6ac2e7	domain=mix
+he _ _ O
+was _ _ O
+subsequently _ _ O
+stationed _ _ O
+at _ _ O
+san _ _ B-LOC
+pietro _ _ I-LOC
+in _ _ I-LOC
+gu _ _ I-LOC
+. _ _ O
+
+
+# id 57567c66-c0e2-4012-a357-ef79d0d24fbe	domain=mix
+它 _ _ O
+也 _ _ O
+向 _ _ O
+南 _ _ O
+蔓 _ _ O
+延 _ _ O
+至 _ _ O
+डैन्यूब _ _ B-LOC
+नदी _ _ I-LOC
+在 _ _ O
+सर्बिया _ _ B-LOC
+. _ _ O
+
+
+# id 35ad7dde-63ee-4add-a043-e888a68f01fa	domain=mix
+guben _ _ B-LOC
+काउंटी _ _ O
+वाई _ _ O
+जेल _ _ O
+
+
+# id 465c35ad-c502-4867-b9c3-7ee36b8459c8	domain=mix
+制 _ _ O
+造 _ _ O
+商 _ _ O
+tsmc _ _ B-CORP
+28 _ _ O
+纳 _ _ O
+米 _ _ O
+工 _ _ O
+艺 _ _ O
+
+
+# id 6ef08ec5-edd8-4265-9839-dfad84a9adb6	domain=mix
+wann _ _ O
+vaddeswaram _ _ B-LOC
+wurde _ _ O
+ein _ _ O
+staat _ _ O
+
+
+# id d65d0448-96da-4901-a7d8-a4695a691425	domain=mix
+die _ _ O
+tertiäre _ _ O
+struktur _ _ O
+von _ _ O
+ferredoxin _ _ O
+wird _ _ O
+typischerweise _ _ O
+durch _ _ O
+elektrostatische _ _ O
+wechselwirkungen _ _ O
+mit _ _ O
+জিংক _ _ B-PROD
+ionen _ _ O
+stabilisiert _ _ O
+(zn2 _ _ O
++). _ _ O
+
+
+# id adb44feb-84ec-4647-887c-70f5dea13393	domain=mix
+怎 _ _ O
+么 _ _ O
+玩 _ _ O
+সুসান _ _ B-PER
+ফোর্ড _ _ I-PER
+在 _ _ O
+吉 _ _ O
+他 _ _ O
+上 _ _ O
+
+
+# id fc4a114d-1e4e-4fc7-8246-1ef72bca4fba	domain=mix
+fk _ _ B-GRP
+dnipro _ _ I-GRP
+dnipropetrovsk _ _ I-GRP
+日 _ _ O
+历 _ _ O
+2019 _ _ O
+
+
+# id 42113d44-5a48-4b19-8527-d335c92e523b	domain=mix
+das _ _ O
+weinen _ _ O
+queen _ _ B-CW
+of _ _ I-CW
+reversals _ _ I-CW
+
+
+# id 3857cbd8-38d8-43ff-8c50-18acd88fdcdb	domain=mix
+它 _ _ O
+包 _ _ O
+括 _ _ O
+一 _ _ O
+个 _ _ O
+分 _ _ O
+支 _ _ O
+hope _ _ B-LOC
+, _ _ O
+和 _ _ O
+bookmobile _ _ B-PROD
+即 _ _ O
+服 _ _ O
+务 _ _ O
+于 _ _ O
+县 _ _ O
+城 _ _ O
+。 _ _ O
+
+
+# id 71c2d2a9-a85a-41b1-a75a-0b7625204636	domain=mix
+this _ _ O
+location _ _ O
+is _ _ O
+approximately _ _ O
+, _ _ O
+by _ _ O
+road _ _ O
+, _ _ O
+south _ _ O
+of _ _ O
+рукунгири _ _ B-LOC
+, _ _ O
+where _ _ O
+the _ _ O
+district _ _ O
+headquarters _ _ O
+are _ _ O
+located _ _ O
+. _ _ O
+
+
+# id 4fe793b4-1f47-4edf-8ed3-ebad43e52261	domain=mix
+클로네이드 _ _ B-CORP
+support-telefonnummer _ _ O
+uk _ _ O
+
+
+# id 5fd4d326-260a-4811-b574-19ec3055b430	domain=mix
+谁 _ _ O
+发 _ _ O
+明 _ _ O
+了 _ _ O
+ue _ _ B-GRP
+산줄리아 _ _ I-GRP
+
+
+# id d5063585-a83b-40cf-8589-e37e2c9fcad6	domain=mix
+出 _ _ O
+现 _ _ O
+周 _ _ O
+年 _ _ O
+unua _ _ B-CW
+libro _ _ I-CW
+. _ _ O
+
+
+# id 9bda1db1-62ab-4b01-be16-683c3b7b038d	domain=mix
+in _ _ O
+1948 _ _ O
+deed _ _ O
+hij _ _ O
+zijn _ _ O
+eerste _ _ O
+film _ _ O
+met _ _ O
+bergman _ _ O
+: _ _ O
+port _ _ B-CW
+of _ _ I-CW
+call _ _ I-CW
+. _ _ O
+
+
+# id 5a3cedce-a5c4-4378-a5ab-7e0cb55f57e9	domain=mix
+wie _ _ O
+man _ _ O
+ein _ _ O
+os _ _ B-CW
+x _ _ I-CW
+요세미티 _ _ I-CW
+skript _ _ O
+ausführt _ _ O
+
+
+# id d6b4c660-7733-4b19-b142-9a8c1416d88d	domain=mix
+the _ _ O
+start _ _ O
+of _ _ O
+2012 _ _ O
+saw _ _ O
+the _ _ O
+label _ _ O
+form _ _ O
+a _ _ O
+partnership _ _ O
+with _ _ O
+universal _ _ B-CORP
+music _ _ I-CORP
+group _ _ I-CORP
+to _ _ O
+sell _ _ O
+a _ _ O
+huge _ _ O
+range _ _ O
+of _ _ O
+their _ _ O
+back _ _ O
+catalogue _ _ O
+. _ _ O
+
+
+# id 3abb2aba-4334-4822-b1ec-aff3bc3fcc9b	domain=mix
+नॉर्मा _ _ O
+no _ _ B-CW
+limits _ _ I-CW
+
+
+# id 912fe038-acb4-48b8-8c4f-1c4d77abdf8a	domain=mix
+edison _ _ B-CORP
+manufacturing _ _ I-CORP
+company _ _ I-CORP
+सेंटर _ _ O
+सीटिंग _ _ O
+
+
+# id bae4a2d0-0e8b-43b5-a598-97a0470a17f7	domain=mix
+کره _ _ B-PROD
+बनाने _ _ O
+के _ _ O
+लिए _ _ O
+पर्याप्त _ _ O
+क्रीम _ _ O
+बचाई _ _ O
+गई _ _ O
+थी, _ _ O
+और _ _ O
+अतिरिक्त _ _ O
+बेचा _ _ O
+गया _ _ O
+था। _ _ O
+
+
+# id 95068894-9430-4a5c-806e-2532df199934	domain=mix
+петрозаводск _ _ B-LOC
+polizeidienststelle _ _ O
+ca _ _ O
+
+
+# id bf239969-5095-4ab1-9f83-3757b08dc416	domain=mix
+ferdinand _ _ B-PER
+brütt _ _ I-PER
+কত _ _ O
+বছর _ _ O
+বয়সে _ _ O
+মারা _ _ O
+গেলেন? _ _ O
+
+
+# id 46c798df-7189-45c5-9017-a4060ee0f4a5	domain=mix
+ist _ _ O
+peugeot _ _ B-PROD
+207 _ _ I-PROD
+s2000 _ _ I-PROD
+schlecht _ _ O
+für _ _ O
+hunde _ _ O
+
+
+# id b3e85147-ee6f-4fa6-bec2-1cbe5d7018a5	domain=mix
+सफारी _ _ O
+view-master _ _ B-PROD
+personal _ _ I-PROD
+stereo _ _ I-PROD
+camera _ _ I-PROD
+
+
+# id 0c64b7e5-32c7-4d3f-aff7-f4870aea1402	domain=mix
+কারা _ _ O
+parques _ _ B-CORP
+reunidos _ _ I-CORP
+? _ _ O
+
+
+# id e6e90026-31c7-48c9-9558-4dbf3f524de6	domain=mix
+walmart _ _ B-CORP
+de _ _ I-CORP
+méxico _ _ I-CORP
+y _ _ I-CORP
+centroamérica _ _ I-CORP
+कौन _ _ O
+सा _ _ O
+क्षेत्र _ _ O
+है _ _ O
+
+
+# id be10d730-3c49-4f39-80e2-5701ad43c792	domain=mix
+اداره _ _ B-GRP
+آمار _ _ I-GRP
+آمریکا _ _ I-GRP
+के _ _ O
+अनुसार, _ _ O
+शहर _ _ O
+का _ _ O
+कुल _ _ O
+क्षेत्रफल _ _ O
+है, _ _ O
+जिसमें _ _ O
+से _ _ O
+भूमि _ _ O
+है _ _ O
+और _ _ O
+पानी _ _ O
+है। _ _ O
+
+
+# id 1329ae95-48cf-4680-a3ca-926ee21cd6c4	domain=mix
+das _ _ O
+raumschiff _ _ O
+war _ _ O
+der _ _ O
+vierte _ _ O
+satellit, _ _ O
+der _ _ O
+von _ _ O
+ford _ _ B-CORP
+aerospace _ _ I-CORP
+am _ _ O
+entworfen _ _ O
+und _ _ O
+hergestellt _ _ O
+wurde _ _ O
+платформа _ _ B-PROD
+1300-й _ _ I-PROD
+серии _ _ I-PROD
+космическая _ _ B-PROD
+платформа _ _ I-PROD
+. _ _ O
+
+
+# id 79ef2e80-02ca-4097-9f94-f777e69e2b0b	domain=mix
+de _ _ O
+wetenschappelijke _ _ O
+naam _ _ O
+van _ _ O
+deze _ _ O
+soort _ _ O
+is _ _ O
+voor _ _ O
+het _ _ O
+eerst _ _ O
+geldig _ _ O
+gepubliceerd _ _ O
+in _ _ O
+1929 _ _ O
+door _ _ O
+lucien _ _ B-PER
+chopard _ _ I-PER
+. _ _ O
+
+
+# id 85db0c49-492e-40d3-98ed-e87418eb550b	domain=mix
+one _ _ O
+of _ _ O
+his _ _ O
+most _ _ O
+notable _ _ O
+roles _ _ O
+, _ _ O
+if _ _ O
+not _ _ O
+the _ _ O
+most _ _ O
+notable _ _ O
+, _ _ O
+has _ _ O
+been _ _ O
+that _ _ O
+of _ _ O
+리 _ _ B-PER
+에버렛 _ _ I-PER
+in _ _ O
+더 _ _ B-CW
+워킹 _ _ I-CW
+데드 _ _ I-CW
+by _ _ O
+텔테일 _ _ B-CORP
+게임스 _ _ I-CORP
+. _ _ O
+
+
+# id f9ce8882-8ae0-4d3e-9aac-934a50886022	domain=mix
+其 _ _ O
+余 _ _ O
+的 _ _ O
+金 _ _ O
+额 _ _ O
+是 _ _ O
+从 _ _ O
+各 _ _ O
+个 _ _ O
+地 _ _ O
+方 _ _ O
+查 _ _ O
+获 _ _ O
+的 _ _ O
+， _ _ O
+包 _ _ O
+括 _ _ O
+delhi _ _ B-LOC
+. _ _ O
+
+
+# id db13ed7b-9001-4b12-a0f4-a4d67e468e43	domain=mix
+welche _ _ O
+art _ _ O
+von _ _ O
+geschäft _ _ O
+ist _ _ O
+오트오고웨 _ _ B-LOC
+주 _ _ I-LOC
+
+
+# id 86457a0f-fb77-47df-8715-22574119a5ab	domain=mix
+리베라 _ _ B-CW
+메 _ _ I-CW
+कीटन _ _ O
+
+
+# id 63a8b74b-bf6b-4a70-aa6b-d0c5c303a51c	domain=mix
+安 _ _ O
+装 _ _ O
+u.n. _ _ B-CW
+squadron _ _ I-CW
+在 _ _ O
+windows _ _ O
+10 _ _ O
+上 _ _ O
+
+
+# id f6b217b1-92fb-4ebc-9c74-d3db5db730dd	domain=mix
+er _ _ O
+zijn _ _ O
+geen _ _ O
+gemeenschappelijke _ _ O
+kaarten _ _ O
+zoals _ _ O
+texas _ _ B-CW
+hold _ _ I-CW
+'em _ _ I-CW
+die _ _ O
+heeft _ _ O
+. _ _ O
+
+
+# id ac760f57-10c8-43df-a5ff-2d8967070130	domain=mix
+নেয়াপ্পাম _ _ O
+সাধারণত _ _ O
+চালের _ _ O
+গুঁড়ো _ _ O
+(বিকল্পভাবে, _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+grieß _ _ B-PROD
+অথবা _ _ O
+সুজি _ _ O
+দিয়ে), _ _ O
+গুড়, _ _ O
+ঘি _ _ O
+ভাজা _ _ O
+নারকেল _ _ O
+(টুকরো _ _ O
+বা _ _ O
+ভাজা), _ _ O
+ঘি, _ _ O
+এলাচ _ _ O
+এবং _ _ O
+দুধ _ _ O
+দিয়ে _ _ O
+তৈরি। _ _ O
+
+
+# id 9c0d0529-4f8e-40b8-99d8-6d0565d9ee72	domain=mix
+以 _ _ O
+下 _ _ O
+是 _ _ O
+市 _ _ O
+长 _ _ O
+名 _ _ O
+单 _ _ O
+lubbock _ _ B-LOC
+. _ _ O
+
+
+# id 2d16c7ec-d3b4-4195-b505-bb75db31a3ca	domain=mix
+相 _ _ O
+反 _ _ O
+， _ _ O
+他 _ _ O
+开 _ _ O
+始 _ _ O
+在 _ _ O
+heinkel _ _ B-CORP
+在 _ _ O
+stuttgart _ _ B-LOC
+. _ _ O
+
+
+# id 91ad18ac-6310-4884-bc84-9c33f02f21a1	domain=mix
+气 _ _ O
+候 _ _ O
+在 _ _ O
+feeder _ _ B-GRP
+
+
+# id 4a4ae8a6-6800-4b6c-9284-14a5b43d6091	domain=mix
+method _ _ B-GRP
+man _ _ I-GRP
+& _ _ I-GRP
+redman _ _ I-GRP
+意 _ _ O
+味 _ _ O
+着 _ _ O
+什 _ _ O
+么 _ _ O
+
+
+# id a282d8aa-e83d-4afd-ab64-2cf0f58be21b	domain=mix
+增 _ _ O
+加 _ _ O
+的 _ _ O
+屏 _ _ O
+幕 _ _ O
+尺 _ _ O
+寸 _ _ O
+允 _ _ O
+许 _ _ O
+将 _ _ O
+第 _ _ O
+六 _ _ O
+行 _ _ O
+图 _ _ O
+标 _ _ O
+添 _ _ O
+加 _ _ O
+到 _ _ O
+出 _ _ O
+现 _ _ O
+在 _ _ O
+屏 _ _ O
+幕 _ _ O
+上 _ _ O
+的 _ _ O
+五 _ _ O
+行 _ _ O
+iphone _ _ B-PROD
+4 _ _ I-PROD
+. _ _ O
+
+
+# id b725a21a-34a1-4010-bd94-33dc124383b7	domain=mix
+中 _ _ O
+心 _ _ O
+club _ _ B-GRP
+sport _ _ I-GRP
+cartaginés _ _ I-GRP
+
+
+# id b218a99d-b62c-440b-a31d-2d95b091718e	domain=mix
+der _ _ O
+ligne _ _ B-LOC
+de _ _ I-LOC
+cerdagne _ _ I-LOC
+/zug _ _ O
+jaune _ _ O
+(yellow _ _ O
+train): _ _ O
+züge _ _ O
+von _ _ O
+villefranche-de-conflent _ _ B-LOC
+und _ _ O
+latour-de-carol _ _ B-LOC
+enveitg _ _ B-LOC
+(andorra/spanien _ _ O
+grenzt) _ _ O
+
+
+# id a906d257-dbaf-4e0f-b8c5-28e6b3c0ce20	domain=mix
+simon, _ _ B-CORP
+kucher _ _ I-CORP
+& _ _ I-CORP
+partners _ _ I-CORP
+नया _ _ O
+कंसोल _ _ O
+
+
+# id 944a211f-8e58-4937-8de4-7746e841f4e0	domain=mix
+what _ _ O
+is _ _ O
+the _ _ O
+warranty _ _ O
+on _ _ O
+a _ _ O
+پلنترونیکس _ _ B-CORP
+? _ _ O
+
+
+# id a7b5ca11-2298-44ce-b14d-542acabc3ce5	domain=mix
+wofür _ _ O
+университет _ _ B-GRP
+найроби _ _ I-GRP
+steht? _ _ O
+
+
+# id 971eae4d-de2c-495a-a179-049d84ffb026	domain=mix
+几 _ _ O
+岁 _ _ O
+walkin' _ _ B-CW
+blues _ _ I-CW
+为 _ _ O
+了 _ _ O
+
+
+# id 258a3b63-722b-4228-a239-1d4fa628e861	domain=mix
+wer _ _ O
+hat _ _ O
+den _ _ O
+ersten _ _ O
+geschaffen _ _ O
+alkaline _ _ B-GRP
+trio _ _ I-GRP
+
+
+# id 7e967837-4142-45fe-ba04-566489f7d9e0	domain=mix
+स्काई _ _ O
+air _ _ B-LOC
+itam _ _ I-LOC
+ग्राहक _ _ O
+सेवा _ _ O
+टेलीफोन _ _ O
+नंबर _ _ O
+
+
+# id 6025018e-5112-4dcf-81fe-f020c8e342a3	domain=mix
+आप _ _ O
+किस _ _ O
+पर _ _ O
+lost _ _ B-CW
+in _ _ I-CW
+blue _ _ I-CW
+खेल _ _ O
+सकते _ _ O
+हैं? _ _ O
+
+
+# id 3ad3367a-3e04-456f-a584-d0c7d6b8dcd1	domain=mix
+министерство _ _ B-GRP
+внутренних _ _ I-GRP
+дел _ _ I-GRP
+ирака _ _ I-GRP
+শ্রম _ _ O
+বিভাগের _ _ O
+অবস্থা _ _ O
+
+
+# id ab55d2c1-1679-4525-9037-5518bfc0400c	domain=mix
+从 _ _ O
+包 _ _ O
+机 _ _ O
+화이트 _ _ B-CORP
+스타 _ _ I-CORP
+라인 _ _ I-CORP
+从 _ _ O
+1926 _ _ O
+年 _ _ O
+到 _ _ O
+1929 _ _ O
+年 _ _ O
+。 _ _ O
+
+
+# id b12e6645-ae16-4600-8959-e2b49c5d2045	domain=mix
+the _ _ O
+floor _ _ O
+'s _ _ O
+too _ _ O
+far _ _ O
+away _ _ O
+is _ _ O
+een _ _ O
+آلبوم _ _ B-CW
+استودیویی _ _ I-CW
+van _ _ O
+آزریک _ _ B-GRP
+تنتکلز _ _ I-GRP
+. _ _ O
+
+
+# id 80468aaa-ea9c-4e2b-8e17-584fd30914d9	domain=mix
+شرکت _ _ B-CORP
+دولتی _ _ I-CORP
+金 _ _ O
+融 _ _ O
+隔 _ _ O
+夜 _ _ O
+收 _ _ O
+益 _ _ O
+地 _ _ O
+址 _ _ O
+
+
+# id 677a26f1-337b-40ad-8b97-b41f14e328db	domain=mix
+was _ _ O
+sind _ _ O
+die _ _ O
+home _ _ B-CW
+of _ _ I-CW
+the _ _ I-CW
+brave _ _ I-CW
+
+
+# id 13bbfb0d-f145-4311-be27-6fc800219c05	domain=mix
+صلاح‌الدین _ _ B-PER
+ایوبی _ _ I-PER
+, _ _ O
+de _ _ O
+leider _ _ O
+van _ _ O
+de _ _ O
+islamitische _ _ O
+legers _ _ O
+, _ _ O
+wordt _ _ O
+woedend _ _ O
+en _ _ O
+trekt _ _ O
+ten _ _ O
+strijde _ _ O
+. _ _ O
+
+
+# id f3619855-72a4-44c9-a482-cd377111620c	domain=mix
+the _ _ O
+participating _ _ O
+teams _ _ O
+were _ _ O
+determined _ _ O
+by _ _ O
+fédération _ _ B-GRP
+internationale _ _ I-GRP
+de _ _ I-GRP
+hockey _ _ I-GRP
+( _ _ O
+fih _ _ O
+) _ _ O
+: _ _ O
+
+
+# id 36289bc8-85f2-462f-8e47-e4f85d2c1010	domain=mix
+coburgo _ _ B-LOC
+flynn _ _ O
+actor _ _ O
+
+
+# id 3a3e20e9-be1e-497e-bc16-11db4383ce34	domain=mix
+hij _ _ O
+speelt _ _ O
+bij _ _ O
+stade _ _ B-GRP
+rennais _ _ I-GRP
+f.c. _ _ I-GRP
+, _ _ O
+waar _ _ O
+hij _ _ O
+doorstroomde _ _ O
+vanuit _ _ O
+de _ _ O
+jeugdopleiding _ _ O
+. _ _ O
+
+
+# id 64933a94-8078-4367-af54-290a85c93800	domain=mix
+where'd _ _ B-CW
+you _ _ I-CW
+go _ _ I-CW
+shameless _ _ O
+
+
+# id 5533cd90-a7c5-4073-a814-06024c40dcf5	domain=mix
+benutzt _ _ O
+pedro _ _ B-PER
+pauleta _ _ I-PER
+zum _ _ O
+verkauf _ _ O
+
+
+# id ff9122ed-fa71-4513-b97c-9adfbf8fba11	domain=mix
+acid _ _ B-GRP
+mothers _ _ I-GRP
+temple _ _ I-GRP
+, _ _ O
+wa _ _ O
+wetter _ _ O
+
+
+# id 43ae4878-97e8-4897-a193-7d1bfec5929b	domain=mix
+善 _ _ O
+待 _ _ O
+动 _ _ O
+物 _ _ O
+组 _ _ O
+织 _ _ O
+научное _ _ B-GRP
+общество _ _ I-GRP
+
+
+# id c5c96fb3-e793-47aa-a5fc-13c557b62da2	domain=mix
+seit _ _ O
+1984 _ _ O
+arbeitete _ _ O
+er _ _ O
+bei _ _ O
+der _ _ O
+slovenská _ _ B-CORP
+televízia _ _ I-CORP
+. _ _ O
+
+
+# id 8132e3e9-670b-448b-9eb9-f50c7d43eca7	domain=mix
+schwimmend _ _ O
+пийрисар _ _ B-LOC
+
+
+# id 6ff9828f-7c75-47d2-a2e6-afe5d94f0c39	domain=mix
+coatepeque _ _ B-LOC
+টাউনশিপ _ _ O
+পুলিশ _ _ O
+
+
+# id 29fd5a8a-524a-4b68-a7c5-f01288df193a	domain=mix
+uttapam _ _ B-PROD
+: _ _ O
+a _ _ O
+savoury _ _ O
+pancake _ _ O
+prepared _ _ O
+from _ _ O
+a _ _ O
+similar _ _ O
+batter _ _ O
+used _ _ O
+to _ _ O
+make _ _ O
+thosai _ _ O
+. _ _ O
+
+
+# id dc781f62-1167-49bf-b9cb-3a4f1f06203d	domain=mix
+james _ _ B-PER
+bernard _ _ I-PER
+—— _ _ O
+dracula _ _ B-CW
+导 _ _ O
+演 _ _ O
+是 _ _ O
+terence _ _ B-PER
+fisher _ _ I-PER
+, _ _ O
+主 _ _ O
+演 _ _ O
+christopher _ _ B-PER
+lee _ _ I-PER
+和 _ _ O
+peter _ _ B-PER
+cushing _ _ I-PER
+. _ _ O
+
+
+# id c9d2744a-17b9-499d-916c-34d940bbfc61	domain=mix
+该 _ _ O
+物 _ _ O
+种 _ _ O
+被 _ _ O
+记 _ _ O
+录 _ _ O
+为 _ _ O
+खाद्य _ _ B-PROD
+खुम्ब _ _ I-PROD
+. _ _ O
+
+
+# id 23b63227-dfbd-4b9d-b48f-b31e0902ae6c	domain=mix
+最 _ _ O
+近 _ _ O
+的 _ _ O
+lisa _ _ B-PROD
+akoya _ _ I-PROD
+
+
+# id 4d4becb6-938d-4bf6-b689-1eac92cdf434	domain=mix
+englisch _ _ O
+zu _ _ O
+französisch _ _ O
+emma _ _ B-PER
+bormann _ _ I-PER
+
+
+# id 19ea71b3-dc5e-4940-baf3-715df183a01d	domain=mix
+তিনি _ _ O
+তার _ _ O
+পেশাগত _ _ O
+জীবনের _ _ O
+বেশিরভাগ _ _ O
+সময় _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+باشگاه _ _ B-GRP
+فوتبال _ _ I-GRP
+دن _ _ I-GRP
+هاگ _ _ I-GRP
+আক্রমণে _ _ O
+বিভিন্ন _ _ O
+অবস্থানে _ _ O
+কাটিয়েছেন। _ _ O
+
+
+# id b33e6604-ae29-4dac-a1e9-fb8334a433ef	domain=mix
+cpu _ _ O
+and _ _ O
+magsafe _ _ B-PROD
+
+
+# id 2cd947e6-5042-408c-8487-b568d877b0cf	domain=mix
+pedro _ _ B-PER
+almodóvar _ _ I-PER
+在 _ _ O
+他 _ _ O
+的 _ _ O
+电 _ _ O
+影 _ _ O
+中 _ _ O
+重 _ _ O
+复 _ _ O
+了 _ _ O
+电 _ _ O
+影 _ _ O
+中 _ _ O
+的 _ _ O
+事 _ _ O
+故 _ _ O
+场 _ _ O
+景 _ _ O
+alles _ _ B-CW
+über _ _ I-CW
+meine _ _ I-CW
+mutter _ _ I-CW
+作 _ _ O
+为 _ _ O
+戏 _ _ O
+剧 _ _ O
+冲 _ _ O
+突 _ _ O
+的 _ _ O
+中 _ _ O
+心 _ _ O
+。 _ _ O
+
+
+# id 8b082495-af6b-4efa-873e-4db73b994a2f	domain=mix
+op _ _ O
+为 _ _ O
+ऐनिमे _ _ B-CW
+系 _ _ O
+列 _ _ O
+東 _ _ B-CW
+京 _ _ I-CW
+喰 _ _ I-CW
+種 _ _ I-CW
+. _ _ O
+
+
+# id 62d38e1e-c064-42c6-9e8b-791284cfc61f	domain=mix
+外 _ _ O
+表 _ _ O
+informatica _ _ B-CORP
+邮 _ _ O
+件 _ _ O
+
+
+# id 1cdc117a-df58-4748-8ede-20a2b01c7bbb	domain=mix
+the _ _ O
+lectures _ _ O
+are _ _ O
+not _ _ O
+confined _ _ O
+to _ _ O
+any _ _ O
+sub _ _ O
+discipline _ _ O
+of _ _ O
+economics _ _ O
+, _ _ O
+and _ _ O
+they _ _ O
+are _ _ O
+usually _ _ O
+developed _ _ O
+into _ _ O
+a _ _ O
+book _ _ O
+, _ _ O
+published _ _ O
+by _ _ O
+co _ _ O
+sponsor _ _ O
+, _ _ O
+انتشارات _ _ B-CORP
+دانشگاه _ _ I-CORP
+پرینستون _ _ I-CORP
+. _ _ O
+
+
+# id c53081b8-d343-4fe4-a8a5-935cd2cadc9c	domain=mix
+1995 _ _ O
+submarine _ _ B-CW
+film _ _ I-CW
+
+
+# id e025dfe8-a5ef-4652-a022-50357cfea1b0	domain=mix
+चिकित्सकीय _ _ O
+दृष्टि _ _ O
+से _ _ O
+bmi _ _ B-CORP
+regional _ _ I-CORP
+क्या _ _ O
+है? _ _ O
+
+
+# id 4cdea630-0bb9-4c6f-857e-5f9404b4a9d7	domain=mix
+atb _ _ B-CORP
+financiero _ _ I-CORP
+gegründet _ _ O
+als _ _ O
+provinzialeigene _ _ O
+bank. _ _ O
+
+
+# id 143e6262-bd88-426d-aa98-519ba150db43	domain=mix
+大 _ _ O
+echter _ _ B-PROD
+hopfen _ _ I-PROD
+大 _ _ O
+厅 _ _ O
+( _ _ O
+halle _ _ O
+au _ _ O
+houblon _ _ O
+) _ _ O
+是 _ _ O
+建 _ _ O
+筑 _ _ O
+历 _ _ O
+史 _ _ O
+主 _ _ O
+义 _ _ O
+的 _ _ O
+一 _ _ O
+个 _ _ O
+很 _ _ O
+好 _ _ O
+的 _ _ O
+例 _ _ O
+子 _ _ O
+。 _ _ O
+
+
+# id 93d8d8be-a269-43dd-a6ac-47b02b5f61a3	domain=mix
+parallels _ _ B-CORP
+स्वास्थ्य _ _ O
+देखभाल _ _ O
+
+
+# id 886015db-b2ec-443a-82cc-cdf647ff5a04	domain=mix
+een _ _ O
+gelijkaardig _ _ O
+verschijnsel _ _ O
+is _ _ O
+upskirt _ _ B-CW
+, _ _ O
+waarbij _ _ O
+iemand _ _ O
+opnames _ _ O
+probeert _ _ O
+te _ _ O
+maken _ _ O
+onder _ _ O
+iemands _ _ O
+rock _ _ B-PROD
+. _ _ O
+
+
+# id 4cda6fee-26bc-497f-b513-70c59138e660	domain=mix
+세메루 _ _ B-LOC
+산 _ _ I-LOC
+county _ _ O
+board _ _ O
+of _ _ O
+elections _ _ O
+ohio _ _ O
+
+
+# id aa99ebec-7718-4001-ac59-f440c92eeb92	domain=mix
+laut _ _ O
+पुनर्बीमा _ _ B-CORP
+munich _ _ B-CORP
+re _ _ I-CORP
+wird _ _ O
+die _ _ O
+private _ _ O
+versicherungsbranche _ _ O
+von _ _ O
+der _ _ O
+katastrophe _ _ O
+nicht _ _ O
+wesentlich _ _ O
+betroffen _ _ O
+sein. _ _ O
+
+
+# id 74633be4-6476-475d-ab20-a69a1b92879e	domain=mix
+de _ _ O
+wetenschappelijke _ _ O
+naam _ _ O
+van _ _ O
+de _ _ O
+soort _ _ O
+werd _ _ O
+voor _ _ O
+het _ _ O
+eerst _ _ O
+geldig _ _ O
+gepubliceerd _ _ O
+in _ _ O
+1889 _ _ O
+door _ _ O
+octavius _ _ B-PER
+pickard-cambridge _ _ I-PER
+. _ _ O
+
+
+# id 1a3aa82b-cdeb-424c-8ad6-446934825b0c	domain=mix
+2008 _ _ O
+каратель: _ _ B-CW
+территория _ _ I-CW
+войны _ _ I-CW
+als _ _ O
+plastische _ _ O
+chirurg _ _ O
+
+
+# id f4ffd69d-e9cb-4c45-870b-7db4074fcee1	domain=mix
+frédéric _ _ B-PER
+caudron _ _ I-PER
+镇 _ _ O
+
+
+# id 1f4383be-44af-4bc1-acee-13a0f1efb713	domain=mix
+该 _ _ O
+公 _ _ O
+司 _ _ O
+生 _ _ O
+产 _ _ O
+乳 _ _ O
+制 _ _ O
+品 _ _ O
+， _ _ O
+如 _ _ O
+연유 _ _ B-PROD
+, _ _ O
+버터 _ _ B-PROD
+, _ _ O
+치즈 _ _ B-PROD
+和 _ _ O
+과자 _ _ B-PROD
+. _ _ O
+
+
+# id 07b0d2af-bd1f-4e5a-bc73-c32a1ccd4316	domain=mix
+game _ _ B-GRP
+grumps _ _ I-GRP
+দিন _ _ O
+কখন? _ _ O
+
+
+# id 45be246d-50eb-4861-bd34-1e76198ef4c6	domain=mix
+although _ _ O
+the _ _ O
+station _ _ O
+is _ _ O
+not _ _ O
+a _ _ O
+major _ _ O
+interchange _ _ O
+, _ _ O
+transfer _ _ O
+to _ _ O
+local _ _ O
+action _ _ B-CORP
+bus _ _ O
+route _ _ O
+18 _ _ O
+is _ _ O
+also _ _ O
+available _ _ O
+. _ _ O
+
+
+# id d411a67e-1c19-4638-bbaa-a0366581d5ba	domain=mix
+निर्माताओं _ _ O
+ने _ _ O
+animal _ _ B-CORP
+planet _ _ I-CORP
+के _ _ O
+साथ _ _ O
+प्रारंभिक _ _ O
+बातचीत _ _ O
+की _ _ O
+थी, _ _ O
+लेकिन _ _ O
+नेटवर्क _ _ O
+एक _ _ O
+भी _ _ O
+पायलट _ _ O
+एपिसोड _ _ O
+से _ _ O
+आगे _ _ O
+नहीं _ _ O
+बढ़ेगा। _ _ O
+
+
+# id b95f35df-b103-44fb-b2d3-2014a3246963	domain=mix
+早 _ _ O
+期 _ _ O
+的 _ _ O
+商 _ _ O
+业 _ _ O
+系 _ _ O
+统 _ _ O
+， _ _ O
+例 _ _ O
+如 _ _ O
+plato _ _ B-PROD
+至 _ _ O
+少 _ _ O
+， _ _ O
+他 _ _ O
+们 _ _ O
+的 _ _ O
+游 _ _ O
+戏 _ _ O
+与 _ _ O
+其 _ _ O
+严 _ _ O
+格 _ _ O
+的 _ _ O
+教 _ _ O
+育 _ _ O
+价 _ _ O
+值 _ _ O
+一 _ _ O
+样 _ _ O
+广 _ _ O
+为 _ _ O
+人 _ _ O
+知 _ _ O
+。 _ _ O
+
+
+# id 97672aff-a3ae-40ae-afcb-d9a73bb5d50d	domain=mix
+रास्पबेरी _ _ O
+जैसे _ _ O
+स्वाद _ _ O
+के _ _ O
+साथ _ _ O
+मीठा _ _ O
+और _ _ O
+तीखा, _ _ O
+वाइनबेरी _ _ O
+का _ _ O
+उपयोग _ _ O
+रास्पबेरी _ _ O
+के _ _ O
+समान _ _ O
+pasta _ _ B-PROD
+बनाने _ _ O
+के _ _ O
+लिए _ _ O
+किया _ _ O
+जाता _ _ O
+है, _ _ O
+जैसे _ _ O
+पाई _ _ O
+या _ _ O
+अन्य _ _ O
+मीठे _ _ O
+व्यंजन। _ _ O
+
+
+# id 19d6c525-200c-47de-a66c-4d55ffe4afbb	domain=mix
+부가티 _ _ B-CORP
+वेब _ _ O
+मेल _ _ O
+
+
+# id d4d21706-3ac8-4545-bbf1-07b1b63aa2ce	domain=mix
+far _ _ B-GRP
+rabat _ _ I-GRP
+এ _ _ O
+কোন _ _ O
+সময় _ _ O
+আছে? _ _ O
+
+
+# id 50257a3a-b826-40bf-b524-0b42a9007c80	domain=mix
+die _ _ O
+haplotypisierung _ _ O
+des _ _ O
+gesamten _ _ O
+genoms _ _ O
+ist _ _ O
+der _ _ O
+prozess _ _ O
+der _ _ O
+lösung _ _ O
+persönlicher _ _ O
+haplotypen _ _ O
+auf _ _ O
+ganzer _ _ O
+বংশাণুসমগ্র _ _ B-PROD
+basis. _ _ O
+
+
+# id ec70b60c-4b6b-4718-af1e-48a5c34b46c0	domain=mix
+世 _ _ O
+界 _ _ O
+上 _ _ O
+最 _ _ O
+热 _ _ O
+的 _ _ O
+runequest _ _ B-CW
+
+
+# id df310303-ecda-4d68-aae8-60de0f94503b	domain=mix
+what _ _ O
+element _ _ O
+is _ _ O
+gobernación _ _ B-GRP
+de _ _ I-GRP
+tambov _ _ I-GRP
+? _ _ O
+
+
+# id 5ff2151c-8308-4d06-af51-4c48a35b9a33	domain=mix
+in _ _ O
+1994 _ _ O
+, _ _ O
+he _ _ O
+moved _ _ O
+to _ _ O
+감바 _ _ B-GRP
+오사카 _ _ I-GRP
+. _ _ O
+
+
+# id db99bf69-f7b2-47e6-ba58-62559ae8e3e1	domain=mix
+bad _ _ B-CW
+judge _ _ I-CW
+কখন _ _ O
+বের _ _ O
+হয়েছে? _ _ O
+
+
+# id 469b5493-71d5-44f3-9cd7-7441ffff1594	domain=mix
+কোন _ _ O
+কাউন্টি _ _ O
+frescati _ _ B-LOC
+house _ _ I-LOC
+, _ _ O
+নিউ _ _ O
+মেক্সিকো? _ _ O
+
+
+# id 54ce0d13-02fd-48a5-94bb-4d4c6711b426	domain=mix
+谁 _ _ O
+是 _ _ O
+pipistrel _ _ B-PROD
+taurus _ _ I-PROD
+
+
+# id 7c37aa50-2505-4bac-9357-9cd3603274a5	domain=mix
+how _ _ O
+to _ _ O
+make _ _ O
+리오 _ _ B-CORP
+틴토 _ _ I-CORP
+
+
+# id f79b9a93-55dd-4363-99d9-1b9b593b7a93	domain=mix
+martynas _ _ B-PER
+varnas _ _ I-PER
+， _ _ O
+股 _ _ O
+份 _ _ O
+有 _ _ O
+限 _ _ O
+公 _ _ O
+司 _ _ O
+。 _ _ O
+
+
+# id d00da399-2ecf-4e1a-b1ba-1e9d0a8c94da	domain=mix
+von _ _ O
+boys _ _ B-GRP
+town _ _ I-GRP
+
+
+# id 37ccc8e0-98a3-439d-9d56-c8172ec63979	domain=mix
+अभिनेता _ _ O
+चिह्न _ _ O
+leamington _ _ B-LOC
+hastings _ _ I-LOC
+
+
+# id 41d88448-cd33-42f2-b600-58feef842f0a	domain=mix
+ইতিহাসে _ _ O
+সবচেয়ে _ _ O
+বড় _ _ O
+hurricane _ _ B-CW
+রেকর্ড _ _ O
+করা _ _ O
+হয়েছে _ _ O
+
+
+# id 9caf8004-a700-4cb4-ad45-8705e3265995	domain=mix
+when _ _ O
+did _ _ O
+vienna _ _ B-LOC
+become _ _ O
+independent _ _ O
+
+
+# id 162ec1e8-3e1f-4127-b00a-21cacd2f684d	domain=mix
+fighting _ _ B-CORP
+and _ _ I-CORP
+entertainment _ _ I-CORP
+group _ _ I-CORP
+কিসের _ _ O
+জন্য _ _ O
+পরিচিত? _ _ O
+
+
+# id 0da157c3-b684-4b78-a0be-64ead59b6b2d	domain=mix
+সানফোর্ড _ _ O
+<p _ _ O
+translate _ _ O
+= _ _ O
+no> _ _ O
+बिंगहैमटन _ _ B-LOC
+এর _ _ O
+পূর্ব _ _ O
+দিকে। _ _ O
+
+
+# id 8cc63b3b-6dfc-478a-8a6e-d96476181d14	domain=mix
+e.on _ _ B-CORP
+网 _ _ O
+上 _ _ O
+申 _ _ O
+请 _ _ O
+表 _ _ O
+
+
+# id 778eba8b-9417-42fc-82a8-5a8b4a0288d4	domain=mix
+what _ _ O
+do _ _ O
+you _ _ O
+do _ _ O
+when _ _ O
+your _ _ O
+türk _ _ B-PROD
+kahvesi _ _ I-PROD
+is _ _ O
+disabled _ _ O
+
+
+# id eacd7b0b-b916-4be2-b68e-b69845fe2357	domain=mix
+in _ _ O
+1924 _ _ O
+werd _ _ O
+de _ _ O
+sterrenwacht _ _ O
+uitgerust _ _ O
+met _ _ O
+de _ _ O
+dan _ _ O
+op _ _ O
+een _ _ O
+na _ _ O
+grootste _ _ O
+spiegelteleskop _ _ B-PROD
+ter _ _ O
+de _ _ O
+wereld _ _ O
+. _ _ O
+
+
+# id 87e7ad2c-ae3c-4706-ad59-d03a73bd0152	domain=mix
+das _ _ O
+unternehmen _ _ O
+hörte _ _ O
+1991 _ _ O
+auf _ _ O
+zu _ _ O
+brauen, _ _ O
+um _ _ O
+sich _ _ O
+auf _ _ O
+das _ _ O
+laufen _ _ O
+pub _ _ B-LOC
+und _ _ O
+zu _ _ O
+konzentrieren _ _ O
+hotel _ _ B-CORP
+. _ _ O
+
+
+# id fcbc46f8-3139-4ab9-9dc1-030c5990c9a9	domain=mix
+the _ _ O
+airline _ _ O
+was _ _ O
+the _ _ O
+launch _ _ O
+customer _ _ O
+of _ _ O
+the _ _ O
+fokker _ _ B-PROD
+70 _ _ I-PROD
+. _ _ O
+
+
+# id e2ac984c-14da-4204-98d8-8c3950176492	domain=mix
+2006 _ _ B-CW
+eurovision _ _ I-CW
+çocuk _ _ I-CW
+şarkı _ _ I-CW
+yarışması _ _ I-CW
+এ _ _ O
+কি _ _ O
+আছে? _ _ O
+
+
+# id e392a80e-2a1e-4297-bce4-f0e38d3e0539	domain=mix
+in _ _ O
+2012 _ _ O
+, _ _ O
+he _ _ O
+lost _ _ O
+the _ _ O
+election _ _ O
+to _ _ O
+盧 _ _ B-PER
+偉 _ _ I-PER
+國 _ _ I-PER
+a _ _ O
+member _ _ O
+of _ _ O
+香 _ _ B-GRP
+港 _ _ I-GRP
+經 _ _ I-GRP
+濟 _ _ I-GRP
+民 _ _ I-GRP
+生 _ _ I-GRP
+聯 _ _ I-GRP
+盟 _ _ I-GRP
+, _ _ O
+a _ _ O
+pro _ _ O
+beijing _ _ O
+group _ _ O
+. _ _ O
+
+
+# id 00b0ce25-9c84-4190-91ef-8b6f9e47431b	domain=mix
+销 _ _ O
+售 _ _ O
+derby _ _ B-CORP
+canal _ _ I-CORP
+railway _ _ I-CORP
+费 _ _ O
+用 _ _ O
+
+
+# id 3d2d0066-a2cf-4f71-86ce-73fee41ac6d1	domain=mix
+georgia _ _ O
+state _ _ O
+university _ _ O
+잭 _ _ B-PER
+그레인키 _ _ I-PER
+
+
+# id e460df78-0446-47aa-917e-8a0cea571e3a	domain=mix
+monasterio _ _ B-GRP
+de _ _ I-GRP
+san _ _ I-GRP
+juan _ _ I-GRP
+de _ _ I-GRP
+los _ _ I-GRP
+reyes _ _ I-GRP
+जानकारी _ _ O
+
+
+# id 7cf9ccbe-7af6-43f9-b059-fda50189ad8f	domain=mix
+who _ _ O
+bought _ _ O
+одесская _ _ B-CORP
+киностудия _ _ I-CORP
+? _ _ O
+
+
+# id b181ab13-950f-465d-a134-e9872e6264fa	domain=mix
+হার্টফোর্ড _ _ O
+이탈리아의 _ _ B-GRP
+형제 _ _ I-GRP
+
+
+# id 1eecc63c-4bad-4a6f-bb7e-fba72627da3f	domain=mix
+in _ _ O
+laboratoria _ _ O
+wordt _ _ O
+de _ _ O
+mogelijkheid _ _ O
+om _ _ O
+te _ _ O
+komen _ _ O
+tot _ _ O
+de _ _ O
+fabricage _ _ O
+van _ _ O
+in _ _ B-PROD
+vitro _ _ I-PROD
+meat _ _ I-PROD
+onderzocht _ _ O
+. _ _ O
+
+
+# id dec8dba0-ee50-4fa6-8e3c-f36ea7438a19	domain=mix
+它 _ _ O
+被 _ _ O
+发 _ _ O
+现 _ _ O
+在 _ _ O
+सउदी _ _ B-LOC
+अरब _ _ I-LOC
+和 _ _ O
+यमन _ _ B-LOC
+. _ _ O
+
+
+# id 4728f249-212e-4ea2-9e22-af4721348f4e	domain=mix
+是 _ _ O
+目 _ _ O
+前 _ _ O
+唯 _ _ O
+一 _ _ O
+尚 _ _ O
+存 _ _ O
+的 _ _ O
+煤 _ _ O
+气 _ _ O
+厂 _ _ O
+کاتالونیا _ _ B-LOC
+. _ _ O
+
+
+# id f012c58d-6349-4432-916d-3e39e7ebdea9	domain=mix
+इस _ _ O
+राइफल _ _ O
+के _ _ O
+साथ _ _ O
+प्रयुक्त _ _ O
+cartridge _ _ B-PROD
+में _ _ O
+पेपर _ _ O
+केस, _ _ O
+बुलेट, _ _ O
+प्राइमिंग _ _ O
+कैप _ _ O
+और _ _ O
+ब्लैक _ _ O
+पाउडर _ _ O
+चार्ज _ _ O
+शामिल _ _ O
+थे। _ _ O
+
+
+# id 3aa98fd0-9002-43cd-9014-ccd3abcf7148	domain=mix
+symbol _ _ O
+für _ _ O
+1. _ _ B-GRP
+fc _ _ I-GRP
+heidenheim _ _ I-GRP
+
+
+# id 500edf01-ee5e-482f-a10d-69142219589f	domain=mix
+karkal _ _ B-LOC
+১৯৪৪ _ _ O
+এর _ _ O
+যুদ্ধ _ _ O
+
+
+# id ad0e2d7a-25f7-46f4-8a91-c97b7073743c	domain=mix
+er _ _ O
+wurde _ _ O
+bei _ _ O
+ihm _ _ O
+ausgebildet _ _ O
+이턴 _ _ B-GRP
+학교 _ _ I-GRP
+. _ _ O
+
+
+# id f0cb7ff4-414f-4dfd-b4b3-a919d8553e72	domain=mix
+他 _ _ O
+还 _ _ O
+加 _ _ O
+入 _ _ O
+了 _ _ O
+董 _ _ O
+事 _ _ O
+会 _ _ O
+southern _ _ B-GRP
+railway _ _ I-GRP
+, _ _ O
+english _ _ B-CORP
+electric _ _ I-CORP
+， _ _ O
+和 _ _ O
+hudson's _ _ B-CORP
+bay _ _ I-CORP
+company _ _ I-CORP
+. _ _ O
+
+
+# id 52324e5b-c374-4d55-bf9e-04b639ed4e49	domain=mix
+what _ _ O
+temperature _ _ O
+is _ _ O
+it _ _ O
+in _ _ O
+descuida, _ _ B-CW
+yo _ _ I-CW
+te _ _ I-CW
+cuido _ _ I-CW
+? _ _ O
+
+
+# id c170a7f0-457f-455e-9d8f-5170bd6f6ab0	domain=mix
+de _ _ O
+wetenschappelijke _ _ O
+naam _ _ O
+van _ _ O
+de _ _ O
+soort _ _ O
+is _ _ O
+voor _ _ O
+het _ _ O
+eerst _ _ O
+geldig _ _ O
+gepubliceerd _ _ O
+in _ _ O
+1777 _ _ O
+door _ _ O
+pieter _ _ B-PER
+cramer _ _ I-PER
+. _ _ O
+
+
+# id b7d36e83-5c95-48f7-8f30-241cd651488e	domain=mix
+दुनिया _ _ O
+में _ _ O
+सबसे _ _ O
+लंबा _ _ O
+koundara _ _ B-LOC
+क्या _ _ O
+है? _ _ O
+
+
+# id 94cf260b-2d6f-4804-b5d5-71d51e96de42	domain=mix
+onder _ _ O
+فری‌بی‌اس‌دی _ _ B-CW
+zijn _ _ O
+er _ _ O
+de _ _ O
+devel _ _ O
+/ _ _ O
+mingw32 _ _ O
+pakketten _ _ O
+. _ _ O
+
+
+# id 1a48a8b0-5766-4df8-b68e-384c64b35c2e	domain=mix
+नाम _ _ O
+का _ _ O
+अर्थ _ _ O
+ansaldo _ _ B-CORP
+energia _ _ I-CORP
+
+
+# id 05a29b13-f756-4417-8eab-a28f95b36e18	domain=mix
+liederbach _ _ B-LOC
+এবি _ _ O
+
+
+# id 468ddcf9-4d82-407d-a814-f676b520ece0	domain=mix
+slim _ _ B-PER
+harpo _ _ I-PER
+zusammenfassung _ _ O
+
+
+# id 4455ef5f-de45-4999-8712-b95e07883d15	domain=mix
+nissan _ _ B-PROD
+vanette _ _ I-PROD
+ম্যানুয়াল _ _ O
+
+
+# id 852dba4b-b357-4c6e-8ea6-3caecbe373f6	domain=mix
+这 _ _ O
+kromstaf _ _ B-PROD
+被 _ _ O
+主 _ _ O
+教 _ _ O
+、 _ _ O
+方 _ _ O
+丈 _ _ O
+、 _ _ O
+女 _ _ O
+修 _ _ O
+道 _ _ O
+院 _ _ O
+院 _ _ O
+长 _ _ O
+和 _ _ O
+红 _ _ O
+衣 _ _ O
+主 _ _ O
+教 _ _ O
+展 _ _ O
+示 _ _ O
+为 _ _ O
+牧 _ _ O
+区 _ _ O
+管 _ _ O
+辖 _ _ O
+权 _ _ O
+的 _ _ O
+象 _ _ O
+征 _ _ O
+， _ _ O
+即 _ _ O
+使 _ _ O
+他 _ _ O
+们 _ _ O
+不 _ _ O
+是 _ _ O
+主 _ _ O
+教 _ _ O
+。 _ _ O
+
+
+# id 41fee625-3271-4e69-bba7-e6395e775ddd	domain=mix
+这 _ _ O
+wii _ _ B-PROD
+游 _ _ O
+戏 _ _ O
+具 _ _ O
+有 _ _ O
+围 _ _ O
+绕 _ _ O
+单 _ _ O
+人 _ _ O
+战 _ _ O
+役 _ _ O
+和 _ _ O
+多 _ _ O
+人 _ _ O
+聚 _ _ O
+会 _ _ O
+模 _ _ O
+式 _ _ O
+构 _ _ O
+建 _ _ O
+的 _ _ O
+各 _ _ O
+种 _ _ O
+迷 _ _ O
+你 _ _ O
+游 _ _ O
+戏 _ _ O
+。 _ _ O
+
+
+# id 98161157-97cc-4193-8aa2-bdb6f2709882	domain=mix
+what _ _ O
+is _ _ O
+the _ _ O
+current _ _ O
+version _ _ O
+of _ _ O
+ویکتور _ _ B-PER
+میلنر _ _ I-PER
+
+
+# id 67d70794-05d9-4f08-b227-21bd50617905	domain=mix
+microsoft _ _ B-CW
+windows _ _ I-CW
+, _ _ O
+macos _ _ B-CW
+, _ _ O
+linux _ _ B-CW
+, _ _ O
+playstation _ _ B-PROD
+3 _ _ I-PROD
+, _ _ O
+playstation _ _ B-PROD
+4 _ _ I-PROD
+, _ _ O
+xbox _ _ B-PROD
+360 _ _ I-PROD
+, _ _ O
+xbox _ _ B-PROD
+one _ _ I-PROD
+, _ _ O
+nintendo _ _ B-PROD
+wii _ _ I-PROD
+u _ _ I-PROD
+
+
+# id 22c9ef03-dad8-4d64-bcb3-9f3976aa7eb9	domain=mix
+sie _ _ O
+war _ _ O
+das _ _ O
+vorletzte _ _ O
+schiff, _ _ O
+das _ _ O
+white _ _ B-CORP
+star _ _ I-CORP
+line _ _ I-CORP
+vor _ _ O
+seiner _ _ O
+fusion _ _ O
+von _ _ O
+1934 _ _ O
+mit _ _ O
+gebaut _ _ O
+wurde _ _ O
+cunard _ _ B-CORP
+line _ _ I-CORP
+. _ _ O
+
+
+# id 63baa5cb-2ea7-49e2-a113-c99e8604817e	domain=mix
+استوارنامه _ _ B-CW
+ph _ _ O
+
+
+# id 44ecf309-4202-4286-bf20-5ff7cf149dc1	domain=mix
+sprint _ _ B-CORP
+nextel _ _ I-CORP
+निर्माण _ _ O
+
+
+# id 5dacf25b-480c-488c-a115-308c0c2d49c5	domain=mix
+अर्ध-स्वचालित _ _ B-PROD
+राइफल _ _ I-PROD
+可 _ _ O
+以 _ _ O
+由 _ _ O
+被 _ _ O
+许 _ _ O
+可 _ _ O
+人 _ _ O
+购 _ _ O
+买 _ _ O
+而 _ _ O
+没 _ _ O
+有 _ _ O
+额 _ _ O
+外 _ _ O
+的 _ _ O
+限 _ _ O
+制 _ _ O
+。 _ _ O
+
+
+# id 3737112c-d62e-4d65-8b1e-6bb9b77dd831	domain=mix
+在 _ _ O
+美 _ _ O
+国 _ _ O
+， _ _ O
+专 _ _ O
+辑 _ _ O
+由 _ _ O
+rough _ _ B-CORP
+trade _ _ I-CORP
+records _ _ I-CORP
+. _ _ O
+
+
+# id 7e1d2dea-7999-49db-8b4b-53955ce96d75	domain=mix
+2019 _ _ O
+cymande _ _ B-CORP
+
+
+# id d0692fa5-fbb3-458d-9940-58900d19a85c	domain=mix
+joe _ _ B-PER
+mcbride _ _ I-PER
+verkehrs-map _ _ O
+
+
+# id 7d674bc5-340e-42cd-ab93-d212bee45fa3	domain=mix
+আবিষ্কার _ _ O
+কেন্দ্র _ _ O
+bilara _ _ B-LOC
+
+
+# id 2bf4c2ea-2c1e-4ee3-8171-e1fb2d9cdf35	domain=mix
+cyon _ _ O
+是 _ _ O
+ऍलजी _ _ B-CORP
+इलैक्ट्रॉनिक्स _ _ I-CORP
+कोरिया _ _ B-LOC
+मोबाइल _ _ B-PROD
+फोन _ _ I-PROD
+牌 _ _ O
+。 _ _ O
+
+
+# id 3f8add6e-3542-4541-a9f5-35193ea75e57	domain=mix
+he _ _ O
+was _ _ O
+also _ _ O
+partner _ _ O
+at _ _ O
+white _ _ B-CORP
+& _ _ I-CORP
+case _ _ I-CORP
+, _ _ O
+where _ _ O
+he _ _ O
+concentrated _ _ O
+on _ _ O
+white _ _ O
+collar _ _ O
+criminal _ _ O
+and _ _ O
+civil _ _ O
+litigation _ _ O
+. _ _ O
+
+
+# id fe88a4ca-37e8-4df8-8804-473a413ce33d	domain=mix
+hanshin _ _ B-GRP
+tigers _ _ I-GRP
+कब _ _ O
+बनाया _ _ O
+गया _ _ O
+था? _ _ O
+
+
+# id fb05e2d5-71c1-4cb4-b7c2-2dfeb49d769e	domain=mix
+房 _ _ O
+子 _ _ O
+前 _ _ O
+面 _ _ O
+的 _ _ O
+地 _ _ O
+面 _ _ O
+river _ _ B-LOC
+thames _ _ I-LOC
+去 _ _ O
+北 _ _ O
+边 _ _ O
+。 _ _ O
+
+
+# id de1f6910-6370-4c26-af2e-8794bdfd4b8b	domain=mix
+bios _ _ O
+密 _ _ O
+钥 _ _ O
+gorton's _ _ B-CORP
+of _ _ I-CORP
+gloucester _ _ I-CORP
+
+
+# id 59e9b61f-b59b-461f-aef4-0a58efe7f6ff	domain=mix
+국제지진센터 _ _ B-GRP
+দলের _ _ O
+রং _ _ O
+
+
+# id 5541a601-681f-4ec8-a820-1799ba677d92	domain=mix
+diese _ _ O
+abhandlung _ _ O
+über _ _ O
+das _ _ O
+innere _ _ O
+geistige _ _ O
+leben _ _ O
+bezieht _ _ O
+sich _ _ O
+auf _ _ O
+塔 _ _ B-CW
+納 _ _ I-CW
+赫 _ _ I-CW
+sowohl _ _ O
+auf _ _ O
+texte _ _ O
+als _ _ O
+auch _ _ O
+auf _ _ O
+塔 _ _ B-CW
+木 _ _ I-CW
+德 _ _ I-CW
+texte. _ _ O
+
+
+# id e20a8549-43c3-4915-a74f-2786d64a9f96	domain=mix
+키즈코 _ _ B-CORP
+定 _ _ O
+义 _ _ O
+
+
+# id 37e37515-92aa-46fd-b483-63156ad36188	domain=mix
+tudela _ _ B-LOC
+flights _ _ O
+from _ _ O
+uk _ _ O
+
+
+# id 9f828f37-f588-4800-81d9-9db581245692	domain=mix
+点 _ _ O
+积 _ _ O
+enamorándose _ _ B-CW
+de _ _ I-CW
+la _ _ I-CW
+inocencia _ _ I-CW
+
+
+# id 35d35b17-fe51-49de-983a-bfdcf193b64d	domain=mix
+马 _ _ O
+歇 _ _ O
+尔 _ _ O
+引 _ _ O
+用 _ _ O
+了 _ _ O
+创 _ _ O
+建 _ _ O
+first _ _ B-CORP
+bank _ _ I-CORP
+of _ _ I-CORP
+the _ _ I-CORP
+united _ _ I-CORP
+states _ _ I-CORP
+1791 _ _ O
+年 _ _ O
+作 _ _ O
+为 _ _ O
+第 _ _ O
+二 _ _ O
+银 _ _ O
+行 _ _ O
+合 _ _ O
+宪 _ _ O
+性 _ _ O
+的 _ _ O
+权 _ _ O
+威 _ _ O
+。 _ _ O
+
+
+# id 5a620c63-e01f-4698-9c93-a9d5bbfe8818	domain=mix
+هامونگوس _ _ B-CORP
+اینترتینمنت _ _ I-CORP
+employment _ _ O
+application _ _ O
+
+
+# id 59f4db86-6299-47c7-a3fd-a8a55e7dd3ac	domain=mix
+디디추싱 _ _ B-CORP
+china-webseite _ _ O
+
+
+# id c81b2403-19fa-4d39-a243-dc6bb53dfeeb	domain=mix
+friedrich _ _ B-PER
+hollaender _ _ I-PER
+civil _ _ O
+rights _ _ O
+movement _ _ O
+
+
+# id 4ed26e5b-8a2d-489e-ade1-b7f3e8df1f1e	domain=mix
+অ্যাকাউন্ট _ _ O
+পুনরুদ্ধার _ _ O
+albatros _ _ B-CORP
+flugzeugwerke _ _ I-CORP
+
+
+# id 364f65f7-7a1e-4294-9edb-20789f77131b	domain=mix
+marvel _ _ B-CORP
+comics _ _ I-CORP
+800 _ _ O
+号 _ _ O
+码 _ _ O
+
+
+# id 3ad27edf-892f-4619-8429-35e7ba69f466	domain=mix
+größte _ _ O
+دوربین _ _ B-PROD
+دولنزی _ _ I-PROD
+بازتابی _ _ I-PROD
+
+
+# id 6a54cade-414c-4f76-bd68-6320c747330c	domain=mix
+사롱 _ _ B-PROD
+/ _ _ O
+缠 _ _ B-PROD
+腰 _ _ I-PROD
+布 _ _ I-PROD
+&amp; _ _ O
+衬 _ _ O
+衫 _ _ O
+( _ _ O
+男 _ _ O
+) _ _ O
+사리 _ _ B-PROD
+( _ _ O
+女 _ _ O
+性 _ _ O
+) _ _ O
+
+
+# id 1631ead7-55aa-4993-b9fc-c8facac0c3b9	domain=mix
+几 _ _ O
+个 _ _ O
+目 _ _ O
+标 _ _ O
+参 _ _ O
+与 _ _ O
+了 _ _ O
+barrett _ _ B-PROD
+m82 _ _ I-PROD
+， _ _ O
+他 _ _ O
+们 _ _ O
+中 _ _ O
+的 _ _ O
+一 _ _ O
+些 _ _ O
+人 _ _ O
+距 _ _ O
+离 _ _ O
+近 _ _ O
+3000 _ _ O
+米 _ _ O
+。 _ _ O
+
+
+# id 5002aabf-73ec-4b13-8eb7-150516f11909	domain=mix
+busnago _ _ O
+与 _ _ O
+5 _ _ O
+个 _ _ O
+城 _ _ O
+镇 _ _ O
+接 _ _ O
+壤 _ _ O
+： _ _ O
+کولناگو _ _ B-CORP
+, _ _ O
+龙 _ _ B-LOC
+切 _ _ I-LOC
+洛 _ _ I-LOC
+, _ _ O
+ترتزو _ _ B-LOC
+سول‌آدا _ _ I-LOC
+, _ _ O
+متزاگو _ _ B-LOC
+和 _ _ O
+بلوسکو _ _ B-LOC
+. _ _ O
+
+
+# id 07fefada-9e72-460b-9805-bfc7ac156e9b	domain=mix
+vorteile _ _ O
+von _ _ O
+группа _ _ B-GRP
+муссон _ _ I-GRP
+
+
+# id 795bbdbb-0dee-4e6a-bdc0-b4b23618986c	domain=mix
+一 _ _ O
+章 _ _ O
+从 _ _ O
+мишна _ _ B-CW
+; _ _ O
+
+
+# id ac3ee689-f9b7-4dc0-9631-ea9e6ea92228	domain=mix
+क्या _ _ O
+애플 _ _ B-CORP
+스토어 _ _ I-CORP
+अभी _ _ O
+भी _ _ O
+कार _ _ O
+बनाती _ _ O
+है _ _ O
+
+
+# id b2c0124e-235b-4a76-a453-0450c5e0058e	domain=mix
+die _ _ O
+show _ _ O
+wurde _ _ O
+belfast _ _ B-LOC
+für _ _ O
+die _ _ O
+serie _ _ O
+2019 _ _ O
+- _ _ O
+2020 _ _ O
+umgesiedelt. _ _ O
+
