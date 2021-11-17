@@ -1,0 +1,8 @@
+{
+  "files.exclude": {
+    "__pycache__": true,
+    "utils/__pycache__": true,
+    "model/__pycache__": true,
+    "*pycache*": true
+  }
+}
