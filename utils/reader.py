@@ -71,7 +71,6 @@ class CoNLLReader(Dataset):
             if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                 break
             sentence_str += " " + token.lower()
-            sentence_str += ' ' + ''.join(self.tokenizer.tokenize(token.lower()))
             rep_ = self.tokenizer(token.lower())['input_ids']
             rep_ = rep_[1:-1]
             tokens_sub_rep.extend(rep_)
