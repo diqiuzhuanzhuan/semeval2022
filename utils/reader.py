@@ -88,6 +88,6 @@ class CoNLLReader(Dataset):
 
 if __name__ == "__main__":
     conll_reader = CoNLLReader(encoder_model="xlm-roberta-base")
-    train_file = "./training_data/EN-English/en_train.conll"
+    train_file = "../training_data/EN-English/en_train.conll"
     conll_reader.read_data(train_file)
     

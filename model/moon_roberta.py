@@ -1,8 +1,14 @@
 import pytorch_lightning as pl
-import torch.data
 import transformers
 from typing import Optional
 import torch.utils.data
+from utils.reader import conll_reader
+from transformers import RobertaTokenizer, RobertaForMaskedLM
+from transformers import LineByLineTextDataset
+
+
+tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
+model = RobertaForMaskedLM.from_pretrained('roberta-base')
 
 class MoonRobertaDataModule(pl.LightningDataModule):
     

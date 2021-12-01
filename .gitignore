@@ -4,3 +4,4 @@ __pycache__
 roberta-retrained/
 roberta.txt
 xlmr_ner/
+.idea

@@ -7,6 +7,7 @@ from pytorch_lightning import seed_everything
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import LearningRateMonitor, EarlyStopping
+import transformers
 
 from log import logger
 from model.ner_model import NERBaseAnnotator
@@ -138,3 +139,7 @@ def get_model_earlystopping_callback():
         mode='min'
     )
     return es_clb
+
+if __name__ == "__main__":
+    train_file = "./training_data/EN-English/en_train.conll"
+    reader = get_reader(train_file, target_vocab=wnut_iob, encoder_model='roberta-base')
