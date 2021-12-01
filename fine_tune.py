@@ -1,6 +1,6 @@
 import time
 
-from utils.utils import get_reader, train_model, save_model, parse_args, get_tagset, load_model
+from utils.util import get_reader, train_model, save_model, parse_args, get_tagset, load_model
 
 if __name__ == '__main__':
     timestamp = time.time()

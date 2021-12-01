@@ -2,7 +2,7 @@ import time
 
 from torch.utils.data import DataLoader
 
-from utils.utils import parse_args, get_reader, load_model, get_trainer, get_out_filename, write_eval_performance, get_tagset
+from utils.util import parse_args, get_reader, load_model, get_trainer, get_out_filename, write_eval_performance, get_tagset
 
 if __name__ == '__main__':
     timestamp = time.time()
