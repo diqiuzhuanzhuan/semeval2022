@@ -5,3 +5,5 @@ roberta-retrained/
 roberta.txt
 xlmr_ner/
 .idea
+roberta-train
+roberta-finetune
