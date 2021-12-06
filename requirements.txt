@@ -1,4 +1,4 @@
-absl-py==1.0.0
+absl-py==0.9
 aiohttp==3.8.1
 aiosignal==1.2.0
 allennlp==2.8.0
