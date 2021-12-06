@@ -168,9 +168,11 @@ class NERBaseAnnotator(pl.LightningModule):
         best_path = self.crf_layer.viterbi_tags(token_scores, token_mask)
 
         pred_results = []
+        raw_pred_results = []
         for i in range(batch_size):
             tag_seq, _ = best_path[i]
             pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag]))
+            raw_pred_results.append([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag])
         self.span_f1(pred_results, metadata)
-        output = {"loss": loss, "results": self.span_f1.get_metric(), "pred_results": pred_results}
+        output = {"loss": loss, "results": self.span_f1.get_metric(), "pred_results": pred_results, "raw_pred_results": raw_pred_results}
         return output
