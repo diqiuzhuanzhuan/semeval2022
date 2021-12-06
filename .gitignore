@@ -7,3 +7,6 @@ xlmr_ner/
 .idea
 roberta-train
 roberta-finetune
+.DS_Store
+lightning_logs
+roberta-evaluate

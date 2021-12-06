@@ -53,7 +53,7 @@ def get_tagset(tagging_scheme):
 def get_out_filename(out_dir, model, prefix):
     model_name = os.path.basename(model)
     model_name = model_name[:model_name.rfind('.')]
-    return '{}/{}_base_{}.tsv'.format(out_dir, prefix, model_name)
+    return '{}/{}_base_{}.tsv'.format(out_dir, prefix, model_name), '{}/{}_base_{}_detail.csv'.format(out_dir, prefix, model_name)
 
 
 def write_eval_performance(eval_performance, out_file):

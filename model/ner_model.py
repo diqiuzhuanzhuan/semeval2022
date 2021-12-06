@@ -1,4 +1,4 @@
-from re import I
+from re import I, M
 from typing import List, Any
 
 import pytorch_lightning.core.lightning as pl
@@ -171,7 +171,6 @@ class NERBaseAnnotator(pl.LightningModule):
         for i in range(batch_size):
             tag_seq, _ = best_path[i]
             pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag]))
-
         self.span_f1(pred_results, metadata)
-        output = {"loss": loss, "results": self.span_f1.get_metric()}
+        output = {"loss": loss, "results": self.span_f1.get_metric(), "pred_results": pred_results}
         return output

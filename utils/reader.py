@@ -24,6 +24,8 @@ class CoNLLReader(Dataset):
         self.label_to_id = {} if target_vocab is None else target_vocab
         self.instances = []
         self.sentences = []
+        # split into many pieces, ease --> e ase
+        self.word_piece_ids = []
 
     def get_target_size(self):
         return len(set(self.label_to_id.values()))
@@ -66,13 +68,14 @@ class CoNLLReader(Dataset):
     def parse_tokens_for_ner(self, tokens_, ner_tags):
         sentence_str = ''
         tokens_sub_rep, ner_tags_rep = [self.pad_token_id], ['O']
-
+        single_token_record = []
+        count = 0
         for idx, token in enumerate(tokens_):
             if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                 break
             sentence_str += " " + token.lower()
             rep_ = self.tokenizer(token.lower())['input_ids']
-            rep_ = rep_[1:-1]
+            rep_ = rep_[1:-1] #why? the first id is <s>, and the last id is </s>, so we eliminate them
             tokens_sub_rep.extend(rep_)
 
             # if we have a NER here, in the case of B, the first NER tag is the B tag, the rest are I tags.
@@ -88,6 +91,6 @@ class CoNLLReader(Dataset):
 
 if __name__ == "__main__":
     conll_reader = CoNLLReader(encoder_model="xlm-roberta-base")
-    train_file = "../training_data/EN-English/en_train.conll"
+    train_file = "./training_data/EN-English/en_dev.conll"
     conll_reader.read_data(train_file)
     
