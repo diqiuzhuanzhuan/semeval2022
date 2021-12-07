@@ -104,19 +104,19 @@ def save_model(trainer, out_dir, model_name='', timestamp=None):
     return outfile
 
 
-def train_model(model, out_dir='', epochs=10, gpus=1):
-    trainer = get_trainer(gpus=gpus, out_dir=out_dir, epochs=epochs)
+def train_model(model, out_dir='', epochs=10, gpus=1, monitor='val_loss'):
+    trainer = get_trainer(gpus=gpus, out_dir=out_dir, epochs=epochs, monitor=monitor)
     trainer.fit(model)
     return trainer
 
 
-def get_trainer(gpus=4, is_test=False, out_dir=None, epochs=10):
+def get_trainer(gpus=4, is_test=False, out_dir=None, epochs=10, monitor='val_loss'):
     seed_everything(42)
     if is_test:
         return pl.Trainer(gpus=1) if torch.cuda.is_available() else pl.Trainer(val_check_interval=100)
 
     if torch.cuda.is_available():
-        trainer = pl.Trainer(gpus=gpus, max_epochs=epochs, callbacks=[get_model_earlystopping_callback()],
+        trainer = pl.Trainer(gpus=gpus, max_epochs=epochs, callbacks=[get_model_earlystopping_callback(monitor)],
                              default_root_dir=out_dir, checkpoint_callback=False)
         trainer.callbacks.append(get_lr_logger())
     else:
@@ -130,14 +130,23 @@ def get_lr_logger():
     return lr_monitor
 
 
-def get_model_earlystopping_callback():
-    es_clb = EarlyStopping(
-        monitor='val_loss',
-        min_delta=0.001,
-        patience=3,
-        verbose=True,
-        mode='min'
-    )
+def get_model_earlystopping_callback(monitor='val_loss'):
+    if monitor == 'f1':
+        es_clb = EarlyStopping(
+            monitor='val_micro@F1',
+            min_delta=0.001,
+            patience=3,
+            verbose=True,
+            mode='max'
+        )
+    else:
+        es_clb = EarlyStopping(
+            monitor=monitor,
+            min_delta=0.001,
+            patience=3,
+            verbose=True,
+            mode='min'
+        )
     return es_clb
 
 if __name__ == "__main__":
