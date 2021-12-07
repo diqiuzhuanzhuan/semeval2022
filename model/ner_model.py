@@ -15,7 +15,7 @@ from transformers import get_linear_schedule_with_warmup, AutoModel
 
 from log import logger
 from utils.metric import SpanF1
-from utils.reader_utils import extract_spans
+from utils.reader_utils import extract_spans, get_tags
 
 
 class NERBaseAnnotator(pl.LightningModule):
@@ -180,3 +180,13 @@ class NERBaseAnnotator(pl.LightningModule):
             self.span_f1(pred_results, metadata)
             output = {"loss": loss, "results": self.span_f1.get_metric(), "pred_results": pred_results, "raw_pred_results": raw_pred_results}
         return output
+
+    def predict_tags(self, batch, tokenizer=None):
+        tokens, tags, token_mask, metadata = batch
+        pred_tags = self.perform_forward_step(batch, mode='predict')['token_tags']
+        token_results, tag_results = [], []
+        for i in range(tokens.size(0)):
+            instance_token_results, instance_tag_results = get_tags(tokens[i], pred_tags[i], tokenizer=tokenizer)
+            token_results.append(instance_token_results)
+            tag_results.append(instance_tag_results)
+        return token_results, tag_results
