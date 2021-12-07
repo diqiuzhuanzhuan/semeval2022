@@ -54,8 +54,8 @@ class NERBaseAnnotator(pl.LightningModule):
 
         self.lr = lr
         self.dropout = nn.Dropout(dropout_rate)
-
         self.span_f1 = SpanF1()
+        self.val_span_f1 = SpanF1()
         self.setup_model(self.stage)
         self.save_hyperparameters('pad_token_id', 'encoder_model')
 
@@ -122,12 +122,12 @@ class NERBaseAnnotator(pl.LightningModule):
         self.log_metrics(pred_results, loss=avg_loss, suffix='', on_step=False, on_epoch=True)
 
     def validation_epoch_end(self, outputs: List[Any]) -> None:
-        pred_results = self.span_f1.get_metric(True)
+        pred_results = self.val_span_f1.get_metric(True)
         avg_loss = np.mean([preds['loss'].item() for preds in outputs])
         self.log_metrics(pred_results, loss=avg_loss, suffix='val_', on_step=False, on_epoch=True)
 
     def validation_step(self, batch, batch_idx):
-        output = self.perform_forward_step(batch)
+        output = self.perform_forward_step(batch, mode='val')
         self.log_metrics(output['results'], loss=output['loss'], suffix='val_', on_step=True, on_epoch=False)
         return output
 
@@ -159,10 +159,10 @@ class NERBaseAnnotator(pl.LightningModule):
         token_scores = self.feedforward(embedded_text_input)
 
         # compute the log-likelihood loss and compute the best NER annotation sequence
-        output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, metadata=metadata, batch_size=batch_size)
+        output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, metadata=metadata, batch_size=batch_size, mode=mode)
         return output
 
-    def _compute_token_tags(self, token_scores, tags, token_mask, metadata, batch_size):
+    def _compute_token_tags(self, token_scores, tags, token_mask, metadata, batch_size, mode=''):
         # compute the log-likelihood loss and compute the best NER annotation sequence
         loss = -self.crf_layer(token_scores, tags, token_mask) / float(batch_size)
         best_path = self.crf_layer.viterbi_tags(token_scores, token_mask)
@@ -173,6 +173,10 @@ class NERBaseAnnotator(pl.LightningModule):
             tag_seq, _ = best_path[i]
             pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag]))
             raw_pred_results.append([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag])
-        self.span_f1(pred_results, metadata)
-        output = {"loss": loss, "results": self.span_f1.get_metric(), "pred_results": pred_results, "raw_pred_results": raw_pred_results}
+        if mode == 'val':
+            self.val_span_f1(pred_results, metadata)
+            output = {"loss": loss, "results": self.val_span_f1.get_metric(), "pred_results": pred_results, "raw_pred_results": raw_pred_results}
+        else:
+            self.span_f1(pred_results, metadata)
+            output = {"loss": loss, "results": self.span_f1.get_metric(), "pred_results": pred_results, "raw_pred_results": raw_pred_results}
         return output
