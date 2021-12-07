@@ -116,7 +116,7 @@ def get_trainer(gpus=4, is_test=False, out_dir=None, epochs=10):
         return pl.Trainer(gpus=1) if torch.cuda.is_available() else pl.Trainer(val_check_interval=100)
 
     if torch.cuda.is_available():
-        trainer = pl.Trainer(gpus=gpus, deterministic=True, max_epochs=epochs, callbacks=[get_model_earlystopping_callback()],
+        trainer = pl.Trainer(gpus=gpus, max_epochs=epochs, callbacks=[get_model_earlystopping_callback()],
                              default_root_dir=out_dir, checkpoint_callback=False)
         trainer.callbacks.append(get_lr_logger())
     else:
