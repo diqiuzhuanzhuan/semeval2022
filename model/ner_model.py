@@ -179,6 +179,7 @@ class NERBaseAnnotator(pl.LightningModule):
             self.val_span_f1(pred_results, metadata)
             output["results"] = self.val_span_f1.get_metric()
         else:
+            self.span_f1(pred_results, metadata)
             output["results"] = self.span_f1.get_metric()
         return output
 
