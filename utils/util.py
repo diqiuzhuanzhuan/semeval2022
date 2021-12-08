@@ -71,7 +71,7 @@ def write_eval_performance(eval_performance, out_file):
 
 def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_file: str):
     path = os.path.dirname(out_file)
-    if not os.path.exists(path):
+    if path and not os.path.exists(path):
         os.makedirs(path)
     batch_size = 8
     test_dataloader = DataLoader(test_data, batch_size=batch_size, collate_fn=model.collate_batch)
