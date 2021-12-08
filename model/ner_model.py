@@ -173,12 +173,12 @@ class NERBaseAnnotator(pl.LightningModule):
             tag_seq, _ = best_path[i]
             pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag]))
             raw_pred_results.append([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag])
+        output = {"loss": loss, "pred_results": pred_results, "raw_pred_results": raw_pred_results}
         if mode == 'val':
             self.val_span_f1(pred_results, metadata)
-            output = {"loss": loss, "results": self.val_span_f1.get_metric(), "pred_results": pred_results, "raw_pred_results": raw_pred_results}
+            output["results"] = self.val_span_f1.get_metric()
         else:
-            self.span_f1(pred_results, metadata)
-            output = {"loss": loss, "results": self.span_f1.get_metric(), "pred_results": pred_results, "raw_pred_results": raw_pred_results}
+            output["results"] = self.span_f1.get_metric()
         return output
 
     def predict_tags(self, batch, tokenizer=None):

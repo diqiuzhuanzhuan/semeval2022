@@ -8,7 +8,7 @@ from pytorch_lightning import seed_everything
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import LearningRateMonitor, EarlyStopping
 import transformers
-
+from torch.utils.data import DataLoader
 from log import logger
 from model.ner_model import NERBaseAnnotator
 from utils.reader import CoNLLReader
@@ -68,6 +68,52 @@ def write_eval_performance(eval_performance, out_file):
 
     open(out_file, 'wt').write(outstr)
     logger.info('Finished writing evaluation performance for {}'.format(out_file))
+
+def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_file: str):
+    path = os.path.dirname(out_file)
+    if not os.path.exists(path):
+        os.makedirs(path)
+    batch_size = 8
+    test_dataloader = DataLoader(test_data, batch_size=batch_size, collate_fn=model.collate_batch)
+    sentences = test_data.sentences
+    ner_tags = test_data.ner_tags
+    pos_to_singel_word_map = test_data.pos_to_single_word_maps
+    f = open(out_file, "w")
+    for idx, batch in enumerate(test_dataloader):
+        output = model.perform_forward_step(batch)
+        pred_result = output["pred_results"]
+        raw_pred_results = output["raw_pred_results"]
+        for i in range(batch_size):
+            sentence = sentences[idx*batch_size+i]
+            pos_to_singel_word = pos_to_singel_word_map[idx*batch_size+i]
+            ner_tag = ner_tags[idx*batch_size+i]
+            input_ids = batch[0][i]
+            pred_token_tag = pred_result[i]
+            raw_pred_token_tag = raw_pred_results[i]
+            metadata_token_tag = batch[3][i]
+            meta_labels = []
+            pred_labels = []
+            sentence_subtokens = []
+            for (start_pos, end_pos), (pred_start_pos, pred_end_pos) in zip(metadata_token_tag, pred_token_tag):
+                sub_tokens = test_data.tokenizer.convert_ids_to_tokens(input_ids[start_pos: end_pos+1])
+                sentence_subtokens.extend(sub_tokens)
+                pred_sub_tokens = test_data.tokenizer.convert_ids_to_tokens(input_ids[start_pos: end_pos+1])
+                tag = metadata_token_tag[(start_pos, end_pos)]
+                pred_tag = pred_token_tag[(pred_start_pos, pred_end_pos)]
+                for sub_token1, sub_token2 in zip(sub_tokens, pred_sub_tokens):
+                    meta_labels.append(tag)
+                    pred_labels.append(pred_tag)
+                #f.write("{}{}{}{}{}{}{}".format(sub_token1, ",", tag, ",", sub_token2, ",", pred_tag))
+                #f.write("\n")
+            for (start, end) in pos_to_singel_word:
+                single_word_tokens = sentence_subtokens[start:end]
+                word = "".join(single_word_tokens)
+                word_meta_tag = ner_tag[start]
+                word_pred_tag = raw_pred_token_tag[start]
+                f.write("{}\n".format(word_pred_tag))
+            f.write("\n")
+            
+    f.close()
 
 
 def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, encoder_model='xlm-roberta-large'):
