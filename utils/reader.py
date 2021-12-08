@@ -1,3 +1,4 @@
+from collections import defaultdict
 import torch
 from torch.utils.data import Dataset
 
@@ -28,6 +29,7 @@ class CoNLLReader(Dataset):
         self.word_piece_ids = []
         self.pos_to_single_word_maps = []
         self.ner_tags = []
+        self.type_count = defaultdict(int)
 
     def get_target_size(self):
         return len(set(self.label_to_id.values()))
@@ -85,6 +87,8 @@ class CoNLLReader(Dataset):
 
             # if we have a NER here, in the case of B, the first NER tag is the B tag, the rest are I tags.
             ner_tag = ner_tags[idx]
+            if ner_tag.startswith("B-"):
+                self.type_count[ner_tag[2:]] += 1
             tags, masks = _assign_ner_tags(ner_tag, rep_)
             ner_tags_rep.extend(tags)
         self.pos_to_single_word_maps.append(pos_to_single_word)
@@ -96,7 +100,9 @@ class CoNLLReader(Dataset):
 
 
 if __name__ == "__main__":
-    conll_reader = CoNLLReader(encoder_model="xlm-roberta-base")
-    train_file = "./training_data/EN-English/en_dev.conll"
+    from utils.util import wnut_iob
+    conll_reader = CoNLLReader(encoder_model="xlm-roberta-base", target_vocab=wnut_iob)
+    train_file = "./training_data/EN-English/en_train.conll"
     conll_reader.read_data(train_file)
+    print(conll_reader.type_count)
     

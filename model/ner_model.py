@@ -125,6 +125,7 @@ class NERBaseAnnotator(pl.LightningModule):
         pred_results = self.val_span_f1.get_metric(True)
         avg_loss = np.mean([preds['loss'].item() for preds in outputs])
         self.log_metrics(pred_results, loss=avg_loss, suffix='val_', on_step=False, on_epoch=True)
+        self.val_span_f1.reset()
 
     def validation_step(self, batch, batch_idx):
         output = self.perform_forward_step(batch, mode='val')
