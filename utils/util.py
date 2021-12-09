@@ -121,8 +121,8 @@ def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_fil
                 f.write("{}\n".format(word_pred_tag))
             f.write("\n")
     f.close()
-
     return pd.DataFrame(record_data)
+
 
 def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, encoder_model='xlm-roberta-large'):
     if file_path is None:
@@ -155,7 +155,7 @@ def save_model(trainer: pl.Trainer, out_dir, model_name='', timestamp=None):
     trainer.save_checkpoint(outfile, weights_only=True)
 
     logger.info('Stored model {}.'.format(outfile))
-    for file in os.walk(out_dir):
+    for file in os.listdir(out_dir):
         if file.startswith("epoch"):
             best_checkpoint = os.path.join(out_dir, file)
         else:
