@@ -148,7 +148,12 @@ def save_model(trainer, out_dir, model_name='', timestamp=None):
     trainer.save_checkpoint(outfile, weights_only=True)
 
     logger.info('Stored model {}.'.format(outfile))
-    return outfile
+    for file in os.walk(out_dir):
+        if file.startswith("epoch"):
+            best_checkpoint = os.path.join(out_dir, file)
+        else:
+            best_checkpoint = None
+    return outfile, best_checkpoint
 
 
 def train_model(model, out_dir='', epochs=10, gpus=1, monitor='val_loss'):
