@@ -138,7 +138,7 @@ def load_model(model_file, tag_to_id=None, stage='test'):
     return model
 
 
-def save_model(trainer, out_dir, model_name='', timestamp=None):
+def save_model(trainer: pl.Trainer, out_dir, model_name='', timestamp=None):
     out_dir = out_dir + '/lightning_logs/version_' + str(trainer.logger.version) + '/checkpoints/'
     if timestamp is None:
         timestamp = time.time()
@@ -168,8 +168,8 @@ def get_trainer(gpus=4, is_test=False, out_dir=None, epochs=10, monitor='val_los
         return pl.Trainer(gpus=1) if torch.cuda.is_available() else pl.Trainer(val_check_interval=100)
 
     if torch.cuda.is_available():
-        trainer = pl.Trainer(gpus=gpus, max_epochs=epochs, callbacks=[get_model_earlystopping_callback(monitor)],
-                             default_root_dir=out_dir, checkpoint_callback=get_model_best_checkpoint_callback(out_dir, monitor))
+        trainer = pl.Trainer(gpus=gpus, max_epochs=epochs, callbacks=[get_model_earlystopping_callback(monitor), get_model_best_checkpoint_callback(out_dir, monitor)],
+                             default_root_dir=out_dir, checkpoint_callback=True)
         trainer.callbacks.append(get_lr_logger())
     else:
         trainer = pl.Trainer(max_epochs=epochs, default_root_dir=out_dir)
@@ -206,7 +206,7 @@ def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'
     if monitor == "f1":
         bc_clb = ModelCheckpoint(
             dirpath=dirpath,
-            filename='{epoch}-{val_micro@F1:.3f}-{val_loss:.2f}',
+            filename='epoch:{epoch}-{val_micro@F1:.3f}-{val_loss:.2f}',
             save_top_k=1,
             verbose=True,
             monitor="val_micro@F1",
@@ -215,7 +215,7 @@ def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'
     else:
         bc_clb = ModelCheckpoint(
             dirpath=dirpath,
-            filename='{epoch}-{val_micro@F1:.3f}-{val_loss:.2f}',
+            filename='epoch:{epoch}-{val_micro@F1:.3f}-{val_loss:.2f}',
             save_top_k=1,
             verbose=True,
             monitor=monitor,
