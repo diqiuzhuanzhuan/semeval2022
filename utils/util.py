@@ -7,6 +7,7 @@ from pytorch_lightning import seed_everything
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import LearningRateMonitor, EarlyStopping
+from pytorch_lightning.callbacks import ModelCheckpoint
 import transformers
 from torch.utils.data import DataLoader
 from log import logger
@@ -163,7 +164,7 @@ def get_trainer(gpus=4, is_test=False, out_dir=None, epochs=10, monitor='val_los
 
     if torch.cuda.is_available():
         trainer = pl.Trainer(gpus=gpus, max_epochs=epochs, callbacks=[get_model_earlystopping_callback(monitor)],
-                             default_root_dir=out_dir, checkpoint_callback=False)
+                             default_root_dir=out_dir, checkpoint_callback=get_model_best_checkpoint_callback(out_dir, monitor))
         trainer.callbacks.append(get_lr_logger())
     else:
         trainer = pl.Trainer(max_epochs=epochs, default_root_dir=out_dir)
@@ -194,6 +195,29 @@ def get_model_earlystopping_callback(monitor='val_loss'):
             mode='min'
         )
     return es_clb
+
+    
+def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'):
+    if monitor == "f1":
+        bc_clb = ModelCheckpoint(
+            dirpath=dirpath,
+            filename="best-checkpoint",
+            save_top_k=1,
+            verbose=True,
+            monitor="val_micro@F1",
+            mode="max"
+        )
+    else:
+        bc_clb = ModelCheckpoint(
+            dirpath=dirpath,
+            filename="best-checkpoint",
+            save_top_k=1,
+            verbose=True,
+            monitor=monitor,
+            mode="min"
+        )
+    return  bc_clb
+        
 
 if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
