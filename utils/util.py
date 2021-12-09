@@ -158,6 +158,7 @@ def save_model(trainer: pl.Trainer, out_dir, model_name='', timestamp=None):
     for file in os.listdir(out_dir):
         if file.startswith("epoch"):
             best_checkpoint = os.path.join(out_dir, file)
+            break
         else:
             best_checkpoint = None
     return outfile, best_checkpoint
