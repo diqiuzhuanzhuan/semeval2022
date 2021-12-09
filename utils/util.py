@@ -1,13 +1,15 @@
 import argparse
+import collections
 import os
 import time
-
+import pandas as pd
 import torch
 from pytorch_lightning import seed_everything
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import LearningRateMonitor, EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
+from torch.cuda.memory import reset_accumulated_memory_stats
 import transformers
 from torch.utils.data import DataLoader
 from log import logger
@@ -80,6 +82,8 @@ def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_fil
     ner_tags = test_data.ner_tags
     pos_to_singel_word_map = test_data.pos_to_single_word_maps
     f = open(out_file, "w")
+    #
+    record_data = collections.defaultdict(list)
     for idx, batch in enumerate(test_dataloader):
         output = model.perform_forward_step(batch)
         pred_result = output["pred_results"]
@@ -111,11 +115,14 @@ def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_fil
                 word = "".join(single_word_tokens)
                 word_meta_tag = ner_tag[start]
                 word_pred_tag = raw_pred_token_tag[start]
+                record_data["word"].append(word)
+                record_data["label"].append(word_meta_tag)
+                record_data["pred"].append(word_pred_tag)
                 f.write("{}\n".format(word_pred_tag))
             f.write("\n")
-            
     f.close()
 
+    return pd.DataFrame(record_data)
 
 def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, encoder_model='xlm-roberta-large'):
     if file_path is None:
