@@ -58,6 +58,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.val_span_f1 = SpanF1()
         self.setup_model(self.stage)
         self.save_hyperparameters('pad_token_id', 'encoder_model')
+        self.warm_up = False
 
     def setup_model(self, stage_name):
         if stage_name == 'fit' and self.train_data is not None:
@@ -87,8 +88,8 @@ class NERBaseAnnotator(pl.LightningModule):
         return token_tensor, tag_tensor, mask_tensor, gold_spans
 
     def configure_optimizers(self):
-        optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr, weight_decay=0.01)
-        if self.stage == 'fit':
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.lr, weight_decay=0.01)
+        if self.stage == 'fit' and self.warm_up:
             scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=self.warmup_steps, num_training_steps=self.total_steps)
             scheduler = {
                 'scheduler': scheduler,
