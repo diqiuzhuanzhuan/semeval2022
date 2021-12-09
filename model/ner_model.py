@@ -2,7 +2,8 @@ from re import I, M
 from typing import List, Any
 
 import pytorch_lightning.core.lightning as pl
-
+from pytorch_lightning.utilities.distributed import init_dist_connection
+from torch.nn import CrossEntropyLoss
 import torch
 import torch.nn.functional as F
 import numpy as np
@@ -42,6 +43,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.stage = stage
         self.num_gpus = num_gpus
         self.target_size = len(self.id_to_tag)
+        self.use_crf = False
 
         # set the default baseline model here
         self.pad_token_id = pad_token_id
@@ -50,7 +52,8 @@ class NERBaseAnnotator(pl.LightningModule):
         self.encoder = AutoModel.from_pretrained(encoder_model, return_dict=True)
 
         self.feedforward = nn.Linear(in_features=self.encoder.config.hidden_size, out_features=self.target_size)
-        self.crf_layer = ConditionalRandomField(num_tags=self.target_size, constraints=allowed_transitions(constraint_type="BIO", labels=self.id_to_tag))
+        if self.use_crf:
+            self.crf_layer = ConditionalRandomField(num_tags=self.target_size, constraints=allowed_transitions(constraint_type="BIO", labels=self.id_to_tag))
 
         self.lr = lr
         self.dropout = nn.Dropout(dropout_rate)
@@ -165,14 +168,32 @@ class NERBaseAnnotator(pl.LightningModule):
         return output
 
     def _compute_token_tags(self, token_scores, tags, token_mask, metadata, batch_size, mode=''):
+        if self.use_crf:
         # compute the log-likelihood loss and compute the best NER annotation sequence
-        loss = -self.crf_layer(token_scores, tags, token_mask) / float(batch_size)
-        best_path = self.crf_layer.viterbi_tags(token_scores, token_mask)
+            loss = -self.crf_layer(token_scores, tags, token_mask) / float(batch_size)
+            best_path = self.crf_layer.viterbi_tags(token_scores, token_mask)
+        else:
+            loss_fct = CrossEntropyLoss()
+            # Only keep active parts of the loss
+            if token_mask is not None:
+                active_loss = token_mask.view(-1) == 1
+                active_logits = token_scores.view(-1, self.target_size)
+                active_labels = torch.where(
+                    active_loss, tags.view(-1), torch.tensor(loss_fct.ignore_index).type_as(tags)
+                )
+                loss = loss_fct(active_logits, active_labels)
+            else:
+                loss = loss_fct(token_scores.view(-1, self.target_size), tags.view(-1))
+
+            best_path = torch.argmax(token_scores, -1)
 
         pred_results = []
         raw_pred_results = []
         for i in range(batch_size):
-            tag_seq, _ = best_path[i]
+            if self.use_crf:
+                tag_seq, _ = best_path[i]
+            else:
+                tag_seq = best_path[i].numpy()
             pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag]))
             raw_pred_results.append([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag])
         output = {"loss": loss, "pred_results": pred_results, "raw_pred_results": raw_pred_results}
@@ -193,3 +214,33 @@ class NERBaseAnnotator(pl.LightningModule):
             token_results.append(instance_token_results)
             tag_results.append(instance_tag_results)
         return token_results, tag_results
+
+
+if __name__ == "__main__":
+    from utils.util import get_reader, train_model, create_model, save_model, parse_args, get_tagset, wnut_iob, write_submit_result, load_model
+    import time
+    import os
+    base_dir = ""
+    encoder_model = "distilbert-base-uncased"
+    encoder_model = "roberta-base"
+    track = "EN-English/en"
+    train_file = os.path.join(base_dir, "training_data/{}_train.conll".format(track))
+    dev_file = os.path.join(base_dir, "training_data/{}_dev.conll".format(track))
+    output_dir = os.path.join(base_dir, "{}".format(track), "{}-train".format(encoder_model))
+    submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
+    iob_tagging = wnut_iob
+    train_data = get_reader(file_path=train_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55)
+    dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55)
+
+    model = create_model(train_data=train_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),
+                     dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
+                     encoder_model=encoder_model, num_gpus=1)
+
+    trainer = train_model(model=model, out_dir=output_dir, epochs=20, monitor="f1")
+
+# use pytorch lightnings saver here.
+    out_model_path, best_checkpoint = save_model(trainer=trainer, out_dir=output_dir, model_name=encoder_model, timestamp=time.time())
+
+    model = load_model(best_checkpoint, wnut_iob)
+
+    record_data = write_submit_result(model, dev_data, submission_file)
