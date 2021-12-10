@@ -21,6 +21,7 @@ class CoNLLReader(Dataset):
         self.pad_token = self.tokenizer.special_tokens_map['pad_token']
         self.pad_token_id = self.tokenizer.get_vocab()[self.pad_token]
         self.sep_token = self.tokenizer.special_tokens_map['sep_token']
+        self.sep_token_id = self.tokenizer.get_vocab()[self.sep_token]
 
         self.label_to_id = {} if target_vocab is None else target_vocab
         self.instances = []
@@ -92,7 +93,7 @@ class CoNLLReader(Dataset):
             tags, masks = _assign_ner_tags(ner_tag, rep_)
             ner_tags_rep.extend(tags)
         self.pos_to_single_word_maps.append(pos_to_single_word)
-        tokens_sub_rep.append(self.pad_token_id)
+        tokens_sub_rep.append(self.sep_token_id)
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
         token_masks_rep = [True] * len(tokens_sub_rep)
