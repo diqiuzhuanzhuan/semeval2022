@@ -158,7 +158,8 @@ class NERBaseAnnotator(pl.LightningModule):
 
         embedded_text_input = self.encoder(input_ids=tokens, attention_mask=token_mask)
         embedded_text_input = embedded_text_input.last_hidden_state
-        embedded_text_input = self.dropout(F.leaky_relu(embedded_text_input))
+        #embedded_text_input = self.dropout(F.leaky_relu(embedded_text_input))
+        embedded_text_input = self.dropout(embedded_text_input)
 
         # project the token representation for classification
         token_scores = self.feedforward(embedded_text_input)
