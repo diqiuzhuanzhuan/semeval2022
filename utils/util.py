@@ -138,9 +138,9 @@ def create_model(train_data, dev_data, tag_to_id, batch_size=64, dropout_rate=0.
                             dropout_rate=dropout_rate, lr=lr, pad_token_id=train_data.pad_token_id, num_gpus=num_gpus, use_crf=use_crf)
 
 
-def load_model(model_file, tag_to_id=None, stage='test'):
+def load_model(model_file, tag_to_id=None, stage='test', use_crf=False):
     hparams_file = model_file[:model_file.rindex('checkpoints/')] + '/hparams.yaml'
-    model = NERBaseAnnotator.load_from_checkpoint(model_file, hparams_file=hparams_file, stage=stage, tag_to_id=tag_to_id)
+    model = NERBaseAnnotator.load_from_checkpoint(model_file, hparams_file=hparams_file, stage=stage, tag_to_id=tag_to_id, use_crf=use_crf)
     model.stage = stage
     return model
 

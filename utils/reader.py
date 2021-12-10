@@ -18,6 +18,8 @@ class CoNLLReader(Dataset):
 
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_dir + encoder_model)
 
+        self.cls_token = self.tokenizer.special_tokens_map['cls_token']
+        self.cls_token_id = self.tokenizer.get_vocab()[self.cls_token]
         self.pad_token = self.tokenizer.special_tokens_map['pad_token']
         self.pad_token_id = self.tokenizer.get_vocab()[self.pad_token]
         self.sep_token = self.tokenizer.special_tokens_map['sep_token']
@@ -72,7 +74,7 @@ class CoNLLReader(Dataset):
 
     def parse_tokens_for_ner(self, tokens_, ner_tags):
         sentence_str = ''
-        tokens_sub_rep, ner_tags_rep = [self.pad_token_id], ['O']
+        tokens_sub_rep, ner_tags_rep = [self.cls_token_id], ['O']
         pos_to_single_word = dict()
         for idx, token in enumerate(tokens_):
             if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
