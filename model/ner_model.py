@@ -193,7 +193,8 @@ class NERBaseAnnotator(pl.LightningModule):
             if self.use_crf:
                 tag_seq, _ = best_path[i]
             else:
-                tag_seq = best_path[i].cpu().numpy()
+                tag_len = torch.count_nonzero(token_mask, -1).cpu().numpy()
+                tag_seq = best_path[i].cpu().numpy()[0:tag_len[i]]
             pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag]))
             raw_pred_results.append([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag])
         output = {"loss": loss, "pred_results": pred_results, "raw_pred_results": raw_pred_results}
@@ -234,13 +235,13 @@ if __name__ == "__main__":
 
     model = create_model(train_data=train_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
-                     encoder_model=encoder_model, num_gpus=1)
+                     encoder_model=encoder_model, num_gpus=1, use_crf=False)
 
     trainer = train_model(model=model, out_dir=output_dir, epochs=20, monitor="f1")
 
 # use pytorch lightnings saver here.
     out_model_path, best_checkpoint = save_model(trainer=trainer, out_dir=output_dir, model_name=encoder_model, timestamp=time.time())
 
-    model = load_model(best_checkpoint, wnut_iob)
+    model = load_model(best_checkpoint, wnut_iob, use_crf=False)
 
     record_data = write_submit_result(model, dev_data, submission_file)
