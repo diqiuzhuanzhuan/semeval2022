@@ -194,7 +194,7 @@ def get_model_earlystopping_callback(monitor='val_loss'):
         es_clb = EarlyStopping(
             monitor='val_micro@F1',
             min_delta=0.001,
-            patience=3,
+            patience=5,
             verbose=True,
             mode='max'
         )
@@ -202,7 +202,7 @@ def get_model_earlystopping_callback(monitor='val_loss'):
         es_clb = EarlyStopping(
             monitor=monitor,
             min_delta=0.001,
-            patience=3,
+            patience=5,
             verbose=True,
             mode='min'
         )

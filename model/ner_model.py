@@ -30,7 +30,8 @@ class NERBaseAnnotator(pl.LightningModule):
                  stage='fit',
                  pad_token_id=1,
                  encoder_model='xlm-roberta-large',
-                 num_gpus=1):
+                 num_gpus=1,
+                 use_crf=False):
         super(NERBaseAnnotator, self).__init__()
 
         self.train_data = train_data
@@ -43,7 +44,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.stage = stage
         self.num_gpus = num_gpus
         self.target_size = len(self.id_to_tag)
-        self.use_crf = False
+        self.use_crf = use_crf
 
         # set the default baseline model here
         self.pad_token_id = pad_token_id
@@ -158,9 +159,7 @@ class NERBaseAnnotator(pl.LightningModule):
 
         embedded_text_input = self.encoder(input_ids=tokens, attention_mask=token_mask)
         embedded_text_input = embedded_text_input.last_hidden_state
-        #embedded_text_input = self.dropout(F.leaky_relu(embedded_text_input))
-        embedded_text_input = self.dropout(embedded_text_input)
-
+        embedded_text_input = self.dropout(F.leaky_relu(embedded_text_input))
         # project the token representation for classification
         token_scores = self.feedforward(embedded_text_input)
 
