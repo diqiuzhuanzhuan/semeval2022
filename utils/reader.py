@@ -107,5 +107,6 @@ if __name__ == "__main__":
     conll_reader = CoNLLReader(encoder_model="xlm-roberta-base", target_vocab=wnut_iob)
     train_file = "./training_data/EN-English/en_train.conll"
     conll_reader.read_data(train_file)
-    print(conll_reader.type_count)
+    for batch in conll_reader.instances:
+        print(batch)
     
