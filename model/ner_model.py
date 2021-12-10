@@ -194,7 +194,7 @@ class NERBaseAnnotator(pl.LightningModule):
             if self.use_crf:
                 tag_seq, _ = best_path[i]
             else:
-                tag_seq = best_path[i].numpy()
+                tag_seq = best_path[i].cpu().numpy()
             pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag]))
             raw_pred_results.append([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag])
         output = {"loss": loss, "pred_results": pred_results, "raw_pred_results": raw_pred_results}
