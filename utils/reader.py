@@ -83,7 +83,10 @@ class CoNLLReader(Dataset):
                 sentence_str += " " + token.lower()
             else:
                 sentence_str = token.lower()
-            rep_ = self.tokenizer(token.lower())['input_ids']
+            if idx == 0:
+                rep_ = self.tokenizer( token.lower())['input_ids']
+            else:
+                rep_ = self.tokenizer(" " + token.lower())['input_ids']
             rep_ = rep_[1:-1] #why? the first id is <s>, and the last id is </s>, so we eliminate them
             pos_to_single_word[(len(tokens_sub_rep), len(tokens_sub_rep)+len(rep_))] = token
             tokens_sub_rep.extend(rep_)
@@ -96,15 +99,17 @@ class CoNLLReader(Dataset):
             ner_tags_rep.extend(tags)
         self.pos_to_single_word_maps.append(pos_to_single_word)
         tokens_sub_rep.append(self.sep_token_id)
+        assert(self.tokenizer(sentence_str)["input_ids"] == tokens_sub_rep)
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
         token_masks_rep = [True] * len(tokens_sub_rep)
+        assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
         return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep
 
 
 if __name__ == "__main__":
     from utils.util import wnut_iob
-    conll_reader = CoNLLReader(encoder_model="xlm-roberta-base", target_vocab=wnut_iob)
+    conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob)
     train_file = "./training_data/EN-English/en_train.conll"
     conll_reader.read_data(train_file)
     for batch in conll_reader.instances:
