@@ -185,7 +185,7 @@ class NERBaseAnnotator(pl.LightningModule):
             else:
                 loss = loss_fct(token_scores.view(-1, self.target_size), tags.view(-1))
 
-            best_path = torch.argmax(token_scores, -1)
+            best_path = torch.argmax(token_scores, 2)
 
         pred_results = []
         raw_pred_results = []
