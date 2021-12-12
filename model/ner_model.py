@@ -61,7 +61,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.span_f1 = SpanF1()
         self.val_span_f1 = SpanF1()
         self.setup_model(self.stage)
-        self.save_hyperparameters('pad_token_id', 'encoder_model')
+        self.save_hyperparameters('pad_token_id', 'encoder_model', 'use_crf')
         self.warm_up = False
 
     def setup_model(self, stage_name):
