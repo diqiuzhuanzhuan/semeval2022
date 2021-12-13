@@ -56,7 +56,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.pad_token_id = pad_token_id
 
         self.encoder_model = encoder_model
-        self.encoder = get_token_classification(encoder_model, num_labels=self.target_size, return_dict=True)
+        self.encoder = get_token_classification(encoder_model, num_labels=self.target_size)
 
         if self.use_crf:
             self.crf_layer = ConditionalRandomField(num_tags=self.target_size, constraints=allowed_transitions(constraint_type="BIO", labels=self.id_to_tag))
@@ -162,31 +162,21 @@ class NERBaseAnnotator(pl.LightningModule):
         tokens, tags, token_mask, metadata = batch
         batch_size = tokens.size(0)
 
-        token_scores = self.encoder(input_ids=tokens, attention_mask=token_mask)
+        outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags)
 
         # compute the log-likelihood loss and compute the best NER annotation sequence
-        output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, metadata=metadata, batch_size=batch_size, mode=mode)
+        token_scores = outputs.logits
+        loss = outputs.loss
+        output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, metadata=metadata, batch_size=batch_size, mode=mode, loss=loss)
         return output
 
-    def _compute_token_tags(self, token_scores, tags, token_mask, metadata, batch_size, mode=''):
+    def _compute_token_tags(self, token_scores, tags, token_mask, metadata, batch_size, mode='', loss=None):
         if self.use_crf:
         # compute the log-likelihood loss and compute the best NER annotation sequence
             loss = -self.crf_layer(token_scores, tags, token_mask) / float(batch_size)
             best_path = self.crf_layer.viterbi_tags(token_scores, token_mask)
         else:
-            loss_fct = CrossEntropyLoss()
-            # Only keep active parts of the loss
-            if token_mask is not None:
-                active_loss = token_mask.view(-1) == 1
-                active_logits = token_scores.view(-1, self.target_size)
-                active_labels = torch.where(
-                    active_loss, tags.view(-1), torch.tensor(loss_fct.ignore_index).type_as(tags)
-                )
-                loss = loss_fct(active_logits, active_labels)
-            else:
-                loss = loss_fct(token_scores.view(-1, self.target_size), tags.view(-1))
-
-            best_path = torch.argmax(token_scores, 2)
+            best_path = torch.argmax(token_scores, -1)
 
         pred_results = []
         raw_pred_results = []
@@ -236,7 +226,7 @@ if __name__ == "__main__":
 
     model = create_model(train_data=dev_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
-                     encoder_model=encoder_model, num_gpus=1, use_crf=True)
+                     encoder_model=encoder_model, num_gpus=1, use_crf=False)
 
     trainer = train_model(model=model, out_dir=output_dir, epochs=20, monitor="f1")
 
