@@ -1,4 +1,5 @@
 from re import I, M
+import re
 from typing import List, Any
 
 import pytorch_lightning.core.lightning as pl
@@ -13,12 +14,16 @@ from allennlp.modules.conditional_random_field import allowed_transitions
 from torch import nn
 from torch.utils.data import DataLoader
 from transformers import get_linear_schedule_with_warmup, AutoModel
+from transformers.utils.dummy_pt_objects import RobertaForTokenClassification
+from transformers import *
 from transformers.utils.dummy_tf_objects import WarmUp
 
 from log import logger
 from utils.metric import SpanF1
 from utils.reader_utils import extract_spans, get_tags
 
+def get_token_classification(encoder_model: str = "robert-base", num_labels=2):
+    return AutoModelForTokenClassification.from_pretrained(encoder_model, num_labels=num_labels)
 
 class NERBaseAnnotator(pl.LightningModule):
     def __init__(self,
@@ -51,9 +56,8 @@ class NERBaseAnnotator(pl.LightningModule):
         self.pad_token_id = pad_token_id
 
         self.encoder_model = encoder_model
-        self.encoder = AutoModel.from_pretrained(encoder_model, return_dict=True)
+        self.encoder = get_token_classification(encoder_model, num_labels=self.target_size, return_dict=True)
 
-        self.feedforward = nn.Linear(in_features=self.encoder.config.hidden_size, out_features=self.target_size)
         if self.use_crf:
             self.crf_layer = ConditionalRandomField(num_tags=self.target_size, constraints=allowed_transitions(constraint_type="BIO", labels=self.id_to_tag))
 
@@ -158,11 +162,7 @@ class NERBaseAnnotator(pl.LightningModule):
         tokens, tags, token_mask, metadata = batch
         batch_size = tokens.size(0)
 
-        embedded_text_input = self.encoder(input_ids=tokens, attention_mask=token_mask)
-        embedded_text_input = embedded_text_input.last_hidden_state
-        embedded_text_input = self.dropout(F.leaky_relu(embedded_text_input))
-        # project the token representation for classification
-        token_scores = self.feedforward(embedded_text_input)
+        token_scores = self.encoder(input_ids=tokens, attention_mask=token_mask)
 
         # compute the log-likelihood loss and compute the best NER annotation sequence
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, metadata=metadata, batch_size=batch_size, mode=mode)
@@ -236,7 +236,7 @@ if __name__ == "__main__":
 
     model = create_model(train_data=dev_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
-                     encoder_model=encoder_model, num_gpus=1, use_crf=False)
+                     encoder_model=encoder_model, num_gpus=1, use_crf=True)
 
     trainer = train_model(model=model, out_dir=output_dir, epochs=20, monitor="f1")
 
