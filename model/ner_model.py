@@ -13,6 +13,7 @@ from allennlp.modules.conditional_random_field import allowed_transitions
 from torch import nn
 from torch.utils.data import DataLoader
 from transformers import get_linear_schedule_with_warmup, AutoModel
+from transformers.utils.dummy_tf_objects import WarmUp
 
 from log import logger
 from utils.metric import SpanF1
@@ -62,7 +63,6 @@ class NERBaseAnnotator(pl.LightningModule):
         self.val_span_f1 = SpanF1()
         self.setup_model(self.stage)
         self.save_hyperparameters('pad_token_id', 'encoder_model', 'use_crf')
-        self.warm_up = False
 
     def setup_model(self, stage_name):
         if stage_name == 'fit' and self.train_data is not None:
@@ -92,8 +92,8 @@ class NERBaseAnnotator(pl.LightningModule):
         return token_tensor, tag_tensor, mask_tensor, gold_spans
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.parameters(), lr=self.lr, weight_decay=0.01)
-        if self.stage == 'fit' and self.warm_up:
+        optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr, weight_decay=0.01)
+        if self.stage == 'fit':
             scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=self.warmup_steps, num_training_steps=self.total_steps)
             scheduler = {
                 'scheduler': scheduler,
@@ -125,6 +125,7 @@ class NERBaseAnnotator(pl.LightningModule):
         pred_results = self.span_f1.get_metric(True)
         avg_loss = np.mean([preds['loss'].item() for preds in outputs])
         self.log_metrics(pred_results, loss=avg_loss, suffix='', on_step=False, on_epoch=True)
+        self.span_f1.reset()
 
     def validation_epoch_end(self, outputs: List[Any]) -> None:
         pred_results = self.val_span_f1.get_metric(True)
