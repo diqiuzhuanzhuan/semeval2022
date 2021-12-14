@@ -54,28 +54,30 @@ class CoNLLReader(Dataset):
         for fields, metadata in get_ner_reader(data=data):
             if self._max_instances != -1 and instance_idx > self._max_instances:
                 break
-            sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_ = self.parse_line_for_ner(fields=fields)
+            sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos = self.parse_line_for_ner(fields=fields)
             self.sentences.append(sentence_str)
             tokens_tensor = torch.tensor(tokens_sub_rep, dtype=torch.long)
             tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
             token_masks_rep = torch.tensor(token_masks_rep)
 
-            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor))
+            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos))
             instance_idx += 1
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
     def parse_line_for_ner(self, fields):
         tokens_, ner_tags = fields[0], fields[-1]
-        sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep = self.parse_tokens_for_ner(tokens_, ner_tags)
-        gold_spans_ = extract_spans(ner_tags_rep)
+        sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos = self.parse_tokens_for_ner(tokens_, ner_tags)
+        gold_spans_ = extract_spans(ner_tags_rep, subtoken_pos_to_raw_pos)
         coded_ner_ = [self.label_to_id[tag] for tag in ner_tags_rep]
 
-        return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_
+        return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos
 
     def parse_tokens_for_ner(self, tokens_, ner_tags):
         sentence_str = ''
         tokens_sub_rep, ner_tags_rep = [self.cls_token_id], ['O']
         pos_to_single_word = dict()
+        subtoken_pos_to_raw_pos = []
+        subtoken_pos_to_raw_pos.append(0)
         for idx, token in enumerate(tokens_):
             if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                 break
@@ -84,11 +86,12 @@ class CoNLLReader(Dataset):
             else:
                 sentence_str = token.lower()
             if idx == 0:
-                rep_ = self.tokenizer( token.lower())['input_ids']
+                rep_ = self.tokenizer(token.lower())['input_ids']
             else:
                 rep_ = self.tokenizer(" " + token.lower())['input_ids']
             rep_ = rep_[1:-1] #why? the first id is <s>, and the last id is </s>, so we eliminate them
             pos_to_single_word[(len(tokens_sub_rep), len(tokens_sub_rep)+len(rep_))] = token
+            subtoken_pos_to_raw_pos.extend([idx+1] * len(rep_))
             tokens_sub_rep.extend(rep_)
 
             # if we have a NER here, in the case of B, the first NER tag is the B tag, the rest are I tags.
@@ -99,12 +102,13 @@ class CoNLLReader(Dataset):
             ner_tags_rep.extend(tags)
         self.pos_to_single_word_maps.append(pos_to_single_word)
         tokens_sub_rep.append(self.sep_token_id)
+        subtoken_pos_to_raw_pos.append(idx+2)
         assert(self.tokenizer(sentence_str)["input_ids"] == tokens_sub_rep)
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
         token_masks_rep = [True] * len(tokens_sub_rep)
         assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
-        return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep
+        return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos
 
 
 if __name__ == "__main__":

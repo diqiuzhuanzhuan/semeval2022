@@ -22,8 +22,6 @@ from log import logger
 from utils.metric import SpanF1
 from utils.reader_utils import extract_spans, get_tags
 
-def get_token_classification(encoder_model: str = "robert-base", num_labels=2):
-    return AutoModelForTokenClassification.from_pretrained(encoder_model, num_labels=num_labels)
 
 class NERBaseAnnotator(pl.LightningModule):
     def __init__(self,
@@ -56,13 +54,12 @@ class NERBaseAnnotator(pl.LightningModule):
         self.pad_token_id = pad_token_id
 
         self.encoder_model = encoder_model
-        self.encoder = get_token_classification(encoder_model, num_labels=self.target_size)
+        self.encoder = AutoModelForTokenClassification.from_pretrained(encoder_model, num_labels=self.target_size, classifier_dropout=dropout_rate)
 
         if self.use_crf:
             self.crf_layer = ConditionalRandomField(num_tags=self.target_size, constraints=allowed_transitions(constraint_type="BIO", labels=self.id_to_tag))
 
         self.lr = lr
-        self.dropout = nn.Dropout(dropout_rate)
         self.span_f1 = SpanF1()
         self.val_span_f1 = SpanF1()
         self.setup_model(self.stage)
@@ -78,7 +75,7 @@ class NERBaseAnnotator(pl.LightningModule):
 
     def collate_batch(self, batch):
         batch_ = list(zip(*batch))
-        tokens, masks, gold_spans, tags = batch_[0], batch_[1], batch_[2], batch_[3]
+        tokens, masks, gold_spans, tags, subtoken_pos_to_raw_pos = batch_[0], batch_[1], batch_[2], batch_[3], batch_[4]
 
         max_len = max([len(token) for token in tokens])
         token_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.pad_token_id)
@@ -93,7 +90,7 @@ class NERBaseAnnotator(pl.LightningModule):
             tag_tensor[i, :seq_len] = tags[i]
             mask_tensor[i, :seq_len] = masks[i]
 
-        return token_tensor, tag_tensor, mask_tensor, gold_spans
+        return token_tensor, tag_tensor, mask_tensor, gold_spans, subtoken_pos_to_raw_pos
 
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr, weight_decay=0.01)
@@ -159,7 +156,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.log(suffix + 'loss', loss, on_step=on_step, on_epoch=on_epoch, prog_bar=True, logger=True)
 
     def perform_forward_step(self, batch, mode=''):
-        tokens, tags, token_mask, metadata = batch
+        tokens, tags, token_mask, metadata, subtoken_pos_to_raw_pos = batch
         batch_size = tokens.size(0)
 
         outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags)
@@ -167,15 +164,19 @@ class NERBaseAnnotator(pl.LightningModule):
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
         loss = outputs.loss
-        output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, metadata=metadata, batch_size=batch_size, mode=mode, loss=loss)
+        output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
+                                          metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode)
+        if not output['loss']:
+            output['loss'] = loss
         return output
 
-    def _compute_token_tags(self, token_scores, tags, token_mask, metadata, batch_size, mode='', loss=None):
+    def _compute_token_tags(self, token_scores, tags, token_mask, metadata, subtoken_pos_to_raw_pos, batch_size, mode=''):
         if self.use_crf:
         # compute the log-likelihood loss and compute the best NER annotation sequence
             loss = -self.crf_layer(token_scores, tags, token_mask) / float(batch_size)
             best_path = self.crf_layer.viterbi_tags(token_scores, token_mask)
         else:
+            loss = None
             best_path = torch.argmax(token_scores, -1)
 
         pred_results = []
@@ -186,7 +187,7 @@ class NERBaseAnnotator(pl.LightningModule):
             else:
                 tag_len = torch.count_nonzero(token_mask, -1).cpu().numpy()
                 tag_seq = best_path[i].cpu().numpy()[0:tag_len[i]]
-            pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag]))
+            pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag], subtoken_pos_to_raw_pos))
             raw_pred_results.append([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag])
         output = {"loss": loss, "pred_results": pred_results, "raw_pred_results": raw_pred_results}
         if mode == 'val':
