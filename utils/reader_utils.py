@@ -51,11 +51,16 @@ def extract_spans(tags, subtoken_pos_to_raw_pos):
             new_word = True
         else:
             new_word = False
-        if new_word:
+        if cur_tag and new_word:
             _save_span(cur_tag, cur_start, _id, gold_spans)
             cur_start = _id
             cur_tag = nt
-        elif indicator == 'B':
+        elif new_word:
+            cur_tag = nt
+        else:
+            pass
+        """
+        if indicator == 'B':
             gold_spans = _save_span(cur_tag, cur_start, _id, gold_spans)
             cur_start = _id
             cur_tag = nt
@@ -68,6 +73,7 @@ def extract_spans(tags, subtoken_pos_to_raw_pos):
             cur_tag = 'O'
             cur_start = _id
             pass
+        """
     _save_span(cur_tag, cur_start, _id + 1, gold_spans)
     return gold_spans
 
