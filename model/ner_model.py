@@ -215,7 +215,7 @@ if __name__ == "__main__":
     import os
     base_dir = ""
     encoder_model = "distilbert-base-uncased"
-    encoder_model = "roberta-base"
+    encoder_model = "bert-base-uncased"
     track = "EN-English/en"
     train_file = os.path.join(base_dir, "training_data/{}_train.conll".format(track))
     dev_file = os.path.join(base_dir, "training_data/{}_dev.conll".format(track))
@@ -230,8 +230,7 @@ if __name__ == "__main__":
                      encoder_model=encoder_model, num_gpus=1, use_crf=False)
 
     trainer = train_model(model=model, out_dir=output_dir, epochs=20, monitor="f1")
-
-# use pytorch lightnings saver here.
+    # use pytorch lightnings saver here.
     out_model_path, best_checkpoint = save_model(trainer=trainer, out_dir=output_dir, model_name=encoder_model, timestamp=time.time())
 
     model = load_model(best_checkpoint, wnut_iob, use_crf=False)

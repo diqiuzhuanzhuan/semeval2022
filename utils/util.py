@@ -98,10 +98,9 @@ def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_fil
             metadata_token_tag = batch[3][i]
             meta_labels = []
             pred_labels = []
-            sentence_subtokens = []
+            sentence_subtokens = test_data.tokenizer.convert_ids_to_tokens(input_ids)
             for (start_pos, end_pos), (pred_start_pos, pred_end_pos) in zip(metadata_token_tag, pred_token_tag):
                 sub_tokens = test_data.tokenizer.convert_ids_to_tokens(input_ids[start_pos: end_pos+1])
-                sentence_subtokens.extend(sub_tokens)
                 pred_sub_tokens = test_data.tokenizer.convert_ids_to_tokens(input_ids[start_pos: end_pos+1])
                 tag = metadata_token_tag[(start_pos, end_pos)]
                 pred_tag = pred_token_tag[(pred_start_pos, pred_end_pos)]
@@ -112,7 +111,7 @@ def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_fil
                 #f.write("\n")
             for (start, end) in pos_to_singel_word:
                 single_word_tokens = sentence_subtokens[start:end]
-                word = "".join(single_word_tokens)
+                word = "".join(single_word_tokens).replace("##", "")
                 word_meta_tag = ner_tag[start]
                 word_pred_tag = raw_pred_token_tag[start]
                 record_data["word"].append(word)
