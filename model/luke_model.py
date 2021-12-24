@@ -132,6 +132,9 @@ class LukeNer(pl.LightningModule):
             for span, label in sorted(predict_res, key=lambda k: k[0][0]):
                 entity_words = sentence[span[0]: span[1]].split(" ")
                 for idx, word in enumerate(entity_words):
+                    if label.startswith("O"):
+                        final_res.append(word, label)
+                        continue
                     if idx == 0:
                         final_res.append((word, 'B-'+label))
                     else:
