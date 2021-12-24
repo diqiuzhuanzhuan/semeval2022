@@ -83,7 +83,7 @@ class LukeNer(pl.LightningModule):
         return output
     
     def test_epoch_end(self, outputs):
-        pred_results = self.span_f1.get_metric()
+        pred_results = self.val_span_f1.get_metric()
         avg_loss = np.mean([preds['loss'].item() for preds in outputs])
         self.log_metrics(pred_results, loss=avg_loss, on_step=False, on_epoch=True)
 
@@ -91,7 +91,7 @@ class LukeNer(pl.LightningModule):
         return out
 
     def training_epoch_end(self, outputs: List[Any]) -> None:
-        pred_results = self.span_f1.get_metric(True)
+        pred_results = self.train_span_f1.get_metric(True)
         avg_loss = np.mean([preds['loss'].item() for preds in outputs])
         self.log_metrics(pred_results, loss=avg_loss, suffix='', on_step=False, on_epoch=True)
         self.train_span_f1.reset()
