@@ -14,10 +14,13 @@ import transformers
 from torch.utils.data import DataLoader
 from log import logger
 from model.ner_model import NERBaseAnnotator
+from model.luke_model import LukeNer
 from utils.reader import CoNLLReader
+from utils.conll_reader import LukeCoNLLReader
 
 conll_iob = {'B-ORG': 0, 'I-ORG': 1, 'B-MISC': 2, 'I-MISC': 3, 'B-LOC': 4, 'I-LOC': 5, 'B-PER': 6, 'I-PER': 7, 'O': 8}
 wnut_iob = {'B-CORP': 0, 'I-CORP': 1, 'B-CW': 2, 'I-CW': 3, 'B-GRP': 4, 'I-GRP': 5, 'B-LOC': 6, 'I-LOC': 7, 'B-PER': 8, 'I-PER': 9, 'B-PROD': 10, 'I-PROD': 11, 'O': 12}
+luke_iob = {'CORP': 0, 'CW': 1, 'GRP': 2, 'LOC':3, 'PER': 4, 'PROD': 5, 'O': 6}
 
 
 def parse_args():
@@ -126,21 +129,31 @@ def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_fil
 def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, encoder_model='xlm-roberta-large'):
     if file_path is None:
         return None
-    reader = CoNLLReader(max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model)
+    if "luke" in encoder_model:
+        reader = LukeCoNLLReader(max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model)
+    else:
+        reader = CoNLLReader(max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model)
     reader.read_data(file_path)
 
     return reader
 
 
 def create_model(train_data, dev_data, tag_to_id, batch_size=64, dropout_rate=0.1, stage='fit', lr=1e-5, encoder_model='xlm-roberta-large', num_gpus=1, use_crf=False):
-    return NERBaseAnnotator(train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id, batch_size=batch_size, stage=stage, encoder_model=encoder_model,
+    if "luke" in encoder_model:
+        return LukeNer(encoder_model=encoder_model, batch_size=batch_size, lr=lr, dropout_rate=dropout_rate, train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id)
+    else:
+        return NERBaseAnnotator(train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id, batch_size=batch_size, stage=stage, encoder_model=encoder_model,
                             dropout_rate=dropout_rate, lr=lr, pad_token_id=train_data.pad_token_id, num_gpus=num_gpus, use_crf=use_crf)
 
 
 def load_model(model_file, tag_to_id=None, stage='test', use_crf=False):
     hparams_file = model_file[:model_file.rindex('checkpoints/')] + '/hparams.yaml'
-    model = NERBaseAnnotator.load_from_checkpoint(model_file, hparams_file=hparams_file, stage=stage, tag_to_id=tag_to_id, use_crf=use_crf)
-    model.stage = stage
+    if "luke"  in model_file:
+        model = LukeNer.load_from_checkpoint(model_file, hparams_file=hparams_file, stage=stage, tag_to_id=tag_to_id)
+        model.stage = stage
+    else:
+        model = NERBaseAnnotator.load_from_checkpoint(model_file, hparams_file=hparams_file, stage=stage, tag_to_id=tag_to_id, use_crf=use_crf)
+        model.stage = stage
     return model
 
 
