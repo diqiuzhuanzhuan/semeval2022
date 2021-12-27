@@ -106,7 +106,7 @@ class NERBaseAnnotator(pl.LightningModule):
         return [optimizer]
 
     def train_dataloader(self):
-        loader = DataLoader(self.train_data, batch_size=self.batch_size, collate_fn=self.collate_batch, num_workers=10)
+        loader = DataLoader(self.train_data, batch_size=self.batch_size, collate_fn=self.collate_batch, num_workers=10, shuffle=True)
         return loader
 
     def val_dataloader(self):
