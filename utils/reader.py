@@ -60,6 +60,10 @@ class CoNLLReader(Dataset):
         tree = IntervalTree()
         for end_index, (insert_order, original_value) in self.entity_automation.iter(sentence):
             start_index = end_index - len(original_value) + 1
+            if start_index > 1 and sentence[start_index-1] != " ":
+                continue
+            if end_index < len(sentence) - 1 and sentence[end_index+1] != " ":
+                continue
             tree.remove_envelop(start_index, end_index)
             should_continue = False
             for item in tree.items():
@@ -74,7 +78,7 @@ class CoNLLReader(Dataset):
                 if len(original_value) > 1:
                     tree.add(Interval(start_index, end_index)) 
         for interval in tree.items():
-            ans.append(sentence[interval.begin: interval.end])
+            ans.append(sentence[interval.begin: interval.end+1])
             ans.append("$")
         if len(ans) and ans[-1] == "$": 
             ans.pop(-1)
