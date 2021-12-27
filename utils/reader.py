@@ -1,4 +1,5 @@
 from collections import defaultdict
+import intervaltree
 import torch
 from torch.utils.data import Dataset
 
@@ -6,6 +7,7 @@ from transformers import AutoTokenizer, LukeTokenizer
 import copy
 import ahocorasick
 from transformers.models.luke.tokenization_luke import EntityInput
+from intervaltree import IntervalTree, Interval
 
 from log import logger
 from utils.reader_utils import get_ner_reader, extract_spans, _assign_ner_tags
@@ -55,13 +57,20 @@ class CoNLLReader(Dataset):
     def _search_entity(self, sentence: str):
         ans = []
         words = set(sentence.split(" "))
+        tree = IntervalTree()
         for end_index, (insert_order, original_value) in self.entity_automation.iter(sentence):
             start_index = end_index - len(original_value) + 1
+            tree.remove_envelop(start_index, end_index)
+            for item in tree.items():
+                if start_index >= item.begin and end_index <= item.end:
+                    continue
             if original_value.count(" ") > 0:
-                ans.append(original_value)
+                tree.add(Interval(start_index, end_index)) 
             elif original_value in words:
                 if len(original_value) > 1:
-                    ans.append(original_value)
+                    tree.add(Interval(start_index, end_index)) 
+        for interval in tree.items():
+            ans.append(sentence[interval.begin: interval.end])
         return ans
 
 
