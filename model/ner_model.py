@@ -86,9 +86,10 @@ class NERBaseAnnotator(pl.LightningModule):
             tokens_ = tokens[i]
             seq_len = len(tokens_)
             tag_len = len(tags[i])
-
             token_tensor[i, :seq_len] = tokens_
+            
             tag_tensor[i, :tag_len] = tags[i]
+            tag_tensor[i, tag_len:].fill_(-100)
             mask_tensor[i, :seq_len] = masks[i]
 
         return token_tensor, tag_tensor, mask_tensor, gold_spans, subtoken_pos_to_raw_pos

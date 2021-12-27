@@ -158,19 +158,20 @@ class CoNLLReader(Dataset):
         assert(self.tokenizer(sentence_str)["input_ids"] == tokens_sub_rep)
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
-        entity_ans = self._search_entity(sentence_str)
-        print(entity_ans)
-        for idx, token in enumerate(entity_ans):
-            if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
-                break
-            if idx == 0:
-                rep_ = self.tokenizer(token.lower())['input_ids']
-            else:
-                rep_ = self.tokenizer(" " + token.lower())['input_ids']
-            rep_ = rep_[1:-1] #why? the first id is <s>, and the last id is </s>, so we eliminate them
-            tokens_sub_rep.extend(rep_)
+        if self.use_entity_vocab:
+            entity_ans = self._search_entity(sentence_str)
+            print(entity_ans)
+            for idx, token in enumerate(entity_ans):
+                if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
+                    break
+                if idx == 0:
+                    rep_ = self.tokenizer(token.lower())['input_ids']
+                else:
+                    rep_ = self.tokenizer(" " + token.lower())['input_ids']
+                rep_ = rep_[1:-1] #why? the first id is <s>, and the last id is </s>, so we eliminate them
+                tokens_sub_rep.extend(rep_)
         
-        tokens_sub_rep.append(self.sep_token_id)
+            tokens_sub_rep.append(self.sep_token_id)
         token_masks_rep = [True] * len(tokens_sub_rep)
         #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
         
