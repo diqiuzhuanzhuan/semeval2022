@@ -5,6 +5,7 @@ from torch.utils.data import Dataset
 from transformers import AutoTokenizer, LukeTokenizer
 import copy
 import ahocorasick
+from transformers.models.luke.tokenization_luke import EntityInput
 
 from log import logger
 from utils.reader_utils import get_ner_reader, extract_spans, _assign_ner_tags
@@ -59,7 +60,8 @@ class CoNLLReader(Dataset):
             if original_value.count(" ") > 0:
                 ans.append(original_value)
             elif original_value in words:
-                ans.append(original_value)
+                if len(original_value) > 1:
+                    ans.append(original_value)
         return ans
 
 
@@ -137,13 +139,10 @@ class CoNLLReader(Dataset):
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
         entity_ans = self._search_entity(sentence_str)
+        print(entity_ans)
         for idx, token in enumerate(entity_ans):
             if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                 break
-            if sentence_str:
-                sentence_str += " " + token.lower()
-            else:
-                sentence_str = token.lower()
             if idx == 0:
                 rep_ = self.tokenizer(token.lower())['input_ids']
             else:
