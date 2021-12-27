@@ -2,7 +2,9 @@ from collections import defaultdict
 import torch
 from torch.utils.data import Dataset
 
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, LukeTokenizer
+import copy
+import ahocorasick
 
 from log import logger
 from utils.reader_utils import get_ner_reader, extract_spans, _assign_ner_tags
@@ -12,11 +14,14 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
 class CoNLLReader(Dataset):
-    def __init__(self, max_instances=-1, max_length=50, target_vocab=None, pretrained_dir='', encoder_model='xlm-roberta-large'):
+    def __init__(self, max_instances=-1, max_length=50, target_vocab=None, pretrained_dir='', encoder_model='xlm-roberta-large', use_entity_vocab=True):
         self._max_instances = max_instances
         self._max_length = max_length
 
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_dir + encoder_model)
+        self.use_entity_vocab = use_entity_vocab
+        if self.use_entity_vocab:
+            self._setup_entity_vocab()
 
         self.cls_token = self.tokenizer.special_tokens_map['cls_token']
         self.cls_token_id = self.tokenizer.get_vocab()[self.cls_token]
@@ -33,6 +38,30 @@ class CoNLLReader(Dataset):
         self.pos_to_single_word_maps = []
         self.ner_tags = []
         self.type_count = defaultdict(int)
+    
+    def _setup_entity_vocab(self):
+        self.entity_tokenizer = LukeTokenizer.from_pretrained("studio-ousia/luke-base")
+        self.entity_vocab = copy.deepcopy(self.entity_tokenizer.entity_vocab)
+        self.entity_automation = ahocorasick.Automaton()
+        tmp = dict()
+        for k in self.entity_vocab:
+            self.entity_automation.add_word(k.lower(), (self.entity_vocab[k], k.lower()))
+            tmp[k.lower()] = self.entity_vocab[k]
+        for k in tmp:
+            self.entity_vocab[k] = tmp[k]
+        self.entity_automation.make_automaton()
+
+    def _search_entity(self, sentence: str):
+        ans = []
+        words = set(sentence.split(" "))
+        for end_index, (insert_order, original_value) in self.entity_automation.iter(sentence):
+            start_index = end_index - len(original_value) + 1
+            if original_value.count(" ") > 0:
+                ans.append(original_value)
+            elif original_value in words:
+                ans.append(original_value)
+        return ans
+
 
     def get_target_size(self):
         return len(set(self.label_to_id.values()))
@@ -57,7 +86,8 @@ class CoNLLReader(Dataset):
             sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos = self.parse_line_for_ner(fields=fields)
             self.sentences.append(sentence_str)
             tokens_tensor = torch.tensor(tokens_sub_rep, dtype=torch.long)
-            tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
+            #tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
+            tag_tensor = torch.tensor(coded_ner_, dtype=torch.long)
             token_masks_rep = torch.tensor(token_masks_rep)
 
             self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos))
@@ -106,8 +136,25 @@ class CoNLLReader(Dataset):
         assert(self.tokenizer(sentence_str)["input_ids"] == tokens_sub_rep)
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
+        entity_ans = self._search_entity(sentence_str)
+        for idx, token in enumerate(entity_ans):
+            if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
+                break
+            if sentence_str:
+                sentence_str += " " + token.lower()
+            else:
+                sentence_str = token.lower()
+            if idx == 0:
+                rep_ = self.tokenizer(token.lower())['input_ids']
+            else:
+                rep_ = self.tokenizer(" " + token.lower())['input_ids']
+            rep_ = rep_[1:-1] #why? the first id is <s>, and the last id is </s>, so we eliminate them
+            tokens_sub_rep.extend(rep_)
+        
+        tokens_sub_rep.append(self.sep_token_id)
         token_masks_rep = [True] * len(tokens_sub_rep)
-        assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
+        #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
+        
         return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos
 
 
@@ -117,5 +164,5 @@ if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
     conll_reader.read_data(train_file)
     for batch in conll_reader.instances:
-        print(batch)
+        pass
     
