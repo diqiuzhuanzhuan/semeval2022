@@ -106,13 +106,13 @@ class NERBaseAnnotator(pl.LightningModule):
         return [optimizer]
 
     def train_dataloader(self):
-        loader = DataLoader(self.train_data, batch_size=self.batch_size, collate_fn=self.collate_batch, num_workers=10, shuffle=True)
+        loader = DataLoader(self.train_data, batch_size=self.batch_size, collate_fn=self.collate_batch, num_workers=2, shuffle=True)
         return loader
 
     def val_dataloader(self):
         if self.dev_data is None:
             return None
-        loader = DataLoader(self.dev_data, batch_size=self.batch_size, collate_fn=self.collate_batch, num_workers=10)
+        loader = DataLoader(self.dev_data, batch_size=self.batch_size, collate_fn=self.collate_batch, num_workers=2)
         return loader
 
     def test_epoch_end(self, outputs):
