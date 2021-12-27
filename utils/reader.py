@@ -71,6 +71,8 @@ class CoNLLReader(Dataset):
                     tree.add(Interval(start_index, end_index)) 
         for interval in tree.items():
             ans.append(sentence[interval.begin: interval.end])
+            ans.append("$")
+        ans.pop(-1)
         return ans
 
 
