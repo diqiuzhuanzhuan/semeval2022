@@ -1,5 +1,6 @@
 import argparse
 import collections
+from json import encoder
 import os
 import time
 import pandas as pd
@@ -125,14 +126,21 @@ def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_fil
     f.close()
     return pd.DataFrame(record_data)
 
+def get_entity_vocab(encoder_model="studio-ousia/luke-base"):
+    from transformers import LukeTokenizer
+    import copy
+    tokenizer = LukeTokenizer.from_pretrained(encoder_model)
+    entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
+    return entity_vocab
 
-def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, encoder_model='xlm-roberta-large'):
+
+def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, encoder_model='xlm-roberta-large', entity_vocab=None):
     if file_path is None:
         return None
     if "luke" in encoder_model:
         reader = LukeCoNLLReader(max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model)
     else:
-        reader = CoNLLReader(max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model)
+        reader = CoNLLReader(max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model, entity_vocab=entity_vocab)
     reader.read_data(file_path)
 
     return reader

@@ -17,13 +17,13 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
 class CoNLLReader(Dataset):
-    def __init__(self, max_instances=-1, max_length=50, target_vocab=None, pretrained_dir='', encoder_model='xlm-roberta-large', use_entity_vocab=True):
+    def __init__(self, max_instances=-1, max_length=50, target_vocab=None, pretrained_dir='', encoder_model='xlm-roberta-large', entity_vocab: dict = None):
         self._max_instances = max_instances
         self._max_length = max_length
 
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_dir + encoder_model)
-        self.use_entity_vocab = use_entity_vocab
-        if self.use_entity_vocab:
+        self.entity_vocab = entity_vocab
+        if self.entity_vocab:
             self._setup_entity_vocab()
 
         self.cls_token = self.tokenizer.special_tokens_map['cls_token']
@@ -43,8 +43,6 @@ class CoNLLReader(Dataset):
         self.type_count = defaultdict(int)
     
     def _setup_entity_vocab(self):
-        self.entity_tokenizer = LukeTokenizer.from_pretrained("studio-ousia/luke-base")
-        self.entity_vocab = copy.deepcopy(self.entity_tokenizer.entity_vocab)
         self.entity_automation = ahocorasick.Automaton()
         tmp = dict()
         for k in self.entity_vocab:
@@ -158,7 +156,7 @@ class CoNLLReader(Dataset):
         assert(self.tokenizer(sentence_str)["input_ids"] == tokens_sub_rep)
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
-        if self.use_entity_vocab:
+        if self.entity_vocab:
             entity_ans = self._search_entity(sentence_str)
             print(entity_ans)
             for idx, token in enumerate(entity_ans):
@@ -180,6 +178,8 @@ class CoNLLReader(Dataset):
 
 if __name__ == "__main__":
     from utils.util import wnut_iob
+    tokenizer = LukeTokenizer.from_pretrained("studio-ousia/luke-base")
+    entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
     conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob)
     train_file = "./training_data/EN-English/en_train.conll"
     conll_reader.read_data(train_file)
