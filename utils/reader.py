@@ -75,7 +75,7 @@ class CoNLLReader(Dataset):
             elif original_value in words:
                 if len(original_value) > 1:
                     tree.add(Interval(start_index, end_index)) 
-        for interval in tree.items():
+        for interval in sorted(tree.items()):
             ans.append(sentence[interval.begin: interval.end+1])
             ans.append("$")
         if len(ans) and ans[-1] == "$": 
@@ -180,7 +180,7 @@ if __name__ == "__main__":
     from utils.util import wnut_iob
     tokenizer = LukeTokenizer.from_pretrained("studio-ousia/luke-base")
     entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
-    conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob)
+    conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob, entity_vocab=entity_vocab)
     train_file = "./training_data/EN-English/en_train.conll"
     conll_reader.read_data(train_file)
     for batch in conll_reader.instances:
