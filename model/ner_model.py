@@ -14,6 +14,7 @@ from allennlp.modules.conditional_random_field import allowed_transitions
 from torch import nn
 from torch.utils.data import DataLoader
 from transformers import get_linear_schedule_with_warmup, AutoModel
+from transformers.models import trocr
 from transformers.utils.dummy_pt_objects import RobertaForTokenClassification
 from transformers import *
 from transformers.utils.dummy_tf_objects import WarmUp
@@ -81,18 +82,20 @@ class NERBaseAnnotator(pl.LightningModule):
         token_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.pad_token_id)
         tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.tag_to_id['O'])
         mask_tensor = torch.zeros(size=(len(tokens), max_len), dtype=torch.bool)
+        tag_len_tensor = torch.zeros(size=(len(tokens),), dtype=torch.long)
 
         for i in range(len(tokens)):
             tokens_ = tokens[i]
             seq_len = len(tokens_)
             tag_len = len(tags[i])
             token_tensor[i, :seq_len] = tokens_
+            tag_len_tensor[i] = tag_len
             
             tag_tensor[i, :tag_len] = tags[i]
             tag_tensor[i, tag_len:].fill_(-100)
             mask_tensor[i, :seq_len] = masks[i]
 
-        return token_tensor, tag_tensor, mask_tensor, gold_spans, subtoken_pos_to_raw_pos
+        return token_tensor, tag_tensor, mask_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor
 
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr, weight_decay=0.01)
@@ -158,7 +161,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.log(suffix + 'loss', loss, on_step=on_step, on_epoch=on_epoch, prog_bar=True, logger=True)
 
     def perform_forward_step(self, batch, mode=''):
-        tokens, tags, token_mask, metadata, subtoken_pos_to_raw_pos = batch
+        tokens, tags, token_mask, metadata, subtoken_pos_to_raw_pos, tag_len = batch
         batch_size = tokens.size(0)
 
         outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags)
@@ -167,12 +170,12 @@ class NERBaseAnnotator(pl.LightningModule):
         token_scores = outputs.logits
         loss = outputs.loss
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
-                                          metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode)
+                                          metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
         if not output['loss']:
             output['loss'] = loss
         return output
 
-    def _compute_token_tags(self, token_scores, tags, token_mask, metadata, subtoken_pos_to_raw_pos, batch_size, mode=''):
+    def _compute_token_tags(self, token_scores, tags, token_mask, metadata, subtoken_pos_to_raw_pos, batch_size, tag_lens, mode=''):
         if self.use_crf:
         # compute the log-likelihood loss and compute the best NER annotation sequence
             loss = -self.crf_layer(token_scores, tags, token_mask) / float(batch_size)
@@ -184,11 +187,12 @@ class NERBaseAnnotator(pl.LightningModule):
         pred_results = []
         raw_pred_results = []
         for i in range(batch_size):
+            tag_len = tag_lens[i].item()
             if self.use_crf:
                 tag_seq, _ = best_path[i]
+                tag_seq = tag_seq[:tag_len]
             else:
-                tag_len = torch.count_nonzero(token_mask, -1).cpu().numpy()
-                tag_seq = best_path[i].cpu().numpy()[0:tag_len[i]]
+                tag_seq = best_path[i].cpu().numpy()[0:tag_len]
             pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag], subtoken_pos_to_raw_pos))
             raw_pred_results.append([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag])
         output = {"loss": loss, "pred_results": pred_results, "raw_pred_results": raw_pred_results}

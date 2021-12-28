@@ -170,7 +170,7 @@ class CoNLLReader(Dataset):
                     rep_ = self.tokenizer(" " + token.lower())['input_ids']
                 rep_ = rep_[1:-1] #why? the first id is <s>, and the last id is </s>, so we eliminate them
                 tokens_sub_rep.extend(rep_)
-        
+            
             tokens_sub_rep.append(self.sep_token_id)
         token_masks_rep = [True] * len(tokens_sub_rep)
         #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
