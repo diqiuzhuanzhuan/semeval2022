@@ -6,7 +6,6 @@ from torch.utils.data import Dataset
 from transformers import AutoTokenizer, LukeTokenizer
 import copy
 import ahocorasick
-from transformers.models.luke.tokenization_luke import EntityInput
 from intervaltree import IntervalTree, Interval
 
 from log import logger
@@ -53,7 +52,7 @@ class CoNLLReader(Dataset):
         self.entity_automation.make_automaton()
 
     def _search_entity(self, sentence: str):
-        ans = []
+        ans = ["$"]
         words = set(sentence.split(" "))
         tree = IntervalTree()
         for end_index, (insert_order, original_value) in self.entity_automation.iter(sentence):
@@ -78,8 +77,8 @@ class CoNLLReader(Dataset):
         for interval in sorted(tree.items()):
             ans.append(sentence[interval.begin: interval.end+1])
             ans.append("$")
-        if len(ans) and ans[-1] == "$": 
-            ans.pop(-1)
+        if len(ans) == 1:
+            ans = []
         return ans
 
 

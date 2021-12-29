@@ -56,7 +56,6 @@ class NERBaseAnnotator(pl.LightningModule):
 
         self.encoder_model = encoder_model
         self.encoder = AutoModelForTokenClassification.from_pretrained(encoder_model, num_labels=self.target_size, classifier_dropout=dropout_rate)
-
         if self.use_crf:
             self.crf_layer = ConditionalRandomField(num_tags=self.target_size, constraints=allowed_transitions(constraint_type="BIO", labels=self.id_to_tag))
 
