@@ -99,7 +99,7 @@ def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_fil
             input_ids = batch[0][i]
             pred_token_tag = pred_result[i]
             raw_pred_token_tag = raw_pred_results[i]
-            metadata_token_tag = batch[3][i]
+            metadata_token_tag = batch[5][i]
             meta_labels = []
             pred_labels = []
             sentence_subtokens = test_data.tokenizer.convert_ids_to_tokens(input_ids)

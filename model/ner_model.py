@@ -167,7 +167,7 @@ class NERBaseAnnotator(pl.LightningModule):
         tokens, tags, token_mask, position_ids, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len = batch
         batch_size = tokens.size(0)
 
-        outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags, position_ids=position_ids, token_type_ids=token_type_ids)
+        outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags, position_ids=position_ids)
 
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
