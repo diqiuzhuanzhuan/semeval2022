@@ -75,13 +75,15 @@ class NERBaseAnnotator(pl.LightningModule):
 
     def collate_batch(self, batch):
         batch_ = list(zip(*batch))
-        tokens, masks, gold_spans, tags, subtoken_pos_to_raw_pos = batch_[0], batch_[1], batch_[2], batch_[3], batch_[4]
+        tokens, masks, gold_spans, tags, subtoken_pos_to_raw_pos, position_ids, token_type_ids = batch_[0], batch_[1], batch_[2], batch_[3], batch_[4], batch_[5], batch_[6]
 
         max_len = max([len(token) for token in tokens])
         token_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.pad_token_id)
         tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.tag_to_id['O'])
         mask_tensor = torch.zeros(size=(len(tokens), max_len), dtype=torch.bool)
         tag_len_tensor = torch.zeros(size=(len(tokens),), dtype=torch.long)
+        position_ids_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(0)
+        token_type_ids_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(0)
 
         for i in range(len(tokens)):
             tokens_ = tokens[i]
@@ -93,8 +95,10 @@ class NERBaseAnnotator(pl.LightningModule):
             tag_tensor[i, :tag_len] = tags[i]
             tag_tensor[i, tag_len:].fill_(-100)
             mask_tensor[i, :seq_len] = masks[i]
+            position_ids_tensor[i, :seq_len] = position_ids[i]
+            token_type_ids_tensor[i, :seq_len] = token_type_ids[i]
 
-        return token_tensor, tag_tensor, mask_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor
+        return token_tensor, tag_tensor, mask_tensor, position_ids_tensor, token_type_ids_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor
 
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr, weight_decay=0.01)
@@ -160,10 +164,10 @@ class NERBaseAnnotator(pl.LightningModule):
         self.log(suffix + 'loss', loss, on_step=on_step, on_epoch=on_epoch, prog_bar=True, logger=True)
 
     def perform_forward_step(self, batch, mode=''):
-        tokens, tags, token_mask, metadata, subtoken_pos_to_raw_pos, tag_len = batch
+        tokens, tags, token_mask, position_ids, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len = batch
         batch_size = tokens.size(0)
 
-        outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags)
+        outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags, position_ids=position_ids, token_type_ids=token_type_ids)
 
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
