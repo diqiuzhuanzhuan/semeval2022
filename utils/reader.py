@@ -52,7 +52,7 @@ class CoNLLReader(Dataset):
         self.entity_automation.make_automaton()
 
     def _search_entity(self, sentence: str):
-        ans = ["$"]
+        ans = []
         words = set(sentence.split(" "))
         tree = IntervalTree()
         for end_index, (insert_order, original_value) in self.entity_automation.iter(sentence):
@@ -77,8 +77,8 @@ class CoNLLReader(Dataset):
         for interval in sorted(tree.items()):
             ans.append(sentence[interval.begin: interval.end+1])
             ans.append("$")
-        if len(ans) == 1:
-            ans = []
+        if len(ans) and ans[-1] == "$": 
+            ans.pop(-1)
         return ans
 
 
