@@ -117,16 +117,15 @@ class CoNLLReader(Dataset):
 
     def parse_line_for_ner(self, fields):
         tokens_, ner_tags = fields[0], fields[-1]
-        sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, position_ids, token_type_ids = self.parse_tokens_for_ner(tokens_, ner_tags)
+        sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids = self.parse_tokens_for_ner(tokens_, ner_tags)
         gold_spans_ = extract_spans(ner_tags_rep, subtoken_pos_to_raw_pos)
         coded_ner_ = [self.label_to_id[tag] for tag in ner_tags_rep]
 
-        return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, position_ids, token_type_ids
+        return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids
 
     def parse_tokens_for_ner(self, tokens_, ner_tags):
         sentence_str = ''
         tokens_sub_rep, ner_tags_rep = [self.cls_token_id], ['O']
-        position_ids = []
         token_type_ids = []
         pos_to_single_word = dict()
         subtoken_pos_to_raw_pos = []
@@ -175,13 +174,10 @@ class CoNLLReader(Dataset):
             
             tokens_sub_rep.append(self.sep_token_id)
         token_masks_rep = [True] * len(tokens_sub_rep)
-        for i in range(len(tokens_sub_rep)):
-            position_ids.append(i)
         token_type_ids.extend([1] * (len(tokens_sub_rep) - len(token_type_ids)))
         #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
-        assert(len(token_type_ids) == len(tokens_sub_rep))
         
-        return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, position_ids, token_type_ids
+        return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids
 
 
 if __name__ == "__main__":
