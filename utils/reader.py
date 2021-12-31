@@ -108,10 +108,9 @@ class CoNLLReader(Dataset):
             #tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
             tag_tensor = torch.tensor(coded_ner_, dtype=torch.long)
             token_masks_rep = torch.tensor(token_masks_rep)
-            position_ids_tensor = torch.tensor(position_ids, dtype=torch.long)
             token_type_ids_tensor = torch.tensor(token_type_ids, dtype=torch.long)
 
-            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, position_ids_tensor, token_type_ids_tensor))
+            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor))
             instance_idx += 1
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
