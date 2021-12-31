@@ -102,7 +102,7 @@ class CoNLLReader(Dataset):
         for fields, metadata in get_ner_reader(data=data):
             if self._max_instances != -1 and instance_idx > self._max_instances:
                 break
-            sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, position_ids, token_type_ids = self.parse_line_for_ner(fields=fields)
+            sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids = self.parse_line_for_ner(fields=fields)
             self.sentences.append(sentence_str)
             tokens_tensor = torch.tensor(tokens_sub_rep, dtype=torch.long)
             #tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
