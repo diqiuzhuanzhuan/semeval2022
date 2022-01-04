@@ -19,7 +19,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
 class LukeCoNLLReader(Dataset):
-    def __init__(self, max_instances=-1, max_length=60, target_vocab=None, pretrained_dir='', encoder_model='xlm-roberta-large'):
+    def __init__(self, max_instances=32, max_length=-1, target_vocab=None, pretrained_dir='', encoder_model='xlm-roberta-large'):
         self._max_instances = max_instances
         self._max_length = max_length
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_dir + encoder_model, task="entity_span_classification")
