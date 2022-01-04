@@ -1,5 +1,4 @@
 from collections import defaultdict
-import intervaltree
 import torch
 from torch.utils.data import Dataset
 
@@ -40,6 +39,7 @@ class CoNLLReader(Dataset):
         self.pos_to_single_word_maps = []
         self.ner_tags = []
         self.type_count = defaultdict(int)
+        self.label_entities = defaultdict(int)
     
     def _setup_entity_vocab(self):
         self.entity_automation = ahocorasick.Automaton()
@@ -114,7 +114,27 @@ class CoNLLReader(Dataset):
             instance_idx += 1
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
+    def _entity_record(self, fields):
+        tokens_, ner_tags = fields[0], fields[-1]
+        entity = ""
+        for token, ner_tag in zip(tokens_, ner_tags):
+            if ner_tag.startswith("B-"):
+                entity = token
+            elif ner_tag.startswith("I-") or ner_tag.startswith("E-"):
+                entity = entity + " " + token
+            elif ner_tag.startswith("O"):
+                if entity:
+                    self.label_entities[entity] += 1
+                    entity = ""  
+            elif ner_tag.startswith("S-"):
+                entity = token
+                self.label_entities[entity] += 1
+                entity = ""
+        if entity:
+            self.label_entities[entity] += 1
+
     def parse_line_for_ner(self, fields):
+        self._entity_record(fields)
         tokens_, ner_tags = fields[0], fields[-1]
         sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids = self.parse_tokens_for_ner(tokens_, ner_tags)
         gold_spans_ = extract_spans(ner_tags_rep, subtoken_pos_to_raw_pos)
@@ -185,7 +205,12 @@ if __name__ == "__main__":
     entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
     conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob, entity_vocab=entity_vocab)
     train_file = "./training_data/EN-English/en_train.conll"
-    conll_reader.read_data(train_file)
+    dev_file = "./training_data/EN-English/en_dev.conll"
+    conll_reader.read_data(dev_file)
     for batch in conll_reader.instances:
         pass
+    for entity in conll_reader.label_entities:
+        if entity in conll_reader.entity_vocab:
+            print(entity)
+            
     
