@@ -15,7 +15,7 @@ import transformers
 from torch.utils.data import DataLoader
 from log import logger
 from model.ner_model import NERBaseAnnotator
-from model.luke_model import LukeNer
+from model.luke_model import LukeNer, negative_sample
 from utils.reader import CoNLLReader
 from utils.conll_reader import LukeCoNLLReader
 
@@ -146,9 +146,9 @@ def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, en
     return reader
 
 
-def create_model(train_data, dev_data, tag_to_id, batch_size=64, dropout_rate=0.1, stage='fit', lr=1e-5, encoder_model='xlm-roberta-large', num_gpus=1, use_crf=False):
+def create_model(train_data, dev_data, tag_to_id, batch_size=64, dropout_rate=0.1, stage='fit', lr=1e-5, encoder_model='xlm-roberta-large', num_gpus=1, use_crf=False, negative_sample=False):
     if "luke" in encoder_model:
-        return LukeNer(encoder_model=encoder_model, batch_size=batch_size, lr=lr, dropout_rate=dropout_rate, train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id)
+        return LukeNer(encoder_model=encoder_model, batch_size=batch_size, lr=lr, dropout_rate=dropout_rate, train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id, negative_sample=negative_sample)
     else:
         return NERBaseAnnotator(train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id, batch_size=batch_size, stage=stage, encoder_model=encoder_model,
                             dropout_rate=dropout_rate, lr=lr, pad_token_id=train_data.pad_token_id, num_gpus=num_gpus, use_crf=use_crf)

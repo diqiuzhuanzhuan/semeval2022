@@ -43,7 +43,7 @@ class LukeNer(pl.LightningModule):
                  train_data: LukeCoNLLReader=None,
                  dev_data: LukeCoNLLReader=None,
                  tag_to_id=None,
-                 negative_sample=True,
+                 negative_sample=False,
                  stage='fit'
                  ):
         super(LukeNer, self).__init__()
@@ -203,8 +203,8 @@ class LukeNer(pl.LightningModule):
                     else:
                         if final_res[word_start_index+idx][-1] == "O":
                             final_res[word_start_index+idx] = (word, 'I-'+label)
-            assert(sentence == " ".join([_[0] for _ in final_res]))
-            assert(len(tokens[i]) == len(final_res))
+            #assert(sentence == " ".join([_[0] for _ in final_res]))
+            #assert(len(tokens[i]) == len(final_res))
             batch_final_res.append(final_res)
             y_true.append({(i, i+1): tag for i, tag in enumerate(ner_tags[i])})
             y_pred.append({(i, i+1): tag[1] for i, tag in enumerate(final_res)})
