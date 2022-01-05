@@ -162,9 +162,6 @@ class LukeNer(pl.LightningModule):
     def perform_forward_step(self, batch, mode=''):
         inputs, tokens, ner_tags, entity_spans, sentence_str = batch
         outputs = self.encoder(**inputs)
-        loss_fct = torch.nn.CrossEntropyLoss()
-        loss = loss_fct(outputs.logits.view(-1, self.num_labels), inputs["labels"].view(-1))
-        outputs["loss"] = loss
         batch_size = len(entity_spans)
         batch_final_res = []
         y_true = []
@@ -208,7 +205,7 @@ class LukeNer(pl.LightningModule):
             batch_final_res.append(final_res)
             y_true.append({(i, i+1): tag for i, tag in enumerate(ner_tags[i])})
             y_pred.append({(i, i+1): tag[1] for i, tag in enumerate(final_res)})
-        outputs["y_pred"] = batch_final_res
+        outputs["pred_result"] = batch_final_res
         if mode == 'val':
             self.val_span_f1(y_true, y_pred)
             outputs["results"] = self.val_span_f1.get_metric()

@@ -77,7 +77,7 @@ def write_eval_performance(eval_performance, out_file):
     open(out_file, 'wt').write(outstr)
     logger.info('Finished writing evaluation performance for {}'.format(out_file))
 
-def write_submit_result(model: Union(NERBaseAnnotator, LukeNer), test_data: CoNLLReader, out_file: str):
+def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: CoNLLReader, out_file: str):
     path = os.path.dirname(out_file)
     if path and not os.path.exists(path):
         os.makedirs(path)
