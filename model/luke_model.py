@@ -12,23 +12,22 @@ from utils.conll_reader import LukeCoNLLReader
 from utils.metric import SpanF1
 from intervaltree import Interval, IntervalTree
 
-def negative_sample(label: torch.Tensor, sample_length: List[int], max_negative_positive_radio: 3, negative_label):
+def negative_sample(label: torch.Tensor, sample_length: List[int], max_negative_positive_radio: 0, negative_label):
     batch_size, label_len = label.size()[0], label.size()[1]
     sample_index = []
-    labels_tensor = label.clone().detach()
+    labels_tensor = torch.empty(size=(batch_size, label_len), dtype=torch.long).fill_(-100)
     for i in range(batch_size):
         actual_label = label[i][0:sample_length[i]]
         index = (actual_label == negative_label).nonzero(as_tuple=True)[0]
         positive_sample_index = (actual_label != negative_label).nonzero(as_tuple=True)[0].tolist()
         positive_sample = len(positive_sample_index)
-        max_negative_sample = max(min(round(positive_sample * max_negative_positive_radio), sample_length[i] - positive_sample), 5)
+        max_negative_sample = max(min(round(positive_sample * max_negative_positive_radio), sample_length[i] - positive_sample), 1)
         sample_negative_index = torch.randperm(len(index))[:max_negative_sample].tolist()
         sample_negative_index.extend(positive_sample_index)
         sample_index.append(sample_negative_index)
         if len(sample_negative_index) == 0:
-            print(positive_sample)
             pass
-        labels_tensor[i][sample_negative_index] = labels_tensor[i][sample_negative_index]
+        labels_tensor[i][0:len(sample_negative_index)] = label[i][sample_negative_index]
         
 
     return sample_index, labels_tensor
@@ -92,7 +91,7 @@ class LukeNer(pl.LightningModule):
             labels_tensor[i, :length] = torch.tensor(labels[i])
         outputs = self.tokenizer(sentence_str, entity_spans=entity_spans, return_tensors="pt", max_length=self.max_length, padding=True, max_entity_length=max_label_len, truncation=True)
         if self.negative_sample:
-            label_index, labels_tensor = negative_sample(label=labels_tensor, sample_length=[len(_) for _ in entity_spans], max_negative_positive_radio=0.3, negative_label=self.label_to_id['O'])
+            label_index, labels_tensor = negative_sample(label=labels_tensor, sample_length=[len(_) for _ in entity_spans], max_negative_positive_radio=5, negative_label=self.label_to_id['O'])
             sample_entity_spans = []
             for i in range(batch_size):
                 _entity_spans = [entity_spans[i][j] for j in label_index[i]]
@@ -165,7 +164,6 @@ class LukeNer(pl.LightningModule):
         outputs = self.encoder(**inputs)
         loss_fct = torch.nn.CrossEntropyLoss()
         loss = loss_fct(outputs.logits.view(-1, self.num_labels), inputs["labels"].view(-1))
-        print(loss, outputs["loss"])
         outputs["loss"] = loss
         batch_size = len(entity_spans)
         batch_final_res = []
@@ -175,36 +173,36 @@ class LukeNer(pl.LightningModule):
             sentence = sentence_str[i]
             spans = entity_spans[i]
             best = outputs.logits[i].max(dim=-1)
-            best_score = best.values.tolist()
-            best_indices = best.indices.tolist()
+            best_score = best.values.tolist()[0:len(spans)]
+            best_indices = best.indices.tolist()[0:len(spans)]
             predictions = sorted([(score, index, span) for score, index, span in zip(best_score, best_indices, spans)], key=lambda k: k[0], reverse=True)
             interval_tree = IntervalTree()
             predict_res = []
             for _, predict_id, span in predictions:
-                if interval_tree.overlap(span[0], span[1]):
+                if self.id_to_label[predict_id] == "O":
                     continue
+                #if interval_tree.overlap(span[0], span[1]):
+                #    continue
                 predict_res.append((span, self.id_to_label[predict_id]))
                 interval_tree.add(Interval(span[0], span[1]))
-            final_res = []
+            final_res = [(word, "O") for word in sentence.split(" ")]
             for span, label in sorted(predict_res, key=lambda k: k[0][0]):
+                if span[0] != 0:
+                    word_start_index = len(sentence[0:span[0]-1].rstrip(" ").split(" "))
+                else:
+                    word_start_index = 0
                 entity_words = sentence[span[0]: span[1]].split(" ")
+                if not all([o == 'O' for _, o in final_res[word_start_index:word_start_index+len(entity_words)]]):
+                    continue
                 for idx, word in enumerate(entity_words):
                     if label.startswith("O"):
-                        final_res.append((word, label))
                         continue
                     if idx == 0:
-                        final_res.append((word, 'B-'+label))
+                        if final_res[word_start_index+idx][-1] == "O":
+                            final_res[word_start_index] = (word, "B-"+label)
                     else:
-                        final_res.append((word, 'I-'+label))
-            new_final_res = []
-            for k in range(len(tokens[i])):
-                j = 0
-                if tokens[i][k] != final_res[j][0]:
-                    new_final_res.append((tokens[i][k], "O"))
-                else:
-                    new_final_res.append(final_res[j])
-                    j += 1
-            final_res = new_final_res
+                        if final_res[word_start_index+idx][-1] == "O":
+                            final_res[word_start_index+idx] = (word, 'I-'+label)
             assert(sentence == " ".join([_[0] for _ in final_res]))
             assert(len(tokens[i]) == len(final_res))
             batch_final_res.append(final_res)
@@ -231,11 +229,11 @@ if  __name__ == "__main__":
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = luke_iob
     use_crf = True
-    train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=32, max_length=100)
-    dev_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=32, max_length=100)
+    train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=16, max_length=100)
+    dev_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=16, max_length=100)
 
     model = create_model(train_data=train_data, dev_data=train_data, tag_to_id=iob_tagging,
-                     dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
+                     dropout_rate=0.1, batch_size=1, stage='fit', lr=2e-5,
                      encoder_model=encoder_model, num_gpus=1, use_crf=False)
 
-    trainer = train_model(model=model, out_dir=output_dir, epochs=20, monitor="f1")
+    trainer = train_model(model=model, out_dir=output_dir, epochs=50, monitor="f1")

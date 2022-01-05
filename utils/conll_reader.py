@@ -82,7 +82,7 @@ class LukeCoNLLReader(Dataset):
         labels = []
         for i, start_pos in enumerate(start_positions):
             for end_pos in end_positions[i:]:
-                if sentence[start_pos: end_pos].count(" ") > 4:
+                if sentence[start_pos: end_pos].count(" ") > 7:
                     continue
                 entity_spans.append((start_pos, end_pos))
                 labels.append(self.label_to_id[entity_span_labels.get((start_pos, end_pos), 'O')])
@@ -158,7 +158,7 @@ if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
     conll_reader.read_data(train_file)
     print(conll_reader.max_len_entity)
-    data_loader = DataLoader(conll_reader, batch_size=16, collate_fn=collate_batch)
+    data_loader = DataLoader(conll_reader, batch_size=1, collate_fn=collate_batch)
     model = LukeForEntitySpanClassification.from_pretrained("studio-ousia/luke-base", num_labels=len(luke_iob))
     from intervaltree import Interval, IntervalTree
     id_to_label = {v: k for k, v in luke_iob.items()}
