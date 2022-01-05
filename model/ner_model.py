@@ -73,7 +73,14 @@ class NERBaseAnnotator(pl.LightningModule):
 
             self.warmup_steps = int(self.total_steps * 0.01)
 
-    def collate_batch(self, batch):
+    
+    def collate_batch(self, mode='val'):
+        if mode == 'fit':
+            return self.train_collate_batch
+        else:
+            return self.train_collate_batch
+
+    def train_collate_batch(self, batch):
         batch_ = list(zip(*batch))
         tokens, masks, gold_spans, tags, subtoken_pos_to_raw_pos, token_type_ids = batch_[0], batch_[1], batch_[2], batch_[3], batch_[4], batch_[5]
 
