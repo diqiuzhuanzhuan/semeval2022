@@ -94,7 +94,7 @@ def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: Unio
         pred_result = output["pred_results"]
         if isinstance(model, LukeNer):
             ner_tags_ = batch[2]
-            for i in range(batch_size):
+            for i in range(len(pred_result)):
                 for (word, pred_label), y_true in zip(pred_result[i], ner_tags_[i]):
                     record_data["word"].append(word)
                     record_data["label"].append(y_true)
@@ -104,7 +104,7 @@ def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: Unio
             
             continue
         raw_pred_results = output["raw_pred_results"]
-        for i in range(batch_size):
+        for i in range(len(pred_result)):
             sentence = sentences[idx*batch_size+i]
             pos_to_singel_word = pos_to_singel_word_map[idx*batch_size+i]
             ner_tag = ner_tags[idx*batch_size+i]
