@@ -3,6 +3,7 @@ import collections
 from json import encoder
 import os
 import time
+from typing import Union
 import pandas as pd
 import torch
 from pytorch_lightning import seed_everything
@@ -76,7 +77,7 @@ def write_eval_performance(eval_performance, out_file):
     open(out_file, 'wt').write(outstr)
     logger.info('Finished writing evaluation performance for {}'.format(out_file))
 
-def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_file: str):
+def write_submit_result(model: Union(NERBaseAnnotator, LukeNer), test_data: CoNLLReader, out_file: str):
     path = os.path.dirname(out_file)
     if path and not os.path.exists(path):
         os.makedirs(path)
@@ -91,6 +92,14 @@ def write_submit_result(model: NERBaseAnnotator, test_data: CoNLLReader, out_fil
     for idx, batch in enumerate(test_dataloader):
         output = model.perform_forward_step(batch)
         pred_result = output["pred_results"]
+        if isinstance(model, LukeNer):
+            for (word, pred_label), y_true in zip(pred_result, ner_tags[idx]):
+                record_data["word"].append(word)
+                record_data["label"].append(y_true)
+                record_data["pred"].append(pred_label)
+                f.write("{}\n".format(word_pred_tag))
+            f.write("\n")
+            continue
         raw_pred_results = output["raw_pred_results"]
         for i in range(batch_size):
             sentence = sentences[idx*batch_size+i]
