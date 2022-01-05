@@ -77,12 +77,12 @@ def write_eval_performance(eval_performance, out_file):
     open(out_file, 'wt').write(outstr)
     logger.info('Finished writing evaluation performance for {}'.format(out_file))
 
-def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: CoNLLReader, out_file: str):
+def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: Union[CoNLLReader, LukeCoNLLReader], out_file: str):
     path = os.path.dirname(out_file)
     if path and not os.path.exists(path):
         os.makedirs(path)
     batch_size = 8
-    test_dataloader = DataLoader(test_data, batch_size=batch_size, collate_fn=model.collate_batch)
+    test_dataloader = DataLoader(test_data, batch_size=batch_size, collate_fn=model.collate_batch(mode='val'))
     sentences = test_data.sentences
     ner_tags = test_data.ner_tags
     pos_to_singel_word_map = test_data.pos_to_single_word_maps
