@@ -39,6 +39,7 @@ class CoNLLReader(Dataset):
         self.pos_to_single_word_maps = []
         self.ner_tags = []
         self.type_count = defaultdict(int)
+        self.type_to_entityset = defaultdict(set)
         self.label_entities = defaultdict(int)
     
     def _setup_entity_vocab(self):
@@ -117,21 +118,28 @@ class CoNLLReader(Dataset):
     def _entity_record(self, fields):
         tokens_, ner_tags = fields[0], fields[-1]
         entity = ""
+        tag = ""
         for token, ner_tag in zip(tokens_, ner_tags):
             if ner_tag.startswith("B-"):
                 entity = token
+                tag = ner_tag[2:]
             elif ner_tag.startswith("I-") or ner_tag.startswith("E-"):
                 entity = entity + " " + token
+                assert(tag == ner_tag[2:])
             elif ner_tag.startswith("O"):
                 if entity:
                     self.label_entities[entity] += 1
+                    self.type_to_entityset[tag].add(entity)
                     entity = ""  
             elif ner_tag.startswith("S-"):
                 entity = token
+                tag = ner_tag[2:]
                 self.label_entities[entity] += 1
+                self.type_to_entityset[tag].add(entity)
                 entity = ""
         if entity:
             self.label_entities[entity] += 1
+            self.type_to_entityset[tag].add(entity)
 
     def parse_line_for_ner(self, fields):
         self._entity_record(fields)
@@ -206,11 +214,9 @@ if __name__ == "__main__":
     conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob, entity_vocab=entity_vocab)
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
-    conll_reader.read_data(dev_file)
-    for batch in conll_reader.instances:
-        pass
-    for entity in conll_reader.label_entities:
-        if entity in conll_reader.entity_vocab:
-            print(entity)
+    conll_reader.read_data(train_file)
+    for k in conll_reader.type_to_entityset:
+        print(k, len(conll_reader.type_to_entityset[k]))
+
             
     

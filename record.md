@@ -1,15 +1,15 @@
 ### baseline 选择
 
-| model                   | hyparametre                           | params | f1    |      |
-| ----------------------- | ------------------------------------- | ------ | ----- | ---- |
-| distilbert-base-uncased | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 66.4M  | 0.835 |      |
-| robert-base             | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 128M   | 0.826 |      |
-| roberta-large           | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 335M   | 0.821 |      |
-| distilroberta-base      | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 82.1M  | 0.747 |      |
-| bert-base-uncased       | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 190M   | 0.855 |      |
-|                         |                                       |        |       |      |
+| model                                 | hyparametre                           | params | f1    |      |
+| ------------------------------------- | ------------------------------------- | ------ | ----- | ---- |
+| distilbert-base-uncased               | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 66.4M  | 0.835 |      |
+| robert-base                           | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 128M   | 0.826 |      |
+| roberta-large                         | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 335M   | 0.821 |      |
+| distilroberta-base                    | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 82.1M  | 0.747 |      |
+| bert-base-uncased                     | lr:2e-5, max_epoch: 20, drop_out: 0.1 | 190M   | 0.855 |      |
+| bert-large-uncased-whole-word-masking |                                       |        | 0.871 |      |
 
-baseline选择bert-base-uncased
+baseline选择bert-large-uncased-whole-word-masking
 
 ### 预训练加成实验
 
@@ -20,7 +20,7 @@ baseline选择bert-base-uncased
 | regular | masked radio:0.15 steps:50000,batch_size=32  | lr:2e-5,max_epoch=20,drop_out:0.1      | 0.860 |
 | wwm     | masked_radio:0.15 steps:2000,batch_size=32   | lr:2e-5,max_epoch=20,drop_out:0.1      | 0.859 |
 | wwm     | masked_radio:0.15 steps:20000,batch_size=32  | lr:2e-5,max_epoch=20,drop_out:0.1      | 0.854 |
-| wwm     | masked_radio:0.15 steps:20000,batch_size=32  | lr:2e-[5](),max_epoch=20,drop_out:0.15 | 0.860 |
+| wwm     | masked_radio:0.15 steps:20000,batch_size=32  | lr:2e-5,max_epoch=20,drop_out:0.15     | 0.860 |
 |         |                                              |                                        |       |
 
 预训练加成不大，尤其是wwm相对于普通的预训练几乎是0提升的。预训练带来比较好的影响是，和官方F1计算的差值大大缩小。
@@ -117,5 +117,13 @@ CW:
 
 2. 错误标注问题，例如television film，其实不是作品
 
+### 融合openentity字典实验
 
+| model                                              | setting           | F1     |      |
+| -------------------------------------------------- | ----------------- | ------ | ---- |
+| bert-large-uncased-whole-word-masking+entity_vocab | No entity order   | 0.8924 |      |
+| bert-large-uncased-whole-word-masking+entity_vocab | keep entity order | 0.895  |      |
+|                                                    |                   |        |      |
+|                                                    |                   |        |      |
 
+做entity order的实验原因是发现
