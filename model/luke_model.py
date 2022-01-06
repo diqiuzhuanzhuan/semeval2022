@@ -173,17 +173,9 @@ class LukeNer(pl.LightningModule):
             best_score = best.values.tolist()[0:len(spans)]
             best_indices = best.indices.tolist()[0:len(spans)]
             predictions = sorted([(score, index, span) for score, index, span in zip(best_score, best_indices, spans)], key=lambda k: k[0], reverse=True)
-            interval_tree = IntervalTree()
-            predict_res = []
-            for _, predict_id, span in predictions:
-                if self.id_to_label[predict_id] == "O":
-                    continue
-                #if interval_tree.overlap(span[0], span[1]):
-                #    continue
-                predict_res.append((span, self.id_to_label[predict_id]))
-                interval_tree.add(Interval(span[0], span[1]))
             final_res = [(word, "O") for word in sentence.split(" ")]
-            for span, label in sorted(predict_res, key=lambda k: k[0][0]):
+            for score, predict_id, span in sorted(predictions, key=lambda k: k[0], reverse=True):
+                label = self.id_to_label[predict_id]
                 if span[0] != 0:
                     word_start_index = len(sentence[0:span[0]-1].rstrip(" ").split(" "))
                 else:
