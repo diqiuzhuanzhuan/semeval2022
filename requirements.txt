@@ -1,3 +1,5 @@
+cloud-tpu-client==0.10 
+torch_xla==https://storage.googleapis.com/tpu-pytorch/wheels/torch_xla-1.9-cp37-cp37m-linux_x86_64.whl
 absl-py==0.9
 aiohttp==3.8.1
 aiosignal==1.2.0
@@ -136,7 +138,7 @@ PySocks==1.7.1
 pytest==6.2.5
 python-dateutil==2.8.2
 python-docx==0.8.11
-pytorch-lightning==1.5.1
+pytorch-lightning
 pytz==2021.3
 PyYAML==6.0
 pyzmq==22.3.0
