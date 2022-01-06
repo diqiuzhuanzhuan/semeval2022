@@ -90,6 +90,12 @@ class LukeNer(pl.LightningModule):
             length = len(labels[i])
             labels_tensor[i, :length] = torch.tensor(labels[i])
         outputs = self.tokenizer(sentence_str, entity_spans=entity_spans, return_tensors="pt", max_length=self.max_length, padding=True, max_entity_length=max_label_len, truncation=True)
+        for i in range(batch_size):
+            for idx in range(len(entity_spans[i])):
+                span = entity_spans[i][idx]
+                entity = sentence_str[i][span[0]:span[1]]
+                if entity in self.tokenizer.entity_vocab:
+                    outputs["entity_ids"][i][idx] = self.tokenizer.entity_vocab[entity]
         if self.negative_sample:
             label_index, labels_tensor = negative_sample(label=labels_tensor, sample_length=[len(_) for _ in entity_spans], max_negative_positive_radio=5, negative_label=self.label_to_id['O'])
             sample_entity_spans = []
@@ -113,6 +119,12 @@ class LukeNer(pl.LightningModule):
             length = len(labels[i])
             labels_tensor[i, :length] = torch.tensor(labels[i])
         outputs = self.tokenizer(sentence_str, entity_spans=entity_spans, return_tensors="pt", max_length=self.max_length, padding=True, max_entity_length=max_label_len, truncation=True)
+        for i in range(batch_size):
+            for idx in range(len(entity_spans[i])):
+                span = entity_spans[i][idx]
+                entity = sentence_str[i][span[0]:span[1]]
+                if entity in self.tokenizer.entity_vocab:
+                    outputs["entity_ids"][i][idx] = self.tokenizer.entity_vocab[entity]
         outputs["labels"] = labels_tensor
         return outputs, tokens, ner_tags, entity_spans, sentence_str
 
@@ -174,8 +186,10 @@ class LukeNer(pl.LightningModule):
             best_indices = best.indices.tolist()[0:len(spans)]
             predictions = sorted([(score, index, span) for score, index, span in zip(best_score, best_indices, spans)], key=lambda k: k[0], reverse=True)
             final_res = [(word, "O") for word in sentence.split(" ")]
-            for score, predict_id, span in sorted(predictions, key=lambda k: k[0], reverse=True):
+            for score, predict_id, span in predictions:
                 label = self.id_to_label[predict_id]
+                if label.startswith("O"):
+                    continue
                 if span[0] != 0:
                     word_start_index = len(sentence[0:span[0]-1].rstrip(" ").split(" "))
                 else:
@@ -184,8 +198,6 @@ class LukeNer(pl.LightningModule):
                 if not all([o == 'O' for _, o in final_res[word_start_index:word_start_index+len(entity_words)]]):
                     continue
                 for idx, word in enumerate(entity_words):
-                    if label.startswith("O"):
-                        continue
                     if idx == 0:
                         if final_res[word_start_index+idx][-1] == "O":
                             final_res[word_start_index] = (word, "B-"+label)
@@ -219,8 +231,8 @@ if  __name__ == "__main__":
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = luke_iob
     use_crf = True
-    train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=16, max_length=100)
-    dev_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=16, max_length=100)
+    train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100)
+    dev_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100)
 
     model = create_model(train_data=train_data, dev_data=train_data, tag_to_id=iob_tagging,
                      dropout_rate=0.1, batch_size=1, stage='fit', lr=2e-5,
