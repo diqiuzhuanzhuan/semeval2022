@@ -24,6 +24,12 @@ class LukeCoNLLReader(Dataset):
         self._max_length = max_length
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_dir + encoder_model, task="entity_span_classification")
 
+        uncased_entity_vocab = dict()
+        for k in tokenizer.entity_vocab:
+            uncased_entity_vocab[str.lower(k)] = self.tokenizer.entity_vocab[k]
+        for k in uncased_entity_vocab:
+            self.tokenizer.entity_vocab[k] = uncased_entity_vocab[k]
+
         self.cls_token = self.tokenizer.special_tokens_map['cls_token']
         self.cls_token_id = self.tokenizer.get_vocab()[self.cls_token]
         self.pad_token = self.tokenizer.special_tokens_map['pad_token']
