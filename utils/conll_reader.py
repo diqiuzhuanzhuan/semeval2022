@@ -25,7 +25,7 @@ class LukeCoNLLReader(Dataset):
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_dir + encoder_model, task="entity_span_classification")
 
         uncased_entity_vocab = dict()
-        for k in tokenizer.entity_vocab:
+        for k in self.tokenizer.entity_vocab:
             uncased_entity_vocab[str.lower(k)] = self.tokenizer.entity_vocab[k]
         for k in uncased_entity_vocab:
             self.tokenizer.entity_vocab[k] = uncased_entity_vocab[k]
