@@ -1,6 +1,9 @@
 from collections import defaultdict
+from pickle import LIST
+from typing import Dict, List
 import torch
 from torch.utils.data import Dataset
+import random
 
 from transformers import AutoTokenizer, LukeTokenizer
 import copy
@@ -94,6 +97,16 @@ class CoNLLReader(Dataset):
 
     def __getitem__(self, item):
         return self.instances[item]
+    
+    def _wrap_data(self, fields):
+        sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids = self.parse_line_for_ner(fields=fields)
+        self.sentences.append(sentence_str)
+        tokens_tensor = torch.tensor(tokens_sub_rep, dtype=torch.long)
+        #tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
+        tag_tensor = torch.tensor(coded_ner_, dtype=torch.long)
+        token_masks_rep = torch.tensor(token_masks_rep)
+        token_type_ids_tensor = torch.tensor(token_type_ids, dtype=torch.long)
+        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor
 
     def read_data(self, data):
         dataset_name = data if isinstance(data, str) else 'dataframe'
@@ -103,16 +116,36 @@ class CoNLLReader(Dataset):
         for fields, metadata in get_ner_reader(data=data):
             if self._max_instances != -1 and instance_idx > self._max_instances:
                 break
-            sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids = self.parse_line_for_ner(fields=fields)
-            self.sentences.append(sentence_str)
-            tokens_tensor = torch.tensor(tokens_sub_rep, dtype=torch.long)
-            #tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
-            tag_tensor = torch.tensor(coded_ner_, dtype=torch.long)
-            token_masks_rep = torch.tensor(token_masks_rep)
-            token_type_ids_tensor = torch.tensor(token_type_ids, dtype=torch.long)
-
+            tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor = self._wrap_data(fields)
             self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor))
             instance_idx += 1
+        logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
+
+    def augment_data(self, data, type2type: dict):
+        if len(self.type_to_entityset) == 0:
+            logger.warning('Please run read_data before running augment_data')
+            return
+        dataset_name = data if isinstance(data, str) else 'dataframe'
+        logger.info('Reading file {} for data augmentation'.format(dataset_name))
+        for fields, metadata in get_ner_reader(data=data):
+            tokens_, ner_tags = fields[0], fields[-1]
+            new_tokens_, new_ner_tags = [], []
+            for token, ner_tag in zip(tokens_, ner_tags):
+                tag = ner_tag[2:] or "O"
+                if tag not in type2type:
+                    new_tokens_.append(token)
+                    new_ner_tags.append(ner_tag)
+                    continue
+                if ner_tag.startswith("B-"):
+                    entity = random.sample(self.type_to_entityset[tag], 1)[0]
+                    new_tokens_.extend(entity.split(" "))
+                    for i in range(len(entity.split(" "))):
+                        if i == 0:
+                            new_ner_tags.append("B-{}".format(tag))
+                        else:
+                            new_ner_tags.append("I-{}".format(tag))
+            tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor = self._wrap_data((new_tokens_, new_ner_tags))
+            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor))
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
     def _entity_record(self, fields):
@@ -215,8 +248,11 @@ if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
     conll_reader.read_data(train_file)
-    for k in conll_reader.type_to_entityset:
-        print(k, len(conll_reader.type_to_entityset[k]))
+    conll_reader.augment_data(train_file, {"CORP": "GRP"})
+    conll_reader.augment_data(train_file, {"GRP": " CORP"})
+    for batch in conll_reader:
+        print(batch)
+        
 
             
     

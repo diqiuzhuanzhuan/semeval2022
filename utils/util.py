@@ -154,6 +154,11 @@ def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, en
     else:
         reader = CoNLLReader(max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model, entity_vocab=entity_vocab)
     reader.read_data(file_path)
+    if "luke" in encoder_model:
+        pass
+    else:
+        reader.augment_data(file_path, {"GRP": "CORP"})
+        reader.augment_data(file_path, {"CORP": "GRP"})
 
     return reader
 
