@@ -237,9 +237,9 @@ if __name__ == "__main__":
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = wnut_iob
     train_data = get_reader(file_path=train_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55)
-    dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55)
+    dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55, augment=[])
 
-    model = create_model(train_data=dev_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),
+    model = create_model(train_data=train_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
                      encoder_model=encoder_model, num_gpus=1, use_crf=False)
 
