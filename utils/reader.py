@@ -136,8 +136,9 @@ class CoNLLReader(Dataset):
                     new_tokens_.append(token)
                     new_ner_tags.append(ner_tag)
                     continue
+                rep_tag = type2type[tag]
                 if ner_tag.startswith("B-"):
-                    entity = random.sample(self.type_to_entityset[tag], 1)[0]
+                    entity = random.sample(self.type_to_entityset[rep_tag], 1)[0]
                     new_tokens_.extend(entity.split(" "))
                     for i in range(len(entity.split(" "))):
                         if i == 0:
