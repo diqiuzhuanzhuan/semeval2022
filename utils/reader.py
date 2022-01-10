@@ -222,7 +222,6 @@ class CoNLLReader(Dataset):
         self.ner_tags.append(ner_tags_rep)
         if self.entity_vocab:
             entity_ans = self._search_entity(sentence_str)
-            print(entity_ans)
             for idx, token in enumerate(entity_ans):
                 if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                     break
@@ -250,7 +249,7 @@ if __name__ == "__main__":
     dev_file = "./training_data/EN-English/en_dev.conll"
     conll_reader.read_data(train_file)
     conll_reader.augment_data(train_file, {"CORP": "GRP"})
-    conll_reader.augment_data(train_file, {"GRP": " CORP"})
+    conll_reader.augment_data(train_file, {"GRP": "CORP"})
     for batch in conll_reader:
         print(batch)
         

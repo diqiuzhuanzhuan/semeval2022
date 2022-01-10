@@ -3,7 +3,7 @@ import collections
 from json import encoder
 import os
 import time
-from typing import Union
+from typing import Union, List
 import pandas as pd
 import torch
 from pytorch_lightning import seed_everything
@@ -19,6 +19,7 @@ from model.ner_model import NERBaseAnnotator
 from model.luke_model import LukeNer, negative_sample
 from utils.reader import CoNLLReader
 from utils.conll_reader import LukeCoNLLReader
+from utils.reader_utils import get_ner_reader
 
 conll_iob = {'B-ORG': 0, 'I-ORG': 1, 'B-MISC': 2, 'I-MISC': 3, 'B-LOC': 4, 'I-LOC': 5, 'B-PER': 6, 'I-PER': 7, 'O': 8}
 wnut_iob = {'B-CORP': 0, 'I-CORP': 1, 'B-CW': 2, 'I-CW': 3, 'B-GRP': 4, 'I-GRP': 5, 'B-LOC': 6, 'I-LOC': 7, 'B-PER': 8, 'I-PER': 9, 'B-PROD': 10, 'I-PROD': 11, 'O': 12}
@@ -138,11 +139,44 @@ def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: Unio
     f.close()
     return pd.DataFrame(record_data)
 
-def get_entity_vocab(encoder_model="studio-ousia/luke-base"):
+def get_entity_vocab(encoder_model="studio-ousia/luke-base", conll_files: List[str]=[]):
     from transformers import LukeTokenizer
     import copy
     tokenizer = LukeTokenizer.from_pretrained(encoder_model)
     entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
+    print(len(entity_vocab))
+    def _get_entity(fields, entity_set):
+        tokens_, ner_tags = fields[0], fields[-1]
+        entity = ""
+        tag = ""
+        for token, ner_tag in zip(tokens_, ner_tags):
+            if ner_tag.startswith("B-"):
+                entity = token
+                tag = ner_tag[2:]
+            elif ner_tag.startswith("I-") or ner_tag.startswith("E-"):
+                entity = entity + " " + token
+                assert(tag == ner_tag[2:])
+            elif ner_tag.startswith("O"):
+                if entity:
+                    entity_set.add(entity)
+                    entity = ""  
+            elif ner_tag.startswith("S-"):
+                entity = token
+                tag = ner_tag[2:]
+                entity_set.add(entity)
+                entity = ""
+        if entity:
+            entity_set.add(entity)
+
+    for file in conll_files:
+        entity_set = set()
+        for fields, _ in get_ner_reader(file):
+            _get_entity(fields, entity_set)
+        
+        for entity in entity_set:
+            if entity not in entity_vocab:
+                entity_vocab[entity] = len(entity_vocab)
+    
     return entity_vocab
 
 
@@ -267,3 +301,4 @@ def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'
 if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
     reader = get_reader(train_file, target_vocab=wnut_iob, encoder_model='roberta-base')
+    get_entity_vocab(conll_files=[train_file])
