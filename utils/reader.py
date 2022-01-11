@@ -184,7 +184,31 @@ class CoNLLReader(Dataset):
 
         return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids
 
+    def _add_prefix(self, tokens_, ner_tags):
+        new_tokens_ = []
+        new_ner_tags = []
+        last_tag = ""
+        for idx, token in enumerate(tokens_):
+
+            if ner_tags[idx].startswith("B-"):
+                new_tokens_.append("$")
+                new_ner_tags.append("O")
+                last_tag = ner_tags[idx]
+            elif ner_tags[idx].startswith("O"):
+                if last_tag:
+                    new_tokens_.append("$")
+                    new_ner_tags.append("O")
+                    last_tag = ""
+
+            new_tokens_.append(token)
+            new_ner_tags.append(ner_tags[idx])
+        if last_tag:
+            new_tokens_.append("$")
+            new_ner_tags.append("O")
+        return new_tokens_, new_ner_tags
+
     def parse_tokens_for_ner(self, tokens_, ner_tags):
+        tokens_, ner_tags = self._add_prefix(tokens_, ner_tags)
         sentence_str = ''
         tokens_sub_rep, ner_tags_rep = [self.cls_token_id], ['O']
         token_type_ids = []
@@ -194,6 +218,7 @@ class CoNLLReader(Dataset):
         for idx, token in enumerate(tokens_):
             if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                 break
+                
             if sentence_str:
                 sentence_str += " " + token.lower()
             else:
@@ -248,10 +273,11 @@ if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
     conll_reader.read_data(train_file)
-    conll_reader.augment_data(train_file, {"CORP": "GRP"})
-    conll_reader.augment_data(train_file, {"GRP": "CORP"})
+    #conll_reader.augment_data(train_file, {"CORP": "GRP"})
+    #conll_reader.augment_data(train_file, {"GRP": "CORP"})
     for batch in conll_reader:
-        print(batch)
+        pass
+        #print(batch)
         
 
             
