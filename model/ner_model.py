@@ -58,6 +58,9 @@ class NERBaseAnnotator(pl.LightningModule):
         self.encoder = AutoModelForTokenClassification.from_pretrained(encoder_model, num_labels=self.target_size, classifier_dropout=dropout_rate)
         if self.use_crf:
             self.crf_layer = ConditionalRandomField(num_tags=self.target_size, constraints=allowed_transitions(constraint_type="BIO", labels=self.id_to_tag))
+        
+        self.auxiliary_classifier = nn.Linear(self.encoder.config.hidden_size, 2)
+
 
         self.lr = lr
         self.span_f1 = SpanF1()
@@ -91,6 +94,8 @@ class NERBaseAnnotator(pl.LightningModule):
         mask_tensor = torch.zeros(size=(len(tokens), max_len), dtype=torch.bool)
         tag_len_tensor = torch.zeros(size=(len(tokens),), dtype=torch.long)
         token_type_ids_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(0)
+        auxiliary_tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(-100)
+
 
         for i in range(len(tokens)):
             tokens_ = tokens[i]
@@ -100,10 +105,11 @@ class NERBaseAnnotator(pl.LightningModule):
             tag_len_tensor[i] = tag_len
             
             tag_tensor[i, :tag_len] = tags[i]
+            auxiliary_tag_tensor[i, :tag_len] = [0 if self.id_to_tag[j] == 'O' else 1 for j in tags[i]]
             mask_tensor[i, :seq_len] = masks[i]
             token_type_ids_tensor[i, :seq_len] = token_type_ids[i]
 
-        return token_tensor, tag_tensor, mask_tensor, token_type_ids_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor
+        return token_tensor, tag_tensor, mask_tensor, token_type_ids_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor, auxiliary_tag_tensor
 
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr, weight_decay=0.01)
@@ -169,14 +175,18 @@ class NERBaseAnnotator(pl.LightningModule):
         self.log(suffix + 'loss', loss, on_step=on_step, on_epoch=on_epoch, prog_bar=True, logger=True)
 
     def perform_forward_step(self, batch, mode=''):
-        tokens, tags, token_mask, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len = batch
+        tokens, tags, token_mask, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len, auxiliary_tag = batch
         batch_size = tokens.size(0)
 
-        outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags)
+        outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags, output_hidden_states=True)
+        hidden_states = outputs.hidden_states[0]
+        auxiliary_logits = self.auxiliary_classifier(hidden_states)
+        loss_fct = CrossEntropyLoss()
+        auxiliary_loss = loss_fct(auxiliary_logits, auxiliary_tag)
 
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
-        loss = outputs.loss
+        loss = 0.3 * outputs.loss + 0.7 * auxiliary_loss
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
                                           metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
         if not output['loss']:
@@ -207,9 +217,11 @@ class NERBaseAnnotator(pl.LightningModule):
         if mode == 'val':
             self.val_span_f1(pred_results, metadata)
             output["results"] = self.val_span_f1.get_metric()
-        else:
+        elif mode == 'fit':
             self.span_f1(pred_results, metadata)
             output["results"] = self.span_f1.get_metric()
+        else:
+            output["results"] = None
         return output
 
     def predict_tags(self, batch, tokenizer=None):
@@ -236,8 +248,9 @@ if __name__ == "__main__":
     output_dir = os.path.join(base_dir, "{}".format(track), "{}-train".format(encoder_model))
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = wnut_iob
+    entity_vocab = get_entity_vocab()
+    train_data = get_reader(file_path=train_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=-1, max_length=100, entity_vocab=entity_vocab, augment=[])
     entity_vocab = get_entity_vocab(conll_files=[train_file])
-    train_data = get_reader(file_path=train_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=-1, max_length=100, entity_vocab=entity_vocab)
     dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55, augment=[])
 
     model = create_model(train_data=train_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),

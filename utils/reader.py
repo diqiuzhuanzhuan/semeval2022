@@ -58,7 +58,6 @@ class CoNLLReader(Dataset):
     def _search_entity(self, sentence: str):
         ans = []
         words = set(sentence.split(" "))
-        entity_pos = []
         tree = IntervalTree()
         for end_index, (insert_order, original_value) in self.entity_automation.iter(sentence):
             start_index = end_index - len(original_value) + 1
@@ -81,11 +80,10 @@ class CoNLLReader(Dataset):
                     tree.add(Interval(start_index, end_index)) 
         for interval in sorted(tree.items()):
             ans.append(sentence[interval.begin: interval.end+1])
-            ans.append(self.sep_token)
-            entity_pos.append((interval.begin, interval.end))
-        if len(ans) and ans[-1] == self.sep_token: 
+            ans.append("$")
+        if len(ans) and ans[-1] == "$": 
             ans.pop(-1)
-        return ans, entity_pos
+        return ans
 
 
     def get_target_size(self):
@@ -224,7 +222,7 @@ class CoNLLReader(Dataset):
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
         if self.entity_vocab:
-            entity_ans, _ = self._search_entity(sentence_str)
+            entity_ans = self._search_entity(sentence_str)
             for idx, token in enumerate(entity_ans):
                 if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                     break
