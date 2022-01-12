@@ -105,7 +105,7 @@ class NERBaseAnnotator(pl.LightningModule):
             tag_len_tensor[i] = tag_len
             
             tag_tensor[i, :tag_len] = tags[i]
-            auxiliary_tag_tensor[i, :tag_len] = [0 if self.id_to_tag[j.item()] == 'O' else 1 for j in tags[i]]
+            auxiliary_tag_tensor[i, :tag_len] = torch.tensor([0 if self.id_to_tag[j.item()] == 'O' else 1 for j in tags[i]])
             mask_tensor[i, :seq_len] = masks[i]
             token_type_ids_tensor[i, :seq_len] = token_type_ids[i]
 
@@ -182,11 +182,11 @@ class NERBaseAnnotator(pl.LightningModule):
         hidden_states = outputs.hidden_states[0]
         auxiliary_logits = self.auxiliary_classifier(hidden_states)
         loss_fct = CrossEntropyLoss()
-        auxiliary_loss = loss_fct(auxiliary_logits, auxiliary_tag)
+        auxiliary_loss = loss_fct(auxiliary_logits.view(-1, 2), auxiliary_tag.view(-1))
 
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
-        loss = 0.3 * outputs.loss + 0.7 * auxiliary_loss
+        loss = 0.5 * outputs.loss + 0.5 * auxiliary_loss
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
                                           metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
         if not output['loss']:
@@ -249,7 +249,7 @@ if __name__ == "__main__":
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = wnut_iob
     entity_vocab = get_entity_vocab()
-    train_data = get_reader(file_path=train_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=-1, max_length=100, entity_vocab=entity_vocab, augment=[])
+    train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=-1, max_length=100, entity_vocab=entity_vocab, augment=[])
     entity_vocab = get_entity_vocab(conll_files=[train_file])
     dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55, augment=[])
 
