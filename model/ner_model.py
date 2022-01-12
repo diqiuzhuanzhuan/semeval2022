@@ -169,7 +169,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.log(suffix + 'loss', loss, on_step=on_step, on_epoch=on_epoch, prog_bar=True, logger=True)
 
     def perform_forward_step(self, batch, mode=''):
-        tokens, tags, token_mask, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len = batch
+        tokens, tags, token_mask, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len, prefix_location = batch
         batch_size = tokens.size(0)
 
         outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags)
@@ -224,7 +224,7 @@ class NERBaseAnnotator(pl.LightningModule):
 
 
 if __name__ == "__main__":
-    from utils.util import get_reader, train_model, create_model, save_model, parse_args, get_tagset, wnut_iob, write_submit_result, load_model
+    from utils.util import get_reader, train_model, create_model, save_model, parse_args, get_tagset, wnut_iob, write_submit_result, load_model, get_entity_vocab
     import time
     import os
     base_dir = ""
@@ -236,7 +236,8 @@ if __name__ == "__main__":
     output_dir = os.path.join(base_dir, "{}".format(track), "{}-train".format(encoder_model))
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = wnut_iob
-    train_data = get_reader(file_path=train_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55)
+    entity_vocab = get_entity_vocab(conll_files=[train_file])
+    train_data = get_reader(file_path=train_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=-1, max_length=100, entity_vocab=entity_vocab)
     dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55, augment=[])
 
     model = create_model(train_data=train_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),
