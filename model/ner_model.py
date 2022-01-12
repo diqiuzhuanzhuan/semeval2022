@@ -82,7 +82,7 @@ class NERBaseAnnotator(pl.LightningModule):
 
     def train_collate_batch(self, batch):
         batch_ = list(zip(*batch))
-        tokens, masks, gold_spans, tags, subtoken_pos_to_raw_pos, token_type_ids = batch_[0], batch_[1], batch_[2], batch_[3], batch_[4], batch_[5]
+        tokens, masks, gold_spans, tags, subtoken_pos_to_raw_pos, token_type_ids, prefix_location = batch_[0], batch_[1], batch_[2], batch_[3], batch_[4], batch_[5], batch_[6]
 
         max_len = max([len(token) for token in tokens])
         token_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.pad_token_id)
@@ -103,7 +103,7 @@ class NERBaseAnnotator(pl.LightningModule):
             mask_tensor[i, :seq_len] = masks[i]
             token_type_ids_tensor[i, :seq_len] = token_type_ids[i]
 
-        return token_tensor, tag_tensor, mask_tensor, token_type_ids_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor
+        return token_tensor, tag_tensor, mask_tensor, token_type_ids_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor, prefix_location
 
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr, weight_decay=0.01)
