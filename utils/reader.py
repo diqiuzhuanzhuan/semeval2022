@@ -194,7 +194,7 @@ class CoNLLReader(Dataset):
         sentence_str = " ".join(tokens_)
         prefix_insert_set = set()
         for begin, end in entity_pos:
-            word_begin_index = sentence_str[0:begin+1].count(" ")
+            word_begin_index = sentence_str[0:begin].count(" ")
             prefix_insert_set.add(word_begin_index)
             word_end_index = sentence_str[0:end+1].count(" ")
             prefix_insert_set.add(word_end_index+1)
@@ -209,16 +209,14 @@ class CoNLLReader(Dataset):
         if idx+1 in prefix_insert_set:
             new_tokens_.append("$")
             new_ner_tags.append("O")
-        print(new_tokens_)
-        print(new_ner_tags)
+            prefix_location.append(len(new_tokens_)-1)
         return new_tokens_, new_ner_tags, prefix_location
 
     def parse_tokens_for_ner(self, tokens_, ner_tags):
         if self.entity_vocab:
             sentence_str = " ".join(tokens_)
             _, entity_pos = self._search_entity(sentence_str)
-
-        tokens_, ner_tags, prefix_location = self._add_prefix(tokens_, ner_tags, entity_pos)
+            tokens_, ner_tags, prefix_location = self._add_prefix(tokens_, ner_tags, entity_pos)
         sentence_str = ''
         tokens_sub_rep, ner_tags_rep = [self.cls_token_id], ['O']
         token_type_ids = []
