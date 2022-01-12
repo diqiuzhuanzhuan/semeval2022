@@ -217,11 +217,10 @@ class NERBaseAnnotator(pl.LightningModule):
         if mode == 'val':
             self.val_span_f1(pred_results, metadata)
             output["results"] = self.val_span_f1.get_metric()
-        elif mode == 'fit':
+        else:
             self.span_f1(pred_results, metadata)
             output["results"] = self.span_f1.get_metric()
-        else:
-            output["results"] = None
+
         return output
 
     def predict_tags(self, batch, tokenizer=None):
