@@ -109,7 +109,7 @@ class CoNLLReader(Dataset):
         tag_tensor = torch.tensor(coded_ner_, dtype=torch.long)
         token_masks_rep = torch.tensor(token_masks_rep)
         token_type_ids_tensor = torch.tensor(token_type_ids, dtype=torch.long)
-        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor
+        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, prefix_location
 
     def read_data(self, data):
         dataset_name = data if isinstance(data, str) else 'dataframe'
@@ -119,8 +119,8 @@ class CoNLLReader(Dataset):
         for fields, metadata in get_ner_reader(data=data):
             if self._max_instances != -1 and instance_idx > self._max_instances:
                 break
-            tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor = self._wrap_data(fields)
-            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor))
+            tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, prefix_location = self._wrap_data(fields)
+            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, prefix_location))
             instance_idx += 1
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
@@ -213,6 +213,7 @@ class CoNLLReader(Dataset):
         return new_tokens_, new_ner_tags, prefix_location
 
     def parse_tokens_for_ner(self, tokens_, ner_tags):
+        prefix_location = []
         if self.entity_vocab:
             sentence_str = " ".join(tokens_)
             _, entity_pos = self._search_entity(sentence_str)
