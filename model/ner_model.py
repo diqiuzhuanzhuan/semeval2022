@@ -105,7 +105,7 @@ class NERBaseAnnotator(pl.LightningModule):
             tag_len_tensor[i] = tag_len
             
             tag_tensor[i, :tag_len] = tags[i]
-            auxiliary_tag_tensor[i, :tag_len] = [0 if self.id_to_tag[j] == 'O' else 1 for j in tags[i]]
+            auxiliary_tag_tensor[i, :tag_len] = [0 if self.id_to_tag[j.item()] == 'O' else 1 for j in tags[i]]
             mask_tensor[i, :seq_len] = masks[i]
             token_type_ids_tensor[i, :seq_len] = token_type_ids[i]
 
