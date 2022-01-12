@@ -7,6 +7,7 @@ from typing import Union, List
 import pandas as pd
 import torch
 from pytorch_lightning import seed_everything
+import zipfile
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import LearningRateMonitor, EarlyStopping
@@ -142,8 +143,11 @@ def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: Unio
 def get_entity_vocab(encoder_model="studio-ousia/luke-base", conll_files: List[str]=[], entity_files: List[str]=[]):
     from transformers import LukeTokenizer
     import copy
-    tokenizer = LukeTokenizer.from_pretrained(encoder_model)
-    entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
+    if encoder_model:
+        tokenizer = LukeTokenizer.from_pretrained(encoder_model)
+        entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
+    else:
+        entity_vocab = dict()
     def _get_entity(fields, entity_set):
         tokens_, ner_tags = fields[0], fields[-1]
         entity = ""
@@ -177,13 +181,23 @@ def get_entity_vocab(encoder_model="studio-ousia/luke-base", conll_files: List[s
                 entity_vocab[entity] = len(entity_vocab)
 
     for file in entity_files:
-        with open(file, "r") as f:
-            for entity in f:
-                entity = entity.strip('\r').strip('\n')
-                if not entity:
-                    continue
-                if entity not in entity_vocab:
-                    entity_vocab[entity] = len(entity_vocab)
+        if file.endswith(".zip"):
+            with zipfile.ZipFile(file) as myzip:
+                with myzip.open(file.strip(".zip")) as f:
+                    for entity in f:
+                        entity = entity.strip('\r').strip('\n')
+                        if " (" in entity: 
+                            entity = entity.split(" (")[0]
+                        entity_vocab[entity] = len(entity_vocab)
+                        
+        else:
+            with open(file, "r") as f:
+                for entity in f:
+                    entity = entity.strip('\r').strip('\n')
+                    if not entity:
+                        continue
+                    if entity not in entity_vocab:
+                        entity_vocab[entity] = len(entity_vocab)
     
     return entity_vocab
 

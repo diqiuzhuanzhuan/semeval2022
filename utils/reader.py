@@ -1,6 +1,5 @@
 from collections import defaultdict
 from pickle import LIST
-from sys import prefix
 from typing import Dict, List
 import torch
 from torch.utils.data import Dataset
@@ -82,9 +81,9 @@ class CoNLLReader(Dataset):
                     tree.add(Interval(start_index, end_index)) 
         for interval in sorted(tree.items()):
             ans.append(sentence[interval.begin: interval.end+1])
-            ans.append("$")
+            ans.append(self.sep_token)
             entity_pos.append((interval.begin, interval.end))
-        if len(ans) and ans[-1] == "$": 
+        if len(ans) and ans[-1] == self.sep_token: 
             ans.pop(-1)
         return ans, entity_pos
 
@@ -102,14 +101,14 @@ class CoNLLReader(Dataset):
         return self.instances[item]
     
     def _wrap_data(self, fields):
-        sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids, prefix_location = self.parse_line_for_ner(fields=fields)
+        sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids = self.parse_line_for_ner(fields=fields)
         self.sentences.append(sentence_str)
         tokens_tensor = torch.tensor(tokens_sub_rep, dtype=torch.long)
         #tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
         tag_tensor = torch.tensor(coded_ner_, dtype=torch.long)
         token_masks_rep = torch.tensor(token_masks_rep)
         token_type_ids_tensor = torch.tensor(token_type_ids, dtype=torch.long)
-        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, prefix_location
+        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor
 
     def read_data(self, data):
         dataset_name = data if isinstance(data, str) else 'dataframe'
@@ -119,8 +118,8 @@ class CoNLLReader(Dataset):
         for fields, metadata in get_ner_reader(data=data):
             if self._max_instances != -1 and instance_idx > self._max_instances:
                 break
-            tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, prefix_location = self._wrap_data(fields)
-            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, prefix_location))
+            tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, = self._wrap_data(fields)
+            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor))
             instance_idx += 1
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
@@ -149,7 +148,7 @@ class CoNLLReader(Dataset):
                         else:
                             new_ner_tags.append("I-{}".format(tag))
             tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor = self._wrap_data((new_tokens_, new_ner_tags))
-            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor))
+            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor ))
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
     def _entity_record(self, fields):
@@ -181,43 +180,13 @@ class CoNLLReader(Dataset):
     def parse_line_for_ner(self, fields):
         self._entity_record(fields)
         tokens_, ner_tags = fields[0], fields[-1]
-        sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids, prefix_location = self.parse_tokens_for_ner(tokens_, ner_tags)
+        sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids = self.parse_tokens_for_ner(tokens_, ner_tags)
         gold_spans_ = extract_spans(ner_tags_rep, subtoken_pos_to_raw_pos)
         coded_ner_ = [self.label_to_id[tag] for tag in ner_tags_rep]
 
-        return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids, prefix_location
-
-    def _add_prefix(self, tokens_, ner_tags, entity_pos):
-        new_tokens_ = []
-        new_ner_tags = []
-        prefix_location = []
-        sentence_str = " ".join(tokens_)
-        prefix_insert_set = set()
-        for begin, end in entity_pos:
-            word_begin_index = sentence_str[0:begin].count(" ")
-            prefix_insert_set.add(word_begin_index)
-            word_end_index = sentence_str[0:end+1].count(" ")
-            prefix_insert_set.add(word_end_index+1)
-            
-        for idx, token in enumerate(tokens_):
-            if idx in prefix_insert_set:
-                new_tokens_.append("$")
-                new_ner_tags.append("O")
-                prefix_location.append(len(new_tokens_)-1)
-            new_tokens_.append(token)
-            new_ner_tags.append(ner_tags[idx])
-        if idx+1 in prefix_insert_set:
-            new_tokens_.append("$")
-            new_ner_tags.append("O")
-            prefix_location.append(len(new_tokens_)-1)
-        return new_tokens_, new_ner_tags, prefix_location
+        return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids
 
     def parse_tokens_for_ner(self, tokens_, ner_tags):
-        prefix_location = []
-        if self.entity_vocab:
-            sentence_str = " ".join(tokens_)
-            _, entity_pos = self._search_entity(sentence_str)
-            tokens_, ner_tags, prefix_location = self._add_prefix(tokens_, ner_tags, entity_pos)
         sentence_str = ''
         tokens_sub_rep, ner_tags_rep = [self.cls_token_id], ['O']
         token_type_ids = []
@@ -271,7 +240,7 @@ class CoNLLReader(Dataset):
         token_type_ids.extend([1] * (len(tokens_sub_rep) - len(token_type_ids)))
         #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
         
-        return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids, prefix_location
+        return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids
 
 
 if __name__ == "__main__":
