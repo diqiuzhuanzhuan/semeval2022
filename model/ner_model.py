@@ -189,6 +189,15 @@ class NERBaseAnnotator(pl.LightningModule):
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
         loss = 0.7 * outputs.loss + 0.3 * auxiliary_loss - min(kl_loss-3, 0)
+        tag_o_idx = self.tag_to_id['O']
+        tag_i_prod_idx = self.tag_to_id['I-PROD']
+        tag_b_prod_idx = self.tag_to_id['B-PROD']
+        o_b_prod_loss_fct = torch.nn.KLDivLoss(log_target=True)
+        o_i_prod_loss_fct = torch.nn.KLDivLoss(log_target=True)
+        o_b_prod_kl_loss = o_b_prod_loss_fct(self.encoder.classifier.weight[tag_o_idx], self.encoder.classifier.weight[tag_b_prod_idx])
+        o_i_prod_kl_loss = o_i_prod_loss_fct(self.encoder.classifier.weight[tag_o_idx], self.encoder.classifier.weight[tag_i_prod_idx])
+        loss = 0.7 * outputs.loss + 0.3 * auxiliary_loss - min(kl_loss-3, 0) - min(o_b_prod_kl_loss-3, 0) - min(o_i_prod_kl_loss-3, 0)
+
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
                                           metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
         if not output['loss']:
