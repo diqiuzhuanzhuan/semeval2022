@@ -13,6 +13,7 @@ from allennlp.modules import ConditionalRandomField
 from allennlp.modules.conditional_random_field import allowed_transitions
 from torch import nn
 from torch.utils.data import DataLoader
+import torchmetrics
 from transformers import get_linear_schedule_with_warmup, AutoModel
 from transformers.models import trocr
 from transformers.utils.dummy_pt_objects import RobertaForTokenClassification
@@ -186,20 +187,28 @@ class NERBaseAnnotator(pl.LightningModule):
         auxiliary_loss = loss_fct(auxiliary_logits.view(-1, 2), auxiliary_tag.view(-1))
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
-        tag_o_idx = self.tag_to_id['O']
-        tag_i_prod_idx = self.tag_to_id['I-PROD']
-        tag_b_prod_idx = self.tag_to_id['B-PROD']
-        o_b_prod_loss_fct = torch.nn.KLDivLoss(log_target=True)
-        o_i_prod_loss_fct = torch.nn.KLDivLoss(log_target=True)
-        o_b_prod_kl_loss = o_b_prod_loss_fct(self.encoder.classifier.weight[tag_o_idx], self.encoder.classifier.weight[tag_b_prod_idx])
-        o_i_prod_kl_loss = o_i_prod_loss_fct(self.encoder.classifier.weight[tag_o_idx], self.encoder.classifier.weight[tag_i_prod_idx])
-        loss = 0.7 * outputs.loss + 0.3 * auxiliary_loss - min(o_b_prod_kl_loss-3, 0) - min(o_i_prod_kl_loss-3, 0)
+        kl_loss = self._add_kl_loss([
+            ('O', 'B-PROD', 3),
+            ('O', 'I-PROD', 3),
+            ('O', 'B-CW', 3),
+            ('O', 'I-CW', 3)
+            ])
+        loss = 0.7 * outputs.loss + 0.3 * auxiliary_loss - kl_loss
 
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
                                           metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
         if not output['loss']:
             output['loss'] = loss
         return output
+
+    def _add_kl_loss(self, kl_param: List = [()]):
+        loss = 0.0
+        for tag1, tag2, threshold in kl_param:
+            loss_fct = torch.nn.KLDivLoss(log_target=True)
+            tag1_idx, tag2_idx = self.tag_to_id[tag1], self.tag_to_id[tag2]
+            _loss = loss_fct(self.encoder.classifier.weight[tag1_idx], self.encoder.classifier.weight[tag2_idx])
+            loss += min(_loss - threshold, 0)
+        return loss
 
     def _compute_token_tags(self, token_scores, tags, token_mask, metadata, subtoken_pos_to_raw_pos, batch_size, tag_lens, mode=''):
         if self.use_crf:
