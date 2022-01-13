@@ -18,7 +18,6 @@ from transformers.models import trocr
 from transformers.utils.dummy_pt_objects import RobertaForTokenClassification
 from transformers import *
 from transformers.utils.dummy_tf_objects import WarmUp
-from
 
 from log import logger
 from utils.metric import SpanF1
