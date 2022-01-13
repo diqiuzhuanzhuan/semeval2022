@@ -18,6 +18,7 @@ from transformers.models import trocr
 from transformers.utils.dummy_pt_objects import RobertaForTokenClassification
 from transformers import *
 from transformers.utils.dummy_tf_objects import WarmUp
+from
 
 from log import logger
 from utils.metric import SpanF1
@@ -67,6 +68,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.val_span_f1 = SpanF1()
         self.setup_model(self.stage)
         self.save_hyperparameters('pad_token_id', 'encoder_model', 'use_crf')
+        self.alpha = 0.7
 
     def setup_model(self, stage_name):
         if stage_name == 'fit' and self.train_data is not None:
@@ -159,7 +161,7 @@ class NERBaseAnnotator(pl.LightningModule):
         return output
 
     def training_step(self, batch, batch_idx):
-        output = self.perform_forward_step(batch)
+        output = self.perform_forward_step(batch, mode='fit')
         self.log_metrics(output['results'], loss=output['loss'], suffix='', on_step=True, on_epoch=False)
         return output
 
@@ -183,10 +185,11 @@ class NERBaseAnnotator(pl.LightningModule):
         auxiliary_logits = self.auxiliary_classifier(hidden_states)
         loss_fct = CrossEntropyLoss()
         auxiliary_loss = loss_fct(auxiliary_logits.view(-1, 2), auxiliary_tag.view(-1))
-
+        kl_loss_fct = torch.nn.KLDivLoss(log_target=True)
+        kl_loss = kl_loss_fct(self.auxiliary_classifier.weight[0], self.auxiliary_classifier.weight[1])
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
-        loss = 0.7 * outputs.loss + 0.3 * auxiliary_loss
+        loss = 0.7 * outputs.loss + 0.3 * auxiliary_loss - min(kl_loss-3, 0)
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
                                           metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
         if not output['loss']:
@@ -248,9 +251,9 @@ if __name__ == "__main__":
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = wnut_iob
     entity_vocab = get_entity_vocab()
-    train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=-1, max_length=100, entity_vocab=entity_vocab, augment=[])
+    train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
     entity_vocab = get_entity_vocab(conll_files=[train_file])
-    dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=-1, max_length=55, augment=[])
+    dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=15, max_length=55, augment=[])
 
     model = create_model(train_data=train_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
