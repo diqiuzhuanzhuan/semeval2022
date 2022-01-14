@@ -12,6 +12,7 @@ import numpy as np
 from allennlp.modules import ConditionalRandomField
 from allennlp.modules.conditional_random_field import allowed_transitions
 from torch import nn
+from torch.nn.modules import loss
 from torch.utils.data import DataLoader
 import torchmetrics
 from transformers import get_linear_schedule_with_warmup, AutoModel
@@ -38,8 +39,8 @@ class NERBaseAnnotator(pl.LightningModule):
                  encoder_model='xlm-roberta-large',
                  num_gpus=1,
                  use_crf=False,
-                 kl_loss_config=[('O', 'B-PROD', 7),
-                                 ('O', 'I-PROD', 7),
+                 kl_loss_config=[('O', 'B-PROD', 2),
+                                 ('O', 'I-PROD', 2),
                                  ('O', 'B-CW', 3),
                                  ('O', 'I-CW', 3),
                                  ]
@@ -202,6 +203,11 @@ class NERBaseAnnotator(pl.LightningModule):
         if not output['loss']:
             output['loss'] = loss
         return output
+
+    def _add_weight_loss(self):
+        loss_fct = CrossEntropyLoss()
+        loss_fct(se) 
+        
 
     def _add_kl_loss(self):
         loss = 0.0
