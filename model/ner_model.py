@@ -37,7 +37,15 @@ class NERBaseAnnotator(pl.LightningModule):
                  pad_token_id=1,
                  encoder_model='xlm-roberta-large',
                  num_gpus=1,
-                 use_crf=False):
+                 use_crf=False,
+                 kl_loss_config=[('O', 'B-PROD', 7),
+                                 ('O', 'I-PROD', 7),
+                                 ('O', 'B-CW', 3),
+                                 ('O', 'I-CW', 3),
+                                 ('I-GRP', 'I-CORP', 3), 
+                                 ('B-GRP', 'B-CORP', 3)
+                                 ]
+                 ):
         super(NERBaseAnnotator, self).__init__()
 
         self.train_data = train_data
@@ -51,6 +59,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.num_gpus = num_gpus
         self.target_size = len(self.id_to_tag)
         self.use_crf = use_crf
+        self.kl_loss_config = kl_loss_config
 
         # set the default baseline model here
         self.pad_token_id = pad_token_id
@@ -187,12 +196,7 @@ class NERBaseAnnotator(pl.LightningModule):
         auxiliary_loss = loss_fct(auxiliary_logits.view(-1, 2), auxiliary_tag.view(-1))
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
-        kl_loss = self._add_kl_loss([
-            ('O', 'B-PROD', 7),
-            ('O', 'I-PROD', 7),
-            ('O', 'B-CW', 3),
-            ('O', 'I-CW', 3)
-            ])
+        kl_loss = self._add_kl_loss()
         loss = 0.7 * outputs.loss + 0.3 * auxiliary_loss - kl_loss
 
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
@@ -201,9 +205,9 @@ class NERBaseAnnotator(pl.LightningModule):
             output['loss'] = loss
         return output
 
-    def _add_kl_loss(self, kl_param: List = [()]):
+    def _add_kl_loss(self):
         loss = 0.0
-        for tag1, tag2, threshold in kl_param:
+        for tag1, tag2, threshold in self.kl_loss_config:
             loss_fct = torch.nn.KLDivLoss(log_target=True)
             tag1_idx, tag2_idx = self.tag_to_id[tag1], self.tag_to_id[tag2]
             _loss = loss_fct(self.encoder.classifier.weight[tag1_idx], self.encoder.classifier.weight[tag2_idx])
