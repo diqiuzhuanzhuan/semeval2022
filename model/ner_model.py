@@ -121,12 +121,7 @@ class NERBaseAnnotator(pl.LightningModule):
         return token_tensor, tag_tensor, mask_tensor, token_type_ids_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor, auxiliary_tag_tensor
 
     def configure_optimizers(self):
-        optimizer = torch.optim.AdamW([
-            {'params': self.parameters()}, 
-            {'params': self.encoder.classifier.weight[self.tag_to_id['B-PROD']], 'lr': 0.1 * self.lr}, 
-            {'params': self.encoder.classifier.weight[self.tag_to_id['I-PROD']], 'lr': 0.1 * self.lr}], 
-                                      lr=self.lr, 
-                                      weight_decay=0.01)
+        optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr, weight_decay=0.01)
         if self.stage == 'fit':
             scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=self.warmup_steps, num_training_steps=self.total_steps)
             scheduler = {
