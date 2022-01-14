@@ -39,10 +39,10 @@ class NERBaseAnnotator(pl.LightningModule):
                  encoder_model='xlm-roberta-large',
                  num_gpus=1,
                  use_crf=False,
-                 kl_loss_config=[('O', 'B-PROD', 2),
-                                 ('O', 'I-PROD', 2),
-                                 ('O', 'B-CW', 3),
-                                 ('O', 'I-CW', 3),
+                 kl_loss_config=[('O', 'B-PROD', 1.5),
+                                 ('O', 'I-PROD', 1.5),
+                                 ('O', 'B-CW', 1),
+                                 ('O', 'I-CW', 1),
                                  ]
                  ):
         super(NERBaseAnnotator, self).__init__()
@@ -76,7 +76,6 @@ class NERBaseAnnotator(pl.LightningModule):
         self.val_span_f1 = SpanF1()
         self.setup_model(self.stage)
         self.save_hyperparameters('pad_token_id', 'encoder_model', 'use_crf')
-        self.alpha = 0.7
 
     def setup_model(self, stage_name):
         if stage_name == 'fit' and self.train_data is not None:
@@ -196,18 +195,14 @@ class NERBaseAnnotator(pl.LightningModule):
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
         kl_loss = self._add_kl_loss()
-        loss = 0.7 * outputs.loss + 0.3 * auxiliary_loss - kl_loss
+        alpha = np.exp(-self.global_step/1000)
+        loss = (1-alpha) *  outputs.loss + alpha * auxiliary_loss - kl_loss
 
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
                                           metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
         if not output['loss']:
             output['loss'] = loss
         return output
-
-    def _add_weight_loss(self):
-        loss_fct = CrossEntropyLoss()
-        loss_fct(se) 
-        
 
     def _add_kl_loss(self):
         loss = 0.0

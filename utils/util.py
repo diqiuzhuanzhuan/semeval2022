@@ -21,6 +21,7 @@ from model.luke_model import LukeNer, negative_sample
 from utils.reader import CoNLLReader
 from utils.conll_reader import LukeCoNLLReader
 from utils.reader_utils import get_ner_reader
+from seqeval.metrics import classification_report
 
 conll_iob = {'B-ORG': 0, 'I-ORG': 1, 'B-MISC': 2, 'I-MISC': 3, 'B-LOC': 4, 'I-LOC': 5, 'B-PER': 6, 'I-PER': 7, 'O': 8}
 wnut_iob = {'B-CORP': 0, 'I-CORP': 1, 'B-CW': 2, 'I-CW': 3, 'B-GRP': 4, 'I-GRP': 5, 'B-LOC': 6, 'I-LOC': 7, 'B-PER': 8, 'I-PER': 9, 'B-PROD': 10, 'I-PROD': 11, 'O': 12}
@@ -216,12 +217,12 @@ def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, en
     return reader
 
 
-def create_model(train_data, dev_data, tag_to_id, batch_size=64, dropout_rate=0.1, stage='fit', lr=1e-5, encoder_model='xlm-roberta-large', num_gpus=1, use_crf=False, negative_sample=False):
+def create_model(train_data, dev_data, tag_to_id, batch_size=64, dropout_rate=0.1, stage='fit', lr=1e-5, encoder_model='xlm-roberta-large', num_gpus=1, use_crf=False, negative_sample=False, kl_loss_config=[]):
     if "luke" in encoder_model:
         return LukeNer(encoder_model=encoder_model, batch_size=batch_size, lr=lr, dropout_rate=dropout_rate, train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id, negative_sample=negative_sample)
     else:
         return NERBaseAnnotator(train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id, batch_size=batch_size, stage=stage, encoder_model=encoder_model,
-                            dropout_rate=dropout_rate, lr=lr, pad_token_id=train_data.pad_token_id, num_gpus=num_gpus, use_crf=use_crf)
+                            dropout_rate=dropout_rate, lr=lr, pad_token_id=train_data.pad_token_id, num_gpus=num_gpus, use_crf=use_crf, kl_loss_config=kl_loss_config)
 
 
 def load_model(model_file, tag_to_id=None, stage='test', use_crf=False):
@@ -318,6 +319,19 @@ def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'
             mode="min"
         )
     return  bc_clb
+
+    
+def vote_for_all_result(files: List[str], labels):
+    for file in files:
+        y_pred = []
+        with open(file, "r") as f:
+            for line in f:
+                line = line.strip("\r").strip("\n")
+                if line.find("O") != -1 or line.find("-") != -1:
+                    y_pred.append(line)
+            assert(len(y_pred) == len(labels))
+            report = classification_report(y_pred, labels)
+    
         
 
 if __name__ == "__main__":
