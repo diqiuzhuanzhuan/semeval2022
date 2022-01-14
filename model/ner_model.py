@@ -123,8 +123,8 @@ class NERBaseAnnotator(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW([
             {'params': self.parameters()}, 
-            {'params': self.encoder.classifier.weight[self.id_to_tag['B-PROD']], 'lr': 0.1 * self.lr}, 
-            {'params': self.encoder.classifier.weight[self.id_to_tag['I-PROD']], 'lr': 0.1 * self.lr}], 
+            {'params': self.encoder.classifier.weight[self.tag_to_id['B-PROD']], 'lr': 0.1 * self.lr}, 
+            {'params': self.encoder.classifier.weight[self.tag_to_id['I-PROD']], 'lr': 0.1 * self.lr}], 
                                       lr=self.lr, 
                                       weight_decay=0.01)
         if self.stage == 'fit':
