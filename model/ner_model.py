@@ -218,7 +218,7 @@ class NERBaseAnnotator(pl.LightningModule):
         for tag in tags:
             loss_fct = torch.nn.MSELoss()
             size = self.encoder.classifier.weight[self.tag_to_id[tag]].size()
-            loss += loss_fct(self.encoder.classifier.weight[self.tag_to_id[tag]], torch.zeros(size))
+            loss += loss_fct(self.encoder.classifier.weight[self.tag_to_id[tag]], torch.zeros(size).to('cuda' if torch.cuda.is_available() else 'cpu'))
         return loss
 
     def _compute_token_tags(self, token_scores, tags, token_mask, metadata, subtoken_pos_to_raw_pos, batch_size, tag_lens, mode=''):
