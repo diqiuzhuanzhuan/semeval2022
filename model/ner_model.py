@@ -105,7 +105,6 @@ class NERBaseAnnotator(pl.LightningModule):
         token_type_ids_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(0)
         auxiliary_tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(-100)
 
-
         for i in range(len(tokens)):
             tokens_ = tokens[i]
             seq_len = len(tokens_)
@@ -195,8 +194,9 @@ class NERBaseAnnotator(pl.LightningModule):
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
         kl_loss = self._add_kl_loss()
+        l2_loss = self._add_l2_regulization(tags=['B-PROD', 'I-PROD'])
         alpha = np.exp(-self.global_step/4000)
-        loss = (1-alpha) *  outputs.loss + alpha * auxiliary_loss - kl_loss
+        loss = (1-alpha) *  outputs.loss + alpha * auxiliary_loss - kl_loss + 0.3 * l2_loss
 
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
                                           metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
@@ -211,6 +211,14 @@ class NERBaseAnnotator(pl.LightningModule):
             tag1_idx, tag2_idx = self.tag_to_id[tag1], self.tag_to_id[tag2]
             _loss = loss_fct(self.encoder.classifier.weight[tag1_idx], self.encoder.classifier.weight[tag2_idx])
             loss += min(_loss - threshold, 0)
+        return loss
+    
+    def _add_l2_regulization(self, tags):
+        loss = 0.0
+        for tag in tags:
+            loss_fct = torch.nn.MSELoss()
+            size = self.encoder.classifier.weight[self.tag_to_id[tag]].size()
+            loss += loss_fct(self.encoder.classifier.weight[self.tag_to_id[tag]], torch.zeros(size))
         return loss
 
     def _compute_token_tags(self, token_scores, tags, token_mask, metadata, subtoken_pos_to_raw_pos, batch_size, tag_lens, mode=''):
