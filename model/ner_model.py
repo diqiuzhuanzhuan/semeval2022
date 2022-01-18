@@ -196,6 +196,7 @@ class NERBaseAnnotator(pl.LightningModule):
         kl_loss = self._add_kl_loss()
         l2_loss = self._add_l2_regulization(tags=['B-PROD', 'I-PROD'])
         alpha = np.exp(-self.global_step/10000)
+        alpha = 0.3
         loss = (1-alpha) *  outputs.loss + alpha * auxiliary_loss - kl_loss + l2_loss
 
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
