@@ -195,8 +195,8 @@ class NERBaseAnnotator(pl.LightningModule):
         token_scores = outputs.logits
         kl_loss = self._add_kl_loss()
         l2_loss = self._add_l2_regulization(tags=['B-PROD', 'I-PROD'])
-        alpha = np.exp(-self.global_step/4000)
-        loss = (1-alpha) *  outputs.loss + alpha * auxiliary_loss - kl_loss + 0.3 * l2_loss
+        alpha = np.exp(-self.global_step/10000)
+        loss = (1-alpha) *  outputs.loss + alpha * auxiliary_loss - kl_loss + l2_loss
 
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
                                           metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
@@ -217,8 +217,8 @@ class NERBaseAnnotator(pl.LightningModule):
         loss = 0.0
         for tag in tags:
             loss_fct = torch.nn.MSELoss()
-            size = self.encoder.classifier.weight[self.tag_to_id[tag]].size()
-            loss += loss_fct(self.encoder.classifier.weight[self.tag_to_id[tag]], torch.zeros(size).to('cuda' if torch.cuda.is_available() else 'cpu'))
+            target = torch.tensor(self.encoder.classifier.weight[self.tag_to_id[tag]]).fill_(0)
+            loss += loss_fct(self.encoder.classifier.weight[self.tag_to_id[tag]], target)
         return loss
 
     def _compute_token_tags(self, token_scores, tags, token_mask, metadata, subtoken_pos_to_raw_pos, batch_size, tag_lens, mode=''):
