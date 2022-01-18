@@ -1,10 +1,13 @@
 import argparse
 import collections
+from dataclasses import field
+import itertools
 from json import encoder
 import os
 import time
 from typing import Union, List
 import pandas as pd
+from seqeval.metrics.sequence_labeling import f1_score
 import torch
 from pytorch_lightning import seed_everything
 import zipfile
@@ -187,9 +190,10 @@ def get_entity_vocab(encoder_model="studio-ousia/luke-base", conll_files: List[s
                 with myzip.open(file.strip(".zip")) as f:
                     for entity in f:
                         entity = entity.strip('\r').strip('\n')
+                        entity_vocab[entity] = len(entity_vocab)
                         if " (" in entity: 
                             entity = entity.split(" (")[0]
-                        entity_vocab[entity] = len(entity_vocab)
+                            entity_vocab[entity] = len(entity_vocab)
                         
         else:
             with open(file, "r") as f:
@@ -199,6 +203,10 @@ def get_entity_vocab(encoder_model="studio-ousia/luke-base", conll_files: List[s
                         continue
                     if entity not in entity_vocab:
                         entity_vocab[entity] = len(entity_vocab)
+                    if " (" in entity: 
+                        entity = entity.split(" (")[0]
+                        if entity not in entity_vocab:
+                            entity_vocab[entity] = len(entity_vocab)
     
     return entity_vocab
 
@@ -321,22 +329,36 @@ def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'
     return  bc_clb
 
     
-def vote_for_all_result(files: List[str], labels):
+def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
+    report_dicts = []
     for file in files:
+        report_dict = dict()
         y_pred = []
-        with open(file, "r") as f:
-            for line in f:
-                line = line.strip("\r").strip("\n")
-                if line.find("O") != -1 or line.find("-") != -1:
-                    y_pred.append(line)
-            assert(len(y_pred) == len(labels))
-            report = classification_report(y_pred, labels)
+        y_pred_ = []
+        for fields, _ in get_ner_reader(file):
+            y_pred.append(fields[-1])
+            y_pred_.extend(fields[-1])
+        
+        ans = classification_report(y_pred=y_pred, y_true=labels, output_dict=True)
+        y_true_ = list(itertools.chain(*y_true))
+        report_dict['O'] = sum([1 if i =='O' and j == 'O' else 0 for i, j in zip(y_true_, y_pred_)])/len(y_pred_)
+        for k in ans:
+            if k.endswith("avg"):
+                continue
+            report_dict[k] = ans[k]['precision'] 
+  
     
+        print(report_dict) 
         
 
 if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
-    reader = get_reader(train_file, target_vocab=wnut_iob, encoder_model='roberta-base')
+    dev_file = "./training_data/EN-English/en_dev.conll"
+    #reader = get_reader(train_file, target_vocab=wnut_iob, encoder_model='roberta-base')
     wiki_file = "./data/wiki_def/wiki_abstract.vocab"
-    entity_vocab = get_entity_vocab(conll_files=[train_file], entity_files=[wiki_file])
-    print(len(entity_vocab))
+    #entity_vocab = get_entity_vocab(conll_files=[train_file], entity_files=[wiki_file])
+    #print(len(entity_vocab))
+    y_true = []
+    for fields, _ in get_ner_reader(dev_file):
+        y_true.append(fields[-1])
+    vote_for_all_result(files=["./en.pred.conll", dev_file], labels=y_true)
