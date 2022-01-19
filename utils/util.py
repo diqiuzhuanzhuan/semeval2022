@@ -11,7 +11,7 @@ from seqeval.metrics.sequence_labeling import f1_score
 import torch
 from pytorch_lightning import seed_everything
 import zipfile
-
+import numpy as np
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import LearningRateMonitor, EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
@@ -330,7 +330,10 @@ def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'
 
     
 def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
-    report_dicts = []
+
+    final_res = [[[0 for i in iob_tagging] for j in range(len(k))] for k in labels]
+    id_to_tag = {iob_tagging[k]: k for k in iob_tagging}
+
     for file in files:
         report_dict = dict()
         y_pred = []
@@ -341,14 +344,27 @@ def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
         
         ans = classification_report(y_pred=y_pred, y_true=labels, output_dict=True)
         y_true_ = list(itertools.chain(*y_true))
-        report_dict['O'] = sum([1 if i =='O' and j == 'O' else 0 for i, j in zip(y_true_, y_pred_)])/len(y_pred_)
+        report_dict['O'] = sum([1 if i =='O' and j == 'O' else 0 for i, j in zip(y_true_, y_pred_)])/np.count_nonzero([1 if i == 'O' else 0 for i in y_pred_])
         for k in ans:
             if k.endswith("avg"):
                 continue
             report_dict[k] = ans[k]['precision'] 
-  
-    
-        print(report_dict) 
+        for idx, (fields, _) in enumerate(get_ner_reader(file)):
+            for jdx, tag in enumerate(fields[-1]):
+                if tag == 'O':
+                    score = report_dict[tag]
+                else:
+                    _tag = tag[2:]
+                    score = report_dict[_tag]
+                #print(idx, jdx)
+                final_res[idx][jdx][iob_tagging[tag]] += score
+    final_y_pred = []
+    for l in final_res:
+        tmp = []
+        for k in l:
+            tmp.append(id_to_tag[np.argmax(k)])
+        final_y_pred.append(tmp)
+    print(classification_report(final_y_pred, labels))
         
 
 if __name__ == "__main__":
@@ -361,4 +377,5 @@ if __name__ == "__main__":
     y_true = []
     for fields, _ in get_ner_reader(dev_file):
         y_true.append(fields[-1])
+    print(len(y_true))
     vote_for_all_result(files=["./en.pred.conll", dev_file], labels=y_true)
