@@ -194,7 +194,7 @@ class NERBaseAnnotator(pl.LightningModule):
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
         kl_loss = self._add_kl_loss()
-        l2_loss = self._add_l2_regulization(tags=['B-PROD', 'I-PROD', 'B-CW', 'I-CW', 'B-PER', 'I-PER'])
+        l2_loss = self._add_l2_regulization(l2_config=[(1, 'B-PROD'), (1, 'I-PROD'), (0.8, 'B-CW'), (0.8, 'I-CW'), (0.3, 'B-PER'), (0.3, 'I-PER')])
         alpha = np.exp(-self.global_step/10000)
         alpha = 0.3
         loss = (1-alpha) *  outputs.loss + alpha * auxiliary_loss - kl_loss + l2_loss
@@ -214,12 +214,12 @@ class NERBaseAnnotator(pl.LightningModule):
             loss += min(_loss - threshold, 0)
         return loss
     
-    def _add_l2_regulization(self, tags):
+    def _add_l2_regulization(self, l2_config):
         loss = 0.0
-        for tag in tags:
+        for weight, tag in l2_config:
             loss_fct = torch.nn.MSELoss()
             target = torch.tensor(self.encoder.classifier.weight[self.tag_to_id[tag]]).fill_(0)
-            loss += loss_fct(self.encoder.classifier.weight[self.tag_to_id[tag]], target)
+            loss += weight * loss_fct(self.encoder.classifier.weight[self.tag_to_id[tag]], target)
         return loss
 
     def _compute_token_tags(self, token_scores, tags, token_mask, metadata, subtoken_pos_to_raw_pos, batch_size, tag_lens, mode=''):
@@ -285,7 +285,7 @@ if __name__ == "__main__":
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
                      encoder_model=encoder_model, num_gpus=1, use_crf=False)
 
-    trainer = train_model(model=model, out_dir=output_dir, epochs=20, monitor="f1")
+    trainer = train_model(model=model, out_dir=output_dir, epochs=20, monitor="val_F1@PROD")
     # use pytorch lightnings saver here.
     out_model_path, best_checkpoint = save_model(trainer=trainer, out_dir=output_dir, model_name=encoder_model, timestamp=time.time())
 

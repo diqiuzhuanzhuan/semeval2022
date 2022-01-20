@@ -290,9 +290,9 @@ def get_lr_logger():
 
 
 def get_model_earlystopping_callback(monitor='val_loss'):
-    if monitor == 'f1':
+    if "f1" in monitor.lower():
         es_clb = EarlyStopping(
-            monitor='val_micro@F1',
+            monitor=monitor,
             min_delta=0.001,
             patience=5,
             verbose=True,
@@ -352,7 +352,7 @@ def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
         for idx, (fields, _) in enumerate(get_ner_reader(file)):
             for jdx, tag in enumerate(fields[-1]):
                 if tag == 'O':
-                    score = report_dict[tag]
+                    score = report_dict[tag] 
                 else:
                     _tag = tag[2:]
                     score = report_dict[_tag]
@@ -364,7 +364,11 @@ def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
         for k in l:
             tmp.append(id_to_tag[np.argmax(k)])
         final_y_pred.append(tmp)
-    print(classification_report(final_y_pred, labels))
+    print(classification_report(final_y_pred, labels, output_dict=True))
+    with open("en.pred.conll", "w") as f:
+        for l in final_y_pred:
+            f.write('\n'.join(l))
+            f.write('\n')
         
 
 if __name__ == "__main__":
@@ -378,4 +382,8 @@ if __name__ == "__main__":
     for fields, _ in get_ner_reader(dev_file):
         y_true.append(fields[-1])
     print(len(y_true))
-    vote_for_all_result(files=["./en.pred.conll", dev_file], labels=y_true)
+    vote_for_all_result(files=[
+        "./data/res/en.pred.conll",
+        "./data/res/en.pred.bert_large_wwm.conll",
+        "./data/res/en.pred.roberta_large.conll",
+        ], labels=y_true)
