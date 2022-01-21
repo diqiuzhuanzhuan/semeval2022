@@ -348,7 +348,8 @@ def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
         for k in ans:
             if k.endswith("avg"):
                 continue
-            report_dict[k] = ans[k]['precision'] 
+            #report_dict[k] = ans[k]['precision'] 
+            report_dict[k] = ans[k]['f1-score'] 
         for idx, (fields, _) in enumerate(get_ner_reader(file)):
             for jdx, tag in enumerate(fields[-1]):
                 if tag == 'O':
@@ -368,7 +369,7 @@ def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
     with open("en.pred.conll", "w") as f:
         for l in final_y_pred:
             f.write('\n'.join(l))
-            f.write('\n')
+            f.write("\n\n")
         
 
 if __name__ == "__main__":
