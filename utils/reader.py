@@ -76,7 +76,7 @@ class CoNLLReader(Dataset):
             if original_value.count(" ") > 0:
                 tree.add(Interval(start_index, end_index)) 
             elif original_value in words:
-                if len(original_value) > 4:
+                if len(original_value) > 1:
                     tree.add(Interval(start_index, end_index)) 
         for interval in sorted(tree.items()):
             ans.append(sentence[interval.begin: interval.end+1])
