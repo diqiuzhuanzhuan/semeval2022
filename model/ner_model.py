@@ -189,6 +189,7 @@ class NERBaseAnnotator(pl.LightningModule):
         outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags, output_hidden_states=True)
         hidden_states = outputs.hidden_states[0]
         auxiliary_logits = self.auxiliary_classifier(hidden_states)
+
         loss_fct = CrossEntropyLoss()
         auxiliary_loss = loss_fct(auxiliary_logits.view(-1, 2), auxiliary_tag.view(-1))
         # compute the log-likelihood loss and compute the best NER annotation sequence
@@ -218,7 +219,7 @@ class NERBaseAnnotator(pl.LightningModule):
         loss = 0.0
         for weight, tag in l2_config:
             loss_fct = torch.nn.MSELoss()
-            target = torch.tensor(self.encoder.classifier.weight[self.tag_to_id[tag]]).fill_(0)
+            target = self.encoder.classifier.weight[self.tag_to_id[tag]].clone().detach()
             loss += weight * loss_fct(self.encoder.classifier.weight[self.tag_to_id[tag]], target)
         return loss
 
@@ -246,6 +247,8 @@ class NERBaseAnnotator(pl.LightningModule):
         if mode == 'val':
             self.val_span_f1(pred_results, metadata)
             output["results"] = self.val_span_f1.get_metric()
+        elif mode == 'test':
+            pass
         else:
             self.span_f1(pred_results, metadata)
             output["results"] = self.span_f1.get_metric()
