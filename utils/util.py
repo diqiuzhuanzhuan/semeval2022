@@ -211,13 +211,13 @@ def get_entity_vocab(encoder_model="studio-ousia/luke-base", conll_files: List[s
     return entity_vocab
 
 
-def get_reader(file_path, max_instances=-1, max_length=50, target_vocab=None, encoder_model='xlm-roberta-large', entity_vocab=None, augment=[{'GRP': 'CORP'}, {'CORP': 'GRP'}]):
+def get_reader(file_path, min_instances=0, max_instances=-1, max_length=50, target_vocab=None, encoder_model='xlm-roberta-large', entity_vocab=None, augment=[{'GRP': 'CORP'}, {'CORP': 'GRP'}]):
     if file_path is None:
         return None
     if "luke" in encoder_model:
         reader = LukeCoNLLReader(max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model)
     else:
-        reader = CoNLLReader(max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model, entity_vocab=entity_vocab)
+        reader = CoNLLReader(min_instances=min_instances, max_instances=max_instances, max_length=max_length, target_vocab=target_vocab, encoder_model=encoder_model, entity_vocab=entity_vocab)
     reader.read_data(file_path)
     for ele in augment:
         reader.augment_data(file_path, ele)
