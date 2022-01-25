@@ -92,7 +92,7 @@ def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: Unio
     sentences = test_data.sentences
     ner_tags = test_data.ner_tags
     pos_to_singel_word_map = test_data.pos_to_single_word_maps
-    f = open(out_file, "w")
+    f = open(out_file, "a+")
     #
     record_data = collections.defaultdict(list)
     for idx, batch in enumerate(test_dataloader):
