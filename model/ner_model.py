@@ -1,6 +1,6 @@
 from re import I, M
 import re
-from typing import List, Any
+from typing import List, Any, Union
 
 import pytorch_lightning.core.lightning as pl
 from pytorch_lightning.utilities.distributed import init_dist_connection
@@ -70,6 +70,9 @@ class NERBaseAnnotator(pl.LightningModule):
         
         self.auxiliary_classifier = nn.Linear(self.encoder.config.hidden_size, 2)
 
+        # adversial
+        self.emb_backup = {}
+        self.grad_backup = {}
 
         self.lr = lr
         self.span_f1 = SpanF1()
@@ -171,6 +174,9 @@ class NERBaseAnnotator(pl.LightningModule):
         self.log_metrics(output['results'], loss=output['loss'], suffix='', on_step=True, on_epoch=False)
         return output
 
+    def on_after_backward(self) -> None:
+        return super().on_after_backward()
+
     def test_step(self, batch, batch_idx):
         output = self.perform_forward_step(batch, mode=self.stage)
         self.log_metrics(output['results'], loss=output['loss'], suffix='_t', on_step=True, on_epoch=False)
@@ -181,6 +187,40 @@ class NERBaseAnnotator(pl.LightningModule):
             self.log(suffix + key, pred_results[key], on_step=on_step, on_epoch=on_epoch, prog_bar=True, logger=True)
 
         self.log(suffix + 'loss', loss, on_step=on_step, on_epoch=on_epoch, prog_bar=True, logger=True)
+    
+    def attack(self, epsilon=1., alpha=0.3, emb_name='word_embeddings', is_first_attack=False):
+        for name, param in self.encoder.named_parameters():
+            if param.requires_grad and emb_name in name:
+                if is_first_attack:
+                    self.emb_backup[name] = param.data.clone()
+                norm = torch.norm(param.grad)
+                if norm != 0 and not torch.isnan(norm):
+                    r_at = alpha * param.grad / norm
+                    param.data.add_(r_at)
+                    param.data = self.project(name, param.data, epsilon)
+    
+    def project(self, param_name, param_data, epsilon):
+        r = param_data - self.emb_backup[param_name]
+        if torch.norm(r) > epsilon:
+            r = epsilon * r / torch.norm(r)
+        return self.emb_backup[param_name] + r
+
+    def restore(self, emb_name='word_embeddings'):
+        for name, param in self.encoder.named_parameters():
+            if param.requires_grad and emb_name in name: 
+                assert name in self.emb_backup
+                param.data = self.emb_backup[name]
+        self.emb_backup = {}
+
+    def backup_grad(self):
+        for name, param in self.encoder.named_parameters():
+            if param.requires_grad:
+                self.grad_backup[name] = param.grad.clone()
+
+    def restore_grad(self):
+        for name, param in self.encoder.named_parameters():
+            if param.requires_grad:
+                param.grad = self.grad_backup[name]
 
     def perform_forward_step(self, batch, mode=''):
         tokens, tags, token_mask, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len, auxiliary_tag = batch
