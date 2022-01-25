@@ -118,7 +118,7 @@ class CoNLLReader(Dataset):
             if instance_idx < self._min_instances:
                 instance_idx += 1
                 continue
-            if self._max_instances != -1 and instance_idx > self._max_instances:
+            if self._max_instances != -1 and instance_idx >= self._max_instances:
                 break
             tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, = self._wrap_data(fields)
             self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor))
@@ -251,7 +251,7 @@ if __name__ == "__main__":
     from utils.util import wnut_iob
     tokenizer = LukeTokenizer.from_pretrained("studio-ousia/luke-base")
     entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
-    conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob, entity_vocab=entity_vocab, min_instances=217817)
+    conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob, entity_vocab=entity_vocab, min_instances=0, max_instances=217817+2)
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
     test_file = "./training_data/EN-English/en_test.conll"

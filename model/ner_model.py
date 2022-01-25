@@ -330,10 +330,14 @@ if __name__ == "__main__":
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
                      encoder_model=encoder_model, num_gpus=1, use_crf=False)
 
-    trainer = train_model(model=model, out_dir=output_dir, epochs=20, monitor="val_F1@PROD")
+    trainer = train_model(model=model, out_dir=output_dir, epochs=1, monitor="val_F1@PROD")
     # use pytorch lightnings saver here.
     out_model_path, best_checkpoint = save_model(trainer=trainer, out_dir=output_dir, model_name=encoder_model, timestamp=time.time())
 
     model = load_model(best_checkpoint, wnut_iob, use_crf=False)
+    for i in range(10):
+        min_instances = 22000 * i
+        max_instances = 22000 * i + 2
+        test_data = get_reader(file_path=test_file, target_vocab=iob_tagging, encoder_model=encoder_model, min_instances=min_instances, max_instances=max_instances, max_length=100, entity_vocab=entity_vocab, augment=[])
 
-    record_data = write_submit_result(model, dev_data, submission_file)
+        record_data = write_submit_result(model, test_data, submission_file)
