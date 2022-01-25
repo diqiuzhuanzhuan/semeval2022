@@ -313,7 +313,7 @@ def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'
     if monitor == "f1":
         bc_clb = ModelCheckpoint(
             filename='{epoch}-{val_micro@F1:.3f}-{val_loss:.2f}',
-            save_top_k=1,
+            save_top_k=5,
             verbose=True,
             monitor="val_micro@F1",
             mode="max"
