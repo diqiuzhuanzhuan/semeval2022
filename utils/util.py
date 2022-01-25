@@ -310,7 +310,7 @@ def get_model_earlystopping_callback(monitor='val_loss'):
 
     
 def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'):
-    if monitor == "f1":
+    if "f1" in monitor.lower():
         bc_clb = ModelCheckpoint(
             filename='{epoch}-{val_micro@F1:.3f}-{val_loss:.2f}',
             save_top_k=5,
