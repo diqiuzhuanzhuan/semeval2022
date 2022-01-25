@@ -178,6 +178,8 @@ class CoNLLReader(Dataset):
     def parse_line_for_ner(self, fields):
         self._entity_record(fields)
         tokens_, ner_tags = fields[0], fields[-1]
+        if len(fields) == 3: # test data, no tag
+            ner_tags = ['O' for _ in tokens_]
         sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids = self.parse_tokens_for_ner(tokens_, ner_tags)
         gold_spans_ = extract_spans(ner_tags_rep, subtoken_pos_to_raw_pos)
         coded_ner_ = [self.label_to_id[tag] for tag in ner_tags_rep]
@@ -248,7 +250,8 @@ if __name__ == "__main__":
     conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob, entity_vocab=entity_vocab)
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
-    conll_reader.read_data(train_file)
+    test_file = "./training_data/EN-English/en_test.conll"
+    conll_reader.read_data(test_file)
     #conll_reader.augment_data(train_file, {"CORP": "GRP"})
     #conll_reader.augment_data(train_file, {"GRP": "CORP"})
     for batch in conll_reader:

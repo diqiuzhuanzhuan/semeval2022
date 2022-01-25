@@ -316,11 +316,13 @@ if __name__ == "__main__":
     track = "EN-English/en"
     train_file = os.path.join(base_dir, "training_data/{}_train.conll".format(track))
     dev_file = os.path.join(base_dir, "training_data/{}_dev.conll".format(track))
+    test_file = os.path.join(base_dir, "training_data/{}_test.conll".format(track))
     output_dir = os.path.join(base_dir, "{}".format(track), "{}-train".format(encoder_model))
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = wnut_iob
     entity_vocab = get_entity_vocab()
     train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
+    test_data = get_reader(file_path=test_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
     entity_vocab = get_entity_vocab(conll_files=[train_file])
     dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=15, max_length=55, augment=[])
 
