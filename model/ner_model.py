@@ -83,6 +83,7 @@ class NERBaseAnnotator(pl.LightningModule):
         self.save_hyperparameters('pad_token_id', 'encoder_model', 'use_crf')
 
         self.test_result = []
+        self.val_result = []
 
     def setup_model(self, stage_name):
         if stage_name == 'fit' and self.train_data is not None:
@@ -143,6 +144,8 @@ class NERBaseAnnotator(pl.LightningModule):
         return loader
 
     def test_dataloader(self):
+        if self.test_data is None:
+            return None
         loader = DataLoader(self.test_data, batch_size=self.batch_size, collate_fn=self.collate_batch(mode='val'), num_workers=2, shuffle=False)
         return loader
 
@@ -167,9 +170,13 @@ class NERBaseAnnotator(pl.LightningModule):
         self.log_metrics(pred_results, loss=avg_loss, suffix='val_', on_step=False, on_epoch=True)
         self.val_span_f1.reset()
 
+    def on_validation_epoch_start(self) -> None:
+        self.val_result = []
+
     def validation_step(self, batch, batch_idx):
         output = self.perform_forward_step(batch, mode='val')
         self.log_metrics(output['results'], loss=output['loss'], suffix='val_', on_step=True, on_epoch=False)
+        [self.test_result.append(res) for res in output['raw_token_results']]
         return output
 
     def training_step(self, batch, batch_idx):
