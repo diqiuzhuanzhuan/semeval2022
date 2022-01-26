@@ -392,18 +392,16 @@ def k_fold(train_file, dev_file, k=10):
                 for fields in zip(*all_fields[i]):
                     f.write("".join(fields))
                     f.write("\n")
-            f.write("\n\n")
+                f.write("\n")
         with open(output_dev_file, "w") as f:
             for i in dev:
                 for fields in zip(*all_fields[i]):
                     f.write("".join(fields))
                     f.write("\n")
-            f.write("\n\n")
+                f.write("\n")
         output_files.append((output_train_file, output_dev_file))
         index += 1
     return output_files
-
-
 
 
 if __name__ == "__main__":
