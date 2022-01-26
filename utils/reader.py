@@ -97,7 +97,9 @@ class CoNLLReader(Dataset):
         return len(self.instances)
 
     def __getitem__(self, item):
-        return self.instances[item]
+        fields = self.instances[item]
+        tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, = self._wrap_data(fields)
+        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor
     
     def _wrap_data(self, fields):
         sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids = self.parse_line_for_ner(fields=fields)
@@ -120,8 +122,9 @@ class CoNLLReader(Dataset):
                 continue
             if self._max_instances != -1 and instance_idx >= self._max_instances:
                 break
-            tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, = self._wrap_data(fields)
-            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor))
+            self.instances.append(fields)
+            #tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, = self._wrap_data(fields)
+            #self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor))
             instance_idx += 1
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
@@ -185,7 +188,7 @@ class CoNLLReader(Dataset):
         if len(fields) == 3: # test data, no tag
             ner_tags = ['O' for _ in tokens_]
         sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids = self.parse_tokens_for_ner(tokens_, ner_tags)
-        gold_spans_ = extract_spans(ner_tags_rep, subtoken_pos_to_raw_pos)
+        gold_spans_, _ = extract_spans(ner_tags_rep, subtoken_pos_to_raw_pos)
         coded_ner_ = [self.label_to_id[tag] for tag in ner_tags_rep]
 
         return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids

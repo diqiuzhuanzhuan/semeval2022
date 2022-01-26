@@ -30,6 +30,7 @@ class NERBaseAnnotator(pl.LightningModule):
     def __init__(self,
                  train_data=None,
                  dev_data=None,
+                 test_data=None,
                  lr=1e-5,
                  dropout_rate=0.1,
                  batch_size=16,
@@ -49,6 +50,7 @@ class NERBaseAnnotator(pl.LightningModule):
 
         self.train_data = train_data
         self.dev_data = dev_data
+        self.test_data = test_data
 
         self.id_to_tag = {v: k for k, v in tag_to_id.items()}
         self.tag_to_id = tag_to_id
@@ -79,6 +81,8 @@ class NERBaseAnnotator(pl.LightningModule):
         self.val_span_f1 = SpanF1()
         self.setup_model(self.stage)
         self.save_hyperparameters('pad_token_id', 'encoder_model', 'use_crf')
+
+        self.test_result = []
 
     def setup_model(self, stage_name):
         if stage_name == 'fit' and self.train_data is not None:
@@ -138,6 +142,10 @@ class NERBaseAnnotator(pl.LightningModule):
         loader = DataLoader(self.train_data, batch_size=self.batch_size, collate_fn=self.collate_batch(mode='train'), num_workers=2, shuffle=True)
         return loader
 
+    def test_dataloader(self):
+        loader = DataLoader(self.test_data, batch_size=self.batch_size, collate_fn=self.collate_batch(mode='val'), num_workers=2, shuffle=True)
+        return loader
+
     def val_dataloader(self):
         if self.dev_data is None:
             return None
@@ -145,12 +153,7 @@ class NERBaseAnnotator(pl.LightningModule):
         return loader
 
     def test_epoch_end(self, outputs):
-        pred_results = self.span_f1.get_metric()
-        avg_loss = np.mean([preds['loss'].item() for preds in outputs])
-        self.log_metrics(pred_results, loss=avg_loss, on_step=False, on_epoch=True)
-
-        out = {"test_loss": avg_loss, "results": pred_results}
-        return out
+        pass
 
     def training_epoch_end(self, outputs: List[Any]) -> None:
         pred_results = self.span_f1.get_metric(True)
@@ -176,7 +179,7 @@ class NERBaseAnnotator(pl.LightningModule):
 
     def test_step(self, batch, batch_idx):
         output = self.perform_forward_step(batch, mode=self.stage)
-        self.log_metrics(output['results'], loss=output['loss'], suffix='_t', on_step=True, on_epoch=False)
+        [self.test_result.append(res) for res in output['raw_token_results']]
         return output
 
     def log_metrics(self, pred_results, loss=0.0, suffix='', on_step=False, on_epoch=True):
@@ -271,6 +274,7 @@ class NERBaseAnnotator(pl.LightningModule):
 
         pred_results = []
         raw_pred_results = []
+        raw_token_results = []
         for i in range(batch_size):
             tag_len = tag_lens[i].item()
             if self.use_crf:
@@ -278,9 +282,11 @@ class NERBaseAnnotator(pl.LightningModule):
                 tag_seq = tag_seq[:tag_len]
             else:
                 tag_seq = best_path[i].cpu().numpy()[0:tag_len]
-            pred_results.append(extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag], subtoken_pos_to_raw_pos))
+            span_res, raw_token_res = extract_spans([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag], subtoken_pos_to_raw_pos[i])
+            pred_results.append(span_res)
+            raw_token_results.append(raw_token_res)
             raw_pred_results.append([self.id_to_tag[x] for x in tag_seq if x in self.id_to_tag])
-        output = {"loss": loss, "pred_results": pred_results, "raw_pred_results": raw_pred_results}
+        output = {"loss": loss, "pred_results": pred_results, "raw_pred_results": raw_pred_results, 'raw_token_results': raw_token_results}
         if mode == 'val':
             self.val_span_f1(pred_results, metadata)
             output["results"] = self.val_span_f1.get_metric()
@@ -304,7 +310,7 @@ class NERBaseAnnotator(pl.LightningModule):
 
 
 if __name__ == "__main__":
-    from utils.util import get_reader, train_model, create_model, save_model, parse_args, get_tagset, wnut_iob, write_submit_result, load_model, get_entity_vocab
+    from utils.util import get_reader, train_model, test_model, create_model, save_model, parse_args, get_tagset, wnut_iob, write_test, write_submit_result, load_model, get_entity_vocab
     import time
     import os
     base_dir = ""
@@ -323,18 +329,24 @@ if __name__ == "__main__":
     entity_vocab = get_entity_vocab(conll_files=[train_file])
     dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=15, max_length=55, augment=[])
 
-    model = create_model(train_data=train_data, dev_data=dev_data, tag_to_id=train_data.get_target_vocab(),
+    model = create_model(train_data=train_data, dev_data=dev_data, test_data=test_data, tag_to_id=train_data.get_target_vocab(),
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
                      encoder_model=encoder_model, num_gpus=1, use_crf=False)
 
     trainer = train_model(model=model, out_dir=output_dir, epochs=1, monitor="val_F1@PROD")
     # use pytorch lightnings saver here.
     out_model_path, best_checkpoint = save_model(trainer=trainer, out_dir=output_dir, model_name=encoder_model, timestamp=time.time())
+    
 
     model = load_model(best_checkpoint, wnut_iob, use_crf=False)
+    model.test_data = test_data
+    trainer = test_model(model)
+    write_test(model, "en_pred.conll")
+    """
     for i in range(10):
         min_instances = 22000 * i
         max_instances = 22000 * (i+1)
         test_data = get_reader(file_path=test_file, target_vocab=iob_tagging, encoder_model=encoder_model, min_instances=min_instances, max_instances=max_instances, max_length=100, entity_vocab=entity_vocab, augment=[])
 
         record_data = write_submit_result(model, test_data, submission_file)
+    """

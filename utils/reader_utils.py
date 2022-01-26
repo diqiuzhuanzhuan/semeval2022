@@ -45,6 +45,8 @@ def extract_spans(tags, subtoken_pos_to_raw_pos):
         return _gold_spans
 
     # iterate over the tags
+    actual_tags = []
+    last_pos = None
     for _id, (nt, pos) in enumerate(zip(tags, subtoken_pos_to_raw_pos)):
         indicator = nt[0]
         """
@@ -75,8 +77,14 @@ def extract_spans(tags, subtoken_pos_to_raw_pos):
             cur_tag = 'O'
             cur_start = _id
             pass
+        if pos == last_pos:
+            pass
+        else:
+            actual_tags.append(nt)
+        last_pos = pos
     _save_span(cur_tag, cur_start, _id + 1, gold_spans)
-    return gold_spans
+    assert(len(actual_tags) == len(set(subtoken_pos_to_raw_pos)))
+    return gold_spans, actual_tags
 
 
 def _is_divider(line: str) -> bool:

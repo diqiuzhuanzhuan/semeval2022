@@ -85,6 +85,18 @@ def write_eval_performance(eval_performance, out_file):
     open(out_file, 'wt').write(outstr)
     logger.info('Finished writing evaluation performance for {}'.format(out_file))
 
+def write_test(model, out_file):
+    path = os.path.dirname(out_file)
+    if path and not os.path.exists(path):
+        os.makedirs(path)
+    f = open(out_file, "w")
+    for res in model.test_result:
+        for tag in res:
+            f.write(res)
+            f.write('\n')
+        f.write('\n')
+    f.close()
+
 def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: Union[CoNLLReader, LukeCoNLLReader], out_file: str):
     path = os.path.dirname(out_file)
     if path and not os.path.exists(path):
@@ -227,11 +239,11 @@ def get_reader(file_path, min_instances=0, max_instances=-1, max_length=50, targ
     return reader
 
 
-def create_model(train_data, dev_data, tag_to_id, batch_size=64, dropout_rate=0.1, stage='fit', lr=1e-5, encoder_model='xlm-roberta-large', num_gpus=1, use_crf=False, negative_sample=False, kl_loss_config=[]):
+def create_model(train_data, dev_data, tag_to_id, test_data=None, batch_size=64, dropout_rate=0.1, stage='fit', lr=1e-5, encoder_model='xlm-roberta-large', num_gpus=1, use_crf=False, negative_sample=False, kl_loss_config=[]):
     if "luke" in encoder_model:
         return LukeNer(encoder_model=encoder_model, batch_size=batch_size, lr=lr, dropout_rate=dropout_rate, train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id, negative_sample=negative_sample)
     else:
-        return NERBaseAnnotator(train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id, batch_size=batch_size, stage=stage, encoder_model=encoder_model,
+        return NERBaseAnnotator(train_data=train_data, dev_data=dev_data, test_data=test_data, tag_to_id=tag_to_id, batch_size=batch_size, stage=stage, encoder_model=encoder_model,
                             dropout_rate=dropout_rate, lr=lr, pad_token_id=train_data.pad_token_id, num_gpus=num_gpus, use_crf=use_crf, kl_loss_config=kl_loss_config)
 
 
@@ -268,6 +280,11 @@ def save_model(trainer: pl.Trainer, out_dir, model_name='', timestamp=None):
 def train_model(model, out_dir='', epochs=10, gpus=1, monitor='val_loss'):
     trainer = get_trainer(gpus=gpus, out_dir=out_dir, epochs=epochs, monitor=monitor)
     trainer.fit(model)
+    return trainer
+
+def test_model(model, gpus=1):
+    trainer = get_trainer(gpus=gpus, is_test=True)
+    trainer.test(model)
     return trainer
 
 
