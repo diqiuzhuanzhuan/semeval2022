@@ -91,7 +91,9 @@ def write_test(model, out_file):
         os.makedirs(path)
     f = open(out_file, "w")
     for res in model.test_result:
-        for tag in res:
+        for i, tag in enumerate(res):
+            if i == 0 or i == (len(res)-1):
+                continue
             f.write(tag)
             f.write('\n')
         f.write('\n')
