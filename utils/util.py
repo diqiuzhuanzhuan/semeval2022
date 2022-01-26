@@ -4,6 +4,7 @@ from dataclasses import field
 import itertools
 from json import encoder
 import os
+from random import randint
 import time
 from typing import Union, List
 import pandas as pd
@@ -25,6 +26,7 @@ from utils.reader import CoNLLReader
 from utils.conll_reader import LukeCoNLLReader
 from utils.reader_utils import get_ner_reader
 from seqeval.metrics import classification_report
+from sklearn.model_selection import KFold
 
 conll_iob = {'B-ORG': 0, 'I-ORG': 1, 'B-MISC': 2, 'I-MISC': 3, 'B-LOC': 4, 'I-LOC': 5, 'B-PER': 6, 'I-PER': 7, 'O': 8}
 wnut_iob = {'B-CORP': 0, 'I-CORP': 1, 'B-CW': 2, 'I-CW': 3, 'B-GRP': 4, 'I-GRP': 5, 'B-LOC': 6, 'I-LOC': 7, 'B-PER': 8, 'I-PER': 9, 'B-PROD': 10, 'I-PROD': 11, 'O': 12}
@@ -372,9 +374,42 @@ def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
             f.write("\n\n")
         
 
+def k_fold(train_file, dev_file, k=10):
+    all_fields = []
+    for fields, _ in get_ner_reader(train_file):
+        all_fields.append(fields)
+    for fields, _ in get_ner_reader(dev_file):
+        all_fields.append(fields)
+    kf = KFold(n_splits=10, shuffle=True, random_state=42)
+    index = 0
+    output_files = []
+    for train, dev in kf.split(all_fields):
+
+        output_train_file = "{}_{}".format(train_file, index)
+        output_dev_file = "{}_{}".format(dev_file, index)
+        with open(output_train_file, "w") as f:
+            for i in train:
+                for fields in zip(*all_fields[i]):
+                    f.write("".join(fields))
+                    f.write("\n")
+            f.write("\n\n")
+        with open(output_dev_file, "w") as f:
+            for i in dev:
+                for fields in zip(*all_fields[i]):
+                    f.write("".join(fields))
+                    f.write("\n")
+            f.write("\n\n")
+        output_files.append((output_train_file, output_dev_file))
+        index += 1
+    return output_files
+
+
+
+
 if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
+    k_fold(train_file, dev_file)
     #reader = get_reader(train_file, target_vocab=wnut_iob, encoder_model='roberta-base')
     wiki_file = "./data/wiki_def/wiki_abstract.vocab"
     #entity_vocab = get_entity_vocab(conll_files=[train_file], entity_files=[wiki_file])

@@ -174,9 +174,6 @@ class NERBaseAnnotator(pl.LightningModule):
         self.log_metrics(output['results'], loss=output['loss'], suffix='', on_step=True, on_epoch=False)
         return output
 
-    def on_after_backward(self) -> None:
-        return super().on_after_backward()
-
     def test_step(self, batch, batch_idx):
         output = self.perform_forward_step(batch, mode=self.stage)
         self.log_metrics(output['results'], loss=output['loss'], suffix='_t', on_step=True, on_epoch=False)
@@ -337,7 +334,7 @@ if __name__ == "__main__":
     model = load_model(best_checkpoint, wnut_iob, use_crf=False)
     for i in range(10):
         min_instances = 22000 * i
-        max_instances = 22000 * i + 2
+        max_instances = 22000 * (i+1)
         test_data = get_reader(file_path=test_file, target_vocab=iob_tagging, encoder_model=encoder_model, min_instances=min_instances, max_instances=max_instances, max_length=100, entity_vocab=entity_vocab, augment=[])
 
         record_data = write_submit_result(model, test_data, submission_file)
