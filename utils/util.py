@@ -92,7 +92,7 @@ def write_test(model, out_file):
     f = open(out_file, "w")
     for res in model.test_result:
         for tag in res:
-            f.write(res)
+            f.write(tag)
             f.write('\n')
         f.write('\n')
     f.close()
