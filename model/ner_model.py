@@ -1,5 +1,3 @@
-from re import I, M
-import re
 from typing import List, Any, Union
 import os
 
@@ -187,7 +185,6 @@ class NERBaseAnnotator(pl.LightningModule):
         return output
 
     def training_step_end(self, *args, **kwargs):
-        print("sss")
 
         return super().training_step_end(*args, **kwargs)
     
