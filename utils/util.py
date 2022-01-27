@@ -9,6 +9,7 @@ import time
 from typing import Union, List
 import pandas as pd
 from seqeval.metrics.sequence_labeling import f1_score
+from sklearn import model_selection
 import torch
 from pytorch_lightning import seed_everything
 import zipfile
@@ -85,17 +86,20 @@ def write_eval_performance(eval_performance, out_file):
     open(out_file, 'wt').write(outstr)
     logger.info('Finished writing evaluation performance for {}'.format(out_file))
 
-def write_test(model, out_file):
+def write_result(model, out_file, mode='test'):
     path = os.path.dirname(out_file)
     if path and not os.path.exists(path):
         os.makedirs(path)
-    f = open(out_file, "w")
-    for res in model.test_result:
-        for i, tag in enumerate(res):
-            f.write(tag)
+    with open(out_file, "w") as f:
+        if mode == 'val':
+            model_result = model.val_result
+        elif mode == 'test':
+            model_result = model.test_result
+        for res in model_result:
+            for i, tag in enumerate(res):
+                f.write(tag)
+                f.write('\n')
             f.write('\n')
-        f.write('\n')
-    f.close()
 
 def write_submit_result(model: Union[NERBaseAnnotator, LukeNer], test_data: Union[CoNLLReader, LukeCoNLLReader], out_file: str):
     path = os.path.dirname(out_file)
@@ -282,6 +286,11 @@ def train_model(model, out_dir='', epochs=10, gpus=1, monitor='val_loss'):
     trainer.fit(model)
     return trainer
 
+def val_model(model, gpus=1):
+    trainer = get_trainer(gpus=gpus, is_test=False)
+    trainer.validate(model)
+    return trainer
+
 def test_model(model, gpus=1):
     trainer = get_trainer(gpus=gpus, is_test=True)
     trainer.test(model)
@@ -347,6 +356,48 @@ def get_model_best_checkpoint_callback(dirpath='checkpoints', monitor='val_loss'
         )
     return  bc_clb
 
+def vote(dev_label_files: List[str], dev_files: List[str], test_files: List[str], output_file, iob_tagging=wnut_iob):
+    assert len(dev_files) == len(test_files) == len(dev_label_files)
+    id_to_tag = {iob_tagging[k]: k for k in iob_tagging}
+    def _get_dev_report(dev_file, dev_label_file):
+        y_pred = [fields[-1] for fields, _ in get_ner_reader(dev_file)]
+        y_true = [fields[-1] for fields, _ in get_ner_reader(dev_label_file)]
+        report_dict = classification_report(y_true=y_true, y_pred=y_pred, output_dict=True)
+        report_dict['O'] = report_dict['micro avg']
+        return report_dict
+
+    def _calc_score(test_file, report_dict, final_res=[]):
+        if final_res:
+            final_res = [[[0 for i in iob_tagging] for j in range(len(k))] for k in get_ner_reader(test_file)[-1]]
+        for idx, fields in enumerate(get_ner_reader(test_file)):
+            for jdx, tag in enumerate(fields[-1]):
+                if tag == 'O':
+                    _tag = tag
+                else:
+                    _tag = tag[2:]
+                score = report_dict[_tag]['f1-score']
+                #print(idx, jdx)
+                final_res[idx][jdx][iob_tagging[tag]] += score
+        return final_res
+
+    def _weight_sum(final_res):
+        final_y_pred = [[id_to_tag[np.argmax(k)] for k in l] for l in final_res]
+        return final_y_pred
+
+    def _write_vote_result(output_file, final_y_pred):
+        with open(output_file, "w") as f:
+            for l in final_y_pred:
+                f.write('\n'.join(l))
+                f.write("\n\n")
+        
+    final_res = []
+    for dev_file, dev_label_file, test_file in zip(dev_files, dev_label_files, test_files):
+        report_dict = _get_dev_report(dev_file, dev_label_file)
+        final_res = _calc_score(test_file, report_dict, final_res)
+    final_y_pred = _weight_sum(final_res)
+    _write_vote_result(output_file, final_y_pred)
+    return final_y_pred
+
     
 def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
 
@@ -362,8 +413,7 @@ def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
             y_pred_.extend(fields[-1])
         
         ans = classification_report(y_pred=y_pred, y_true=labels, output_dict=True)
-        y_true_ = list(itertools.chain(*y_true))
-        report_dict['O'] = sum([1 if i =='O' and j == 'O' else 0 for i, j in zip(y_true_, y_pred_)])/np.count_nonzero([1 if i == 'O' else 0 for i in y_pred_])
+        report_dict['O'] = ans['micro avg']['f1-score']
         for k in ans:
             if k.endswith("avg"):
                 continue
@@ -407,13 +457,13 @@ def k_fold(train_file, dev_file, k=10):
         with open(output_train_file, "w") as f:
             for i in train:
                 for fields in zip(*all_fields[i]):
-                    f.write("".join(fields))
+                    f.write(" ".join(fields))
                     f.write("\n")
                 f.write("\n")
         with open(output_dev_file, "w") as f:
             for i in dev:
                 for fields in zip(*all_fields[i]):
-                    f.write("".join(fields))
+                    f.write(" ".join(fields))
                     f.write("\n")
                 f.write("\n")
         output_files.append((output_train_file, output_dev_file))
@@ -424,7 +474,7 @@ def k_fold(train_file, dev_file, k=10):
 if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
-    k_fold(train_file, dev_file)
+    #k_fold(train_file, dev_file)
     #reader = get_reader(train_file, target_vocab=wnut_iob, encoder_model='roberta-base')
     wiki_file = "./data/wiki_def/wiki_abstract.vocab"
     #entity_vocab = get_entity_vocab(conll_files=[train_file], entity_files=[wiki_file])

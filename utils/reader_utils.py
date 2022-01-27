@@ -84,6 +84,8 @@ def extract_spans(tags, subtoken_pos_to_raw_pos):
         last_pos = pos
     _save_span(cur_tag, cur_start, _id + 1, gold_spans)
     assert(len(actual_tags) == len(set(subtoken_pos_to_raw_pos)))
+    actual_tags.pop(0) # CLS
+    actual_tags.pop(-1) # SEP
     return gold_spans, actual_tags
 
 
