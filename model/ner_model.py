@@ -1,6 +1,7 @@
 from re import I, M
 import re
 from typing import List, Any, Union
+import os
 
 import pytorch_lightning.core.lightning as pl
 from pytorch_lightning.utilities.distributed import init_dist_connection
@@ -184,6 +185,11 @@ class NERBaseAnnotator(pl.LightningModule):
         output = self.perform_forward_step(batch, mode='fit')
         self.log_metrics(output['results'], loss=output['loss'], suffix='', on_step=True, on_epoch=False)
         return output
+
+    def training_step_end(self, *args, **kwargs):
+        print("sss")
+
+        return super().training_step_end(*args, **kwargs)
     
     def on_test_batch_start(self, batch: Any, batch_idx: int, dataloader_idx: int):
         self.test_result = []
@@ -322,7 +328,7 @@ class NERBaseAnnotator(pl.LightningModule):
 
 
 if __name__ == "__main__":
-    from utils.util import get_reader, train_model, test_model, create_model, save_model, parse_args, get_tagset, wnut_iob, write_test, write_submit_result, load_model, get_entity_vocab
+    from utils.util import get_reader, train_model, test_model, create_model, save_model, parse_args, get_tagset, wnut_iob, write_result, write_submit_result, load_model, get_entity_vocab
     import time
     import os
     base_dir = ""
@@ -353,7 +359,7 @@ if __name__ == "__main__":
     model = load_model(best_checkpoint, wnut_iob, use_crf=False)
     model.test_data = test_data
     trainer = test_model(model)
-    write_test(model, "en_pred.conll")
+    write_result(model, "en_pred.conll", mode='test')
     """
     for i in range(10):
         min_instances = 22000 * i
