@@ -322,7 +322,7 @@ def get_model_earlystopping_callback(monitor='val_loss'):
         es_clb = EarlyStopping(
             monitor=monitor,
             min_delta=0.001,
-            patience=5,
+            patience=3,
             verbose=True,
             mode='max'
         )
@@ -476,9 +476,7 @@ if __name__ == "__main__":
     dev_files = ['EN-English/en/roberta-base-train/lightning_logs/version_53/checkpoints/EN-English/en.pred.conll.dev', 'EN-English/en/roberta-base-train/lightning_logs/version_54/checkpoints/EN-English/en.pred.conll.dev']
     dev_label_files = ['training_data/EN-English/en_dev.conll_0', 'training_data/EN-English/en_dev.conll_1']
     test_files = ['EN-English/en/roberta-base-train/lightning_logs/version_53/checkpoints/EN-English/en.pred.conll.test', 'EN-English/en/roberta-base-train/lightning_logs/version_54/checkpoints/EN-English/en.pred.conll.test']
-    vote(dev_label_files, dev_files, test_files, "output", iob_tagging=wnut_iob)
-
-    
+    #vote(dev_label_files, dev_files, test_files, "output", iob_tagging=wnut_iob)
 
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
@@ -492,8 +490,15 @@ if __name__ == "__main__":
         y_true.append(fields[-1])
     print(len(y_true))
     vote_for_all_result(files=[
-        "./data/res/en.pred.conll",
-        "./data/res/en.pred.bert_large_wwm.conll",
-        "./data/res/en.pred.roberta_large.conll",
+        #"./data/res/en.pred.conll",
+        #"./data/res/en.pred.bert_large_wwm.conll",
+        #"./data/res/en.pred.roberta_large.conll",
+        "en.pred.bertwmm-entity.conll",
+        "en.pred.bertwmm.conll",
+        "en.pred.luke.conll",
+        "en.pred.mpnet-entity.conll",
+        "en.pred.roberta-entity.conll",
+        "en.pred.roberta.conll",
+        "en.pred.ma.conll" 
         ], labels=y_true)
 
