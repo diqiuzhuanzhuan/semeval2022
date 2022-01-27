@@ -362,14 +362,15 @@ def vote(dev_label_files: List[str], dev_files: List[str], test_files: List[str]
     def _get_dev_report(dev_file, dev_label_file):
         y_pred = [fields[-1] for fields, _ in get_ner_reader(dev_file)]
         y_true = [fields[-1] for fields, _ in get_ner_reader(dev_label_file)]
-        report_dict = classification_report(y_true=y_true, y_pred=y_pred, output_dict=True)
+        length = min(len(y_true), len(y_pred))
+        report_dict = classification_report(y_true=y_true[0:length], y_pred=y_pred[0:length], output_dict=True)
         report_dict['O'] = report_dict['micro avg']
         return report_dict
 
     def _calc_score(test_file, report_dict, final_res=[]):
-        if final_res:
-            final_res = [[[0 for i in iob_tagging] for j in range(len(k))] for k in get_ner_reader(test_file)[-1]]
-        for idx, fields in enumerate(get_ner_reader(test_file)):
+        if not final_res:
+            final_res = [[[0 for i in iob_tagging] for j in range(len(k[0]))] for k, _ in get_ner_reader(test_file)]
+        for idx, (fields, _) in enumerate(get_ner_reader(test_file)):
             for jdx, tag in enumerate(fields[-1]):
                 if tag == 'O':
                     _tag = tag
@@ -447,7 +448,7 @@ def k_fold(train_file, dev_file, k=10):
         all_fields.append(fields)
     for fields, _ in get_ner_reader(dev_file):
         all_fields.append(fields)
-    kf = KFold(n_splits=10, shuffle=True, random_state=42)
+    kf = KFold(n_splits=k, shuffle=True, random_state=42)
     index = 0
     output_files = []
     for train, dev in kf.split(all_fields):
@@ -472,6 +473,13 @@ def k_fold(train_file, dev_file, k=10):
 
 
 if __name__ == "__main__":
+    dev_files = ['EN-English/en/roberta-base-train/lightning_logs/version_53/checkpoints/EN-English/en.pred.conll.dev', 'EN-English/en/roberta-base-train/lightning_logs/version_54/checkpoints/EN-English/en.pred.conll.dev']
+    dev_label_files = ['training_data/EN-English/en_dev.conll_0', 'training_data/EN-English/en_dev.conll_1']
+    test_files = ['EN-English/en/roberta-base-train/lightning_logs/version_53/checkpoints/EN-English/en.pred.conll.test', 'EN-English/en/roberta-base-train/lightning_logs/version_54/checkpoints/EN-English/en.pred.conll.test']
+    vote(dev_label_files, dev_files, test_files, "output", iob_tagging=wnut_iob)
+
+    
+
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
     #k_fold(train_file, dev_file)
@@ -488,3 +496,4 @@ if __name__ == "__main__":
         "./data/res/en.pred.bert_large_wwm.conll",
         "./data/res/en.pred.roberta_large.conll",
         ], labels=y_true)
+
