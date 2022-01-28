@@ -281,29 +281,36 @@ def save_model(trainer: pl.Trainer, out_dir, model_name='', timestamp=None):
     return outfile, best_checkpoint
 
 
-def train_model(model, out_dir='', epochs=10, gpus=1, monitor='val_loss'):
-    trainer = get_trainer(gpus=gpus, out_dir=out_dir, epochs=epochs, monitor=monitor)
+def train_model(model, out_dir='', epochs=10, gpus=1, monitor='val_loss', tpu_cores=None):
+    trainer = get_trainer(gpus=gpus, out_dir=out_dir, epochs=epochs, monitor=monitor, tpu_cores=tpu_cores)
     trainer.fit(model)
     return trainer
 
-def val_model(model, gpus=1):
-    trainer = get_trainer(gpus=gpus, is_test=False)
+def val_model(model, gpus=1, tpu_cores=None):
+    trainer = get_trainer(gpus=gpus, is_test=False, tpu_cores=tpu_cores)
     trainer.validate(model)
     return trainer
 
-def test_model(model, gpus=1):
-    trainer = get_trainer(gpus=gpus, is_test=True)
+def test_model(model, gpus=1, tpu_cores=None):
+    trainer = get_trainer(gpus=gpus, is_test=True, tpu_cores=tpu_cores)
     trainer.test(model)
     return trainer
 
 
-def get_trainer(gpus=4, is_test=False, out_dir=None, epochs=10, monitor='val_loss'):
+def get_trainer(gpus=4, is_test=False, out_dir=None, epochs=10, monitor='val_loss', tpu_cores=None):
     seed_everything(42)
     if is_test:
+        if tpu_cores:
+            return pl.Trainer(tpu_cores=tpu_cores)
+
         return pl.Trainer(gpus=1) if torch.cuda.is_available() else pl.Trainer(val_check_interval=100)
 
     if torch.cuda.is_available():
         trainer = pl.Trainer(gpus=gpus, max_epochs=epochs, callbacks=[get_model_earlystopping_callback(monitor), get_model_best_checkpoint_callback(out_dir, monitor)],
+                             default_root_dir=out_dir, checkpoint_callback=True)
+        trainer.callbacks.append(get_lr_logger())
+    elif tpu_cores:
+        trainer = pl.Trainer(tpu_cores=tpu_cores, max_epochs=epochs, callbacks=[get_model_earlystopping_callback(monitor), get_model_best_checkpoint_callback(out_dir, monitor)],
                              default_root_dir=out_dir, checkpoint_callback=True)
         trainer.callbacks.append(get_lr_logger())
     else:
