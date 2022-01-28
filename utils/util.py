@@ -2,6 +2,8 @@ import argparse
 import collections
 from dataclasses import field
 import itertools
+import time
+import gc
 from json import encoder
 import os
 from random import randint
@@ -480,6 +482,12 @@ def k_fold(train_file, dev_file, k=10, recreate=False):
         output_files.append((output_train_file, output_dev_file))
         index += 1
     return output_files
+
+def wait_gc(wait=5):
+    count = 0
+    while count <= wait:
+        time.sleep(1)
+        gc.collect()
 
 
 if __name__ == "__main__":
