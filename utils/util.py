@@ -330,7 +330,7 @@ def get_model_earlystopping_callback(monitor='val_loss'):
         es_clb = EarlyStopping(
             monitor=monitor,
             min_delta=0.001,
-            patience=5,
+            patience=3,
             verbose=True,
             mode='min'
         )
@@ -442,7 +442,7 @@ def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
             f.write("\n\n")
         
 
-def k_fold(train_file, dev_file, k=10):
+def k_fold(train_file, dev_file, k=10, recreate=False):
     all_fields = []
     for fields, _ in get_ner_reader(train_file):
         all_fields.append(fields)
@@ -455,6 +455,9 @@ def k_fold(train_file, dev_file, k=10):
 
         output_train_file = "{}_{}".format(train_file, index)
         output_dev_file = "{}_{}".format(dev_file, index)
+        if os.path.exists(output_train_file) and os.path.exists(output_dev_file) and not recreate:
+            print("k fold files are exsited! so we don't recreate them")
+            continue
         with open(output_train_file, "w") as f:
             for i in train:
                 for fields in zip(*all_fields[i]):
