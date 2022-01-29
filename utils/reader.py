@@ -80,10 +80,26 @@ class CoNLLReader(Dataset):
                 if len(original_value) > 1:
                     tree.add(Interval(start_index, end_index)) 
         for interval in sorted(tree.items()):
+            entity = sentence[interval.begin: interval.end+1]
             ans.append(sentence[interval.begin: interval.end+1])
+            if isinstance(self.entity_vocab[entity], str):
+                care_set = {'accompaniment', 'aircraft', 'airliner', 'album','architecture', 'art', 'art_form', 'artform','automobile', 'ballad', 'ballad_opera', 'beverage',
+                            'boat', 'book', 'branch', 'broadcast', 'bus', 'camcorder', 'car', 'cartoon', 'category', 'chronicle', 'combination', 'company', 'competition',
+                            'computer', 'computer_architecture', 'computer_system', 'concert', 'console', 'cooking_pot', 'corn', 'dairy_product', 'dam', 'defense', 'dessert',
+                            'device', 'dish', 'drama', 'drink', 'element', 'engine', 'entity', 'episode', 'essay', 'fact', 'family', 'film', 'food', 'form', 'franchise',
+                            'game', 'game_console', 'garnish', 'gemstone', 'genre', 'genus', 'girl_group', 'group', 'handling', 'hatch', 'hot_hatch', 'line', 'liquid',
+                            'magazine', 'magnetic_tape', 'material', 'monoplane', 'music', 'necessity', 'novel', 'oil', 'open_game', 'opera', 'operating_system', 'organization', 
+                            'part', 'person', 'plant', 'play', 'pop_group', 'pot', 'power', 'process', 'product', 'program', 'programme', 'project', 'publisher', 'racing_car',
+                            'reality_show', 'roadster', 'search_engine', 'season', 'seed', 'sequel', 'series', 'show', 'sitcom', 'sketch', 'snack_food', 'software',
+                            'soil', 'song', 'sport', 'stand', 'steam_power', 'strip', 'studio_album', 'style', 'substance', 'system', 'system_architecture', 'tape',
+                            'television', 'television_program', 'television_series', 'timer', 'title', 'tragedy', 'treatise', 'type', 'uranium', 'variety', 'video_game',
+                            'water', 'wing', 'work', 'world'}
+                if self.entity_vocab[entity] in care_set: 
+                    ans.append("({})".format(self.entity_vocab[entity]))
             ans.append("$")
         if len(ans) and ans[-1] == "$": 
             ans.pop(-1)
+        print(ans)
         return ans
 
 
@@ -251,14 +267,16 @@ class CoNLLReader(Dataset):
 
 
 if __name__ == "__main__":
-    from utils.util import wnut_iob
+    from utils.util import wnut_iob, get_entity_vocab
     tokenizer = LukeTokenizer.from_pretrained("studio-ousia/luke-base")
     entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
-    conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob, entity_vocab=entity_vocab, min_instances=0, max_instances=217817+2)
+    wiki_file = "./data/wiki_def/wiki.pkl.zip"
+    entity_vocab = get_entity_vocab(entity_files=[wiki_file])
+    conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob, entity_vocab=entity_vocab, min_instances=0, max_instances=-1)
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
     test_file = "./training_data/EN-English/en_test.conll"
-    conll_reader.read_data(test_file)
+    conll_reader.read_data(train_file)
     #conll_reader.augment_data(train_file, {"CORP": "GRP"})
     #conll_reader.augment_data(train_file, {"GRP": "CORP"})
     for batch in conll_reader:
