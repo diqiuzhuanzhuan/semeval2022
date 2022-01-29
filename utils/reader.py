@@ -12,9 +12,12 @@ from intervaltree import IntervalTree, Interval
 
 from log import logger
 from utils.reader_utils import get_ner_reader, extract_spans, _assign_ner_tags
-
+import nltk
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words('english'))
 
 
 class CoNLLReader(Dataset):
@@ -80,6 +83,8 @@ class CoNLLReader(Dataset):
                     tree.add(Interval(start_index, end_index)) 
         for interval in sorted(tree.items()):
             entity = sentence[interval.begin: interval.end+1]
+            if entity in stop_words:
+                continue
             ans.append(sentence[interval.begin: interval.end+1])
             if isinstance(self.entity_vocab[entity], str):
                 care_set = {'accompaniment', 'aircraft', 'airliner', 'album','architecture', 'art', 'art_form', 'artform','automobile', 'ballad', 'ballad_opera', 'beverage',
@@ -98,6 +103,7 @@ class CoNLLReader(Dataset):
             ans.append("$")
         if len(ans) and ans[-1] == "$": 
             ans.pop(-1)
+        print(ans)
         return ans
 
 
@@ -273,7 +279,7 @@ if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
     test_file = "./training_data/EN-English/en_test.conll"
-    conll_reader.read_data(train_file)
+    conll_reader.read_data(test_file)
     #conll_reader.augment_data(train_file, {"CORP": "GRP"})
     #conll_reader.augment_data(train_file, {"GRP": "CORP"})
     for batch in conll_reader:
