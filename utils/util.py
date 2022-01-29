@@ -2,6 +2,7 @@ import argparse
 import collections
 from dataclasses import field
 import itertools
+import pickle
 import time
 import gc
 from json import encoder
@@ -207,13 +208,23 @@ def get_entity_vocab(encoder_model="studio-ousia/luke-base", conll_files: List[s
     for file in entity_files:
         if file.endswith(".zip"):
             with zipfile.ZipFile(file) as myzip:
-                with myzip.open(file.strip(".zip")) as f:
-                    for entity in f:
-                        entity = entity.strip('\r').strip('\n')
-                        entity_vocab[entity] = len(entity_vocab)
-                        if " (" in entity: 
-                            entity = entity.split(" (")[0]
+                with myzip.open(os.path.basename(file.strip(".zip"))) as f:
+                    if "pkl" in file:
+                        wiki_data = pickle.load(f)
+                        for entity in wiki_data:
+                            if entity == "The":
+                                print(entity)
+                            if len(wiki_data[entity]) == 0:
+                                entity_vocab[entity.lower()] = len(entity_vocab)
+                            else:
+                                entity_vocab[entity.lower()] = wiki_data[entity][0]
+                    else:    
+                        for entity in f:
+                            entity = entity.strip('\r').strip('\n')
                             entity_vocab[entity] = len(entity_vocab)
+                            if " (" in entity: 
+                                entity = entity.split(" (")[0]
+                                entity_vocab[entity] = len(entity_vocab)
                         
         else:
             with open(file, "r") as f:
@@ -395,6 +406,8 @@ def vote(dev_label_files: List[str], dev_files: List[str], test_files: List[str]
         return final_y_pred
 
     def _write_vote_result(output_file, final_y_pred):
+        if not os.path.exists(os.path.dirname(output_file)):
+            os.makedirs(os.path.dirname(output_file))
         with open(output_file, "w") as f:
             for l in final_y_pred:
                 f.write('\n'.join(l))
@@ -491,6 +504,7 @@ def wait_gc(wait=5):
 
 
 if __name__ == "__main__":
+
     dev_files = ['EN-English/en/roberta-base-train/lightning_logs/version_53/checkpoints/EN-English/en.pred.conll.dev', 'EN-English/en/roberta-base-train/lightning_logs/version_54/checkpoints/EN-English/en.pred.conll.dev']
     dev_label_files = ['training_data/EN-English/en_dev.conll_0', 'training_data/EN-English/en_dev.conll_1']
     test_files = ['EN-English/en/roberta-base-train/lightning_logs/version_53/checkpoints/EN-English/en.pred.conll.test', 'EN-English/en/roberta-base-train/lightning_logs/version_54/checkpoints/EN-English/en.pred.conll.test']
@@ -500,8 +514,8 @@ if __name__ == "__main__":
     dev_file = "./training_data/EN-English/en_dev.conll"
     #k_fold(train_file, dev_file)
     #reader = get_reader(train_file, target_vocab=wnut_iob, encoder_model='roberta-base')
-    wiki_file = "./data/wiki_def/wiki_abstract.vocab"
-    #entity_vocab = get_entity_vocab(conll_files=[train_file], entity_files=[wiki_file])
+    wiki_file = "./data/wiki_def/wiki.pkl.zip"
+    get_entity_vocab(conll_files=[], entity_files=[wiki_file])
     #print(len(entity_vocab))
     y_true = []
     for fields, _ in get_ner_reader(dev_file):
