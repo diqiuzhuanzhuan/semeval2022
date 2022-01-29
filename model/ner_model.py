@@ -188,9 +188,10 @@ class NERBaseAnnotator(pl.LightningModule):
 
         return super().training_step_end(*args, **kwargs)
     
-    def on_test_batch_start(self, batch: Any, batch_idx: int, dataloader_idx: int):
+    def on_test_epoch_start(self) -> None:
         self.test_result = []
-        return super().on_test_batch_start(batch, batch_idx, dataloader_idx)
+        return super().on_test_epoch_start()
+    
 
     def test_step(self, batch, batch_idx):
         output = self.perform_forward_step(batch, mode=self.stage)
