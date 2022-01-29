@@ -51,8 +51,10 @@ class LukeCoNLLReader(Dataset):
         return len(self.instances)
 
     def __getitem__(self, item):
-        output = self.instances[item]
-        return output 
+        fields = self.instances[item]
+        sentence_str, entity_spans, labels, tokens, ner_tags = self.parse_line_for_ner(fields=fields)
+        self.sentences.append(sentence_str)
+        return sentence_str, entity_spans, labels, tokens, ner_tags
 
     def read_data(self, data):
         dataset_name = data if isinstance(data, str) else 'dataframe'
@@ -62,11 +64,8 @@ class LukeCoNLLReader(Dataset):
         for fields, metadata in get_ner_reader(data=data):
             if self._max_instances != -1 and instance_idx > self._max_instances:
                 break
-            sentence_str, entity_spans, labels, tokens, ner_tags = self.parse_line_for_ner(fields=fields)
-            self.sentences.append(sentence_str)
-
+            self.instances.append(fields)
             instance_idx += 1
-            self.instances.append((sentence_str, entity_spans, labels, tokens, ner_tags))
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
     def parse_line_for_ner(self, fields):
