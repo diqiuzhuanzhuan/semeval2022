@@ -37,7 +37,6 @@ class CoNLLReader(Dataset):
 
         self.label_to_id = {} if target_vocab is None else target_vocab
         self.instances = []
-        self.sentences = []
         # split into many pieces, ease --> e ase
         self.word_piece_ids = []
         self.pos_to_single_word_maps = []
@@ -99,7 +98,6 @@ class CoNLLReader(Dataset):
             ans.append("$")
         if len(ans) and ans[-1] == "$": 
             ans.pop(-1)
-        print(ans)
         return ans
 
 
@@ -119,7 +117,6 @@ class CoNLLReader(Dataset):
     
     def _wrap_data(self, fields):
         sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids = self.parse_line_for_ner(fields=fields)
-        self.sentences.append(sentence_str)
         tokens_tensor = torch.tensor(tokens_sub_rep, dtype=torch.long)
         #tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
         tag_tensor = torch.tensor(coded_ner_, dtype=torch.long)
