@@ -33,7 +33,6 @@ class LukeCoNLLReader(Dataset):
 
         self.label_to_id = {} if target_vocab is None else target_vocab
         self.instances = []
-        self.sentences = []
         # split into many pieces, ease --> e ase
         self.word_piece_ids = []
         self.pos_to_single_word_maps = []
@@ -53,7 +52,6 @@ class LukeCoNLLReader(Dataset):
     def __getitem__(self, item):
         fields = self.instances[item]
         sentence_str, entity_spans, labels, tokens, ner_tags = self.parse_line_for_ner(fields=fields)
-        self.sentences.append(sentence_str)
         return sentence_str, entity_spans, labels, tokens, ner_tags
 
     def read_data(self, data):
