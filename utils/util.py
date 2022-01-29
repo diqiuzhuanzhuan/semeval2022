@@ -212,8 +212,6 @@ def get_entity_vocab(encoder_model="studio-ousia/luke-base", conll_files: List[s
                     if "pkl" in file:
                         wiki_data = pickle.load(f)
                         for entity in wiki_data:
-                            if entity == "The":
-                                print(entity)
                             if len(wiki_data[entity]) == 0:
                                 entity_vocab[entity.lower()] = len(entity_vocab)
                             else:
@@ -501,6 +499,7 @@ def wait_gc(wait=5):
     while count <= wait:
         time.sleep(1)
         gc.collect()
+        count += 1
 
 
 if __name__ == "__main__":
