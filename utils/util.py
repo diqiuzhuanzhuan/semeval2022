@@ -463,6 +463,8 @@ def vote_for_all_result(files: List[str], labels, iob_tagging=wnut_iob):
         
 
 def k_fold(train_file, dev_file, k=10, recreate=False):
+    if k == 0:
+        return [(train_file, dev_file)]
     all_fields = []
     for fields, _ in get_ner_reader(train_file):
         all_fields.append(fields)
