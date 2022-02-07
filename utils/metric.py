@@ -74,9 +74,9 @@ class SpanF1(Metric):
         all_metrics['MD@R'] = entity_recall
         all_metrics['MD@P'] = entity_precision
         all_metrics['MD@F1'] = 2. * ((entity_precision * entity_recall) / (entity_precision + entity_recall + 1e-13))
-        all_metrics['ALLTRUE'] = self._num_gold_mentions
-        all_metrics['ALLRECALLED'] = self._num_recalled_mentions
-        all_metrics['ALLPRED'] = self._num_predicted_mentions
+        all_metrics['ALLTRUE'] = float(self._num_gold_mentions)
+        all_metrics['ALLRECALLED'] = float(self._num_recalled_mentions)
+        all_metrics['ALLPRED'] = float(self._num_predicted_mentions)
         if reset:
             self.reset()
         return all_metrics
