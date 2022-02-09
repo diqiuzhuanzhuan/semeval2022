@@ -318,11 +318,11 @@ def get_trainer(gpus=4, is_test=False, out_dir=None, epochs=10, monitor='val_los
 
     if torch.cuda.is_available():
         trainer = pl.Trainer(gpus=gpus, max_epochs=epochs, callbacks=[get_model_earlystopping_callback(monitor), get_model_best_checkpoint_callback(out_dir, monitor)],
-                             default_root_dir=out_dir, checkpoint_callback=True)
+                             default_root_dir=out_dir, enable_checkpointing=True)
         trainer.callbacks.append(get_lr_logger())
     elif tpu_cores:
         trainer = pl.Trainer(tpu_cores=tpu_cores, max_epochs=epochs, callbacks=[get_model_earlystopping_callback(monitor), get_model_best_checkpoint_callback(out_dir, monitor)],
-                             default_root_dir=out_dir, checkpoint_callback=True)
+                             default_root_dir=out_dir, enable_checkpointing=True)
         trainer.callbacks.append(get_lr_logger())
     else:
         trainer = pl.Trainer(max_epochs=epochs, default_root_dir=out_dir)
