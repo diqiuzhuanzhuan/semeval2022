@@ -254,12 +254,12 @@ def get_reader(file_path, min_instances=0, max_instances=-1, max_length=50, targ
     return reader
 
 
-def create_model(train_data, dev_data, tag_to_id, test_data=None, batch_size=64, dropout_rate=0.1, stage='fit', lr=1e-5, encoder_model='xlm-roberta-large', num_gpus=1, use_crf=False, negative_sample=False, kl_loss_config=[]):
+def create_model(train_data, dev_data, tag_to_id, test_data=None, batch_size=64, dropout_rate=0.1, stage='fit', lr=1e-5, encoder_model='xlm-roberta-large', num_gpus=1, use_crf=False, negative_sample=False, kl_loss_config=[], l2_loss_config=[], alpha=0.3):
     if "luke" in encoder_model:
         return LukeNer(encoder_model=encoder_model, batch_size=batch_size, lr=lr, dropout_rate=dropout_rate, train_data=train_data, dev_data=dev_data, tag_to_id=tag_to_id, negative_sample=negative_sample)
     else:
         return NERBaseAnnotator(train_data=train_data, dev_data=dev_data, test_data=test_data, tag_to_id=tag_to_id, batch_size=batch_size, stage=stage, encoder_model=encoder_model,
-                            dropout_rate=dropout_rate, lr=lr, pad_token_id=train_data.pad_token_id, num_gpus=num_gpus, use_crf=use_crf, kl_loss_config=kl_loss_config)
+                            dropout_rate=dropout_rate, lr=lr, pad_token_id=train_data.pad_token_id, num_gpus=num_gpus, use_crf=use_crf, kl_loss_config=kl_loss_config, l2_loss_config=l2_loss_config, alpha=alpha)
 
 
 def load_model(model_file, tag_to_id=None, stage='test', use_crf=False):

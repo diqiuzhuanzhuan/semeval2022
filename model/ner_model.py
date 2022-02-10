@@ -43,7 +43,15 @@ class NERBaseAnnotator(pl.LightningModule):
                                  ('O', 'I-PROD', 1.5),
                                  ('O', 'B-CW', 1),
                                  ('O', 'I-CW', 1),
-                                 ]
+                                 ],
+                 l2_loss_config=[(1, 'B-PROD'), 
+                                 (1, 'I-PROD'), 
+                                 (0.8, 'B-CW'), 
+                                 (0.8, 'I-CW'), 
+                                 (0.3, 'B-PER'), 
+                                 (0.3, 'I-PER')
+                                 ],
+                 alpha=0.3
                  ):
         super(NERBaseAnnotator, self).__init__()
 
@@ -60,6 +68,9 @@ class NERBaseAnnotator(pl.LightningModule):
         self.target_size = len(self.id_to_tag)
         self.use_crf = use_crf
         self.kl_loss_config = kl_loss_config
+        self.l2_loss_config = l2_loss_config
+
+        self.alpha = alpha
 
         # set the default baseline model here
         self.pad_token_id = pad_token_id
@@ -253,8 +264,7 @@ class NERBaseAnnotator(pl.LightningModule):
         kl_loss = self._add_kl_loss()
         l2_loss = self._add_l2_regulization(l2_config=[(1, 'B-PROD'), (1, 'I-PROD'), (0.8, 'B-CW'), (0.8, 'I-CW'), (0.3, 'B-PER'), (0.3, 'I-PER')])
         alpha = np.exp(-self.global_step/10000)
-        alpha = 0.3
-        loss = (1-alpha) *  outputs.loss + alpha * auxiliary_loss - kl_loss + l2_loss
+        loss = (1-self.alpha) *  outputs.loss + self.alpha * auxiliary_loss - kl_loss + l2_loss
 
         output = self._compute_token_tags(token_scores=token_scores, tags=tags, token_mask=token_mask, 
                                           metadata=metadata, subtoken_pos_to_raw_pos=subtoken_pos_to_raw_pos, batch_size=batch_size, mode=mode, tag_lens=tag_len)
