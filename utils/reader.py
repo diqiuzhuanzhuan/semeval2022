@@ -1,5 +1,6 @@
 from collections import defaultdict
 from pickle import LIST
+from turtle import position
 from typing import Dict, List
 import torch
 from torch.utils.data import Dataset
@@ -131,17 +132,18 @@ class CoNLLReader(Dataset):
 
     def __getitem__(self, item):
         fields = self.instances[item]
-        tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, = self._wrap_data(fields)
-        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor
+        tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, position_ids_tensor = self._wrap_data(fields)
+        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, position_ids_tensor
     
     def _wrap_data(self, fields):
-        sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids = self.parse_line_for_ner(fields=fields)
+        sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids, position_ids = self.parse_line_for_ner(fields=fields)
         tokens_tensor = torch.tensor(tokens_sub_rep, dtype=torch.long)
         #tag_tensor = torch.tensor(coded_ner_, dtype=torch.long).unsqueeze(0)
         tag_tensor = torch.tensor(coded_ner_, dtype=torch.long)
         token_masks_rep = torch.tensor(token_masks_rep)
         token_type_ids_tensor = torch.tensor(token_type_ids, dtype=torch.long)
-        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor
+        position_ids_tensor = torch.tensor(position_ids, dtype=torch.long)
+        return tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, position_ids_tensor
 
     def read_data(self, data):
         dataset_name = data if isinstance(data, str) else 'dataframe'
@@ -184,8 +186,8 @@ class CoNLLReader(Dataset):
                             new_ner_tags.append("B-{}".format(tag))
                         else:
                             new_ner_tags.append("I-{}".format(tag))
-            tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor = self._wrap_data((new_tokens_, new_ner_tags))
-            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor ))
+            tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, position_ids_tensor = self._wrap_data((new_tokens_, new_ner_tags))
+            self.instances.append((tokens_tensor, token_masks_rep, gold_spans_, tag_tensor, subtoken_pos_to_raw_pos, token_type_ids_tensor, position_ids_tensor))
         logger.info('Finished reading {:d} instances from file {}'.format(len(self.instances), dataset_name))
 
     def _entity_record(self, fields):
@@ -219,11 +221,11 @@ class CoNLLReader(Dataset):
         tokens_, ner_tags = fields[0], fields[-1]
         if len(fields) == 3: # test data, no tag
             ner_tags = ['O' for _ in tokens_]
-        sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids = self.parse_tokens_for_ner(tokens_, ner_tags)
+        sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids, position_ids = self.parse_tokens_for_ner(tokens_, ner_tags)
         gold_spans_, _ = extract_spans(ner_tags_rep, subtoken_pos_to_raw_pos)
         coded_ner_ = [self.label_to_id[tag] for tag in ner_tags_rep]
 
-        return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids
+        return sentence_str, tokens_sub_rep, token_masks_rep, coded_ner_, gold_spans_, subtoken_pos_to_raw_pos, token_type_ids, position_ids
 
     def parse_tokens_for_ner(self, tokens_, ner_tags):
         sentence_str = ''
@@ -287,7 +289,7 @@ class CoNLLReader(Dataset):
         #for i, val in enumerate(position_ids):
             #assert(tokens_sub_rep[i] == tokens_sub_rep[val])
         
-        return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids
+        return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids, position_ids
 
 
 if __name__ == "__main__":
