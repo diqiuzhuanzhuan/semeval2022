@@ -284,8 +284,8 @@ class CoNLLReader(Dataset):
         token_type_ids.extend([1] * (len(tokens_sub_rep) - len(token_type_ids)))
         #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
         assert(len(position_ids) == len(tokens_sub_rep))
-        for i, val in enumerate(position_ids):
-            assert(tokens_sub_rep[i] == tokens_sub_rep[val])
+        #for i, val in enumerate(position_ids):
+            #assert(tokens_sub_rep[i] == tokens_sub_rep[val])
         
         return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids
 
