@@ -300,7 +300,7 @@ if __name__ == "__main__":
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
     test_file = "./training_data/EN-English/en_test.conll"
-    conll_reader.read_data(test_file)
+    conll_reader.read_data(dev_file)
     #conll_reader.augment_data(train_file, {"CORP": "GRP"})
     #conll_reader.augment_data(train_file, {"GRP": "CORP"})
     for batch in conll_reader:
