@@ -58,13 +58,25 @@ class CoNLLReader(Dataset):
             self.entity_vocab[k] = tmp[k]
         self.entity_automation.make_automaton()
 
-    def _search_entity(self, sentence: str):
+    def _search_entity(self, sentence: str, position_ids):
         ans = []
         words = set(sentence.split(" "))
         tree = IntervalTree()
+        def _calc_posid(subsentence: str, next_subsentence: str):
+            token_ids = self.tokenizer(subsentence)['input_ids']
+            # first id is for cls, last id is for [sep], so we remove the last one
+            start_id = len(token_ids) - 1
+            # for roberta
+            if subsentence != "":
+                next_subsentence = " " + next_subsentence
+            next_token_ids = self.tokenizer(next_subsentence)['input_ids']
+            # first id is for cls, last id is for [sep], so we minus 2
+            return [start_id+i for i in range(0, len(next_token_ids)-2)]
+            
+            
         for end_index, (insert_order, original_value) in self.entity_automation.iter(sentence):
             start_index = end_index - len(original_value) + 1
-            if start_index > 1 and sentence[start_index-1] != " ":
+            if start_index >= 1 and sentence[start_index-1] != " ":
                 continue
             if end_index < len(sentence) - 1 and sentence[end_index+1] != " ":
                 continue
@@ -86,6 +98,8 @@ class CoNLLReader(Dataset):
             if entity in stop_words:
                 continue
             ans.append(sentence[interval.begin: interval.end+1])
+            self.tokenizer(sentence[interval.begin: interval.end+1])
+            position_ids.extend(_calc_posid(sentence[0:interval.begin], sentence[interval.begin: interval.end+1]))
             if isinstance(self.entity_vocab[entity], str):
                 care_set = {'accompaniment', 'aircraft', 'airliner', 'album','architecture', 'art', 'art_form', 'artform','automobile', 'ballad', 'ballad_opera', 'beverage',
                             'boat', 'book', 'branch', 'broadcast', 'bus', 'camcorder', 'car', 'cartoon', 'category', 'chronicle', 'combination', 'company', 'competition',
@@ -98,12 +112,12 @@ class CoNLLReader(Dataset):
                             'soil', 'song', 'sport', 'stand', 'steam_power', 'strip', 'studio_album', 'style', 'substance', 'system', 'system_architecture', 'tape',
                             'television', 'television_program', 'television_series', 'timer', 'title', 'tragedy', 'treatise', 'type', 'uranium', 'variety', 'video_game',
                             'water', 'wing', 'work', 'world'}
-                if self.entity_vocab[entity] in care_set: 
-                    ans.append("({})".format(self.entity_vocab[entity]))
-            ans.append("$")
-        if len(ans) and ans[-1] == "$": 
-            ans.pop(-1)
-        return ans
+                #if self.entity_vocab[entity] in care_set: 
+                    #ans.append("({})".format(self.entity_vocab[entity]))
+            #ans.append("$")
+        #if len(ans) and ans[-1] == "$": 
+        #    ans.pop(-1)
+        return ans, position_ids
 
 
     def get_target_size(self):
@@ -213,6 +227,7 @@ class CoNLLReader(Dataset):
 
     def parse_tokens_for_ner(self, tokens_, ner_tags):
         sentence_str = ''
+        position_ids = []
         tokens_sub_rep, ner_tags_rep = [self.cls_token_id], ['O']
         token_type_ids = []
         pos_to_single_word = dict()
@@ -243,15 +258,18 @@ class CoNLLReader(Dataset):
             ner_tags_rep.extend(tags)
         self.pos_to_single_word_maps.append(pos_to_single_word)
         tokens_sub_rep.append(self.sep_token_id)
+        position_ids.extend([i for i in range(0, len(tokens_sub_rep))])
         token_type_ids.extend([0] * len(tokens_sub_rep))
         subtoken_pos_to_raw_pos.append(idx+2)
         assert(self.tokenizer(sentence_str)["input_ids"] == tokens_sub_rep)
+        assert(len(position_ids) == len(tokens_sub_rep))
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
         if self.entity_vocab:
-            entity_ans = self._search_entity(sentence_str)
+            entity_ans, position_ids = self._search_entity(sentence_str, position_ids=position_ids)
             for idx, token in enumerate(entity_ans):
                 if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
+                    position_ids = position_ids[0:len(tokens_sub_rep)]
                     break
                 if idx == 0:
                     rep_ = self.tokenizer(token.lower())['input_ids']
@@ -261,9 +279,13 @@ class CoNLLReader(Dataset):
                 tokens_sub_rep.extend(rep_)
             
             tokens_sub_rep.append(self.sep_token_id)
+            position_ids.append(len(tokens_sub_rep)-1)
         token_masks_rep = [True] * len(tokens_sub_rep)
         token_type_ids.extend([1] * (len(tokens_sub_rep) - len(token_type_ids)))
         #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
+        assert(len(position_ids) == len(tokens_sub_rep))
+        for i, val in enumerate(position_ids):
+            assert(tokens_sub_rep[i] == tokens_sub_rep[val])
         
         return sentence_str, tokens_sub_rep, ner_tags_rep, token_masks_rep, subtoken_pos_to_raw_pos, token_type_ids
 
@@ -274,7 +296,7 @@ if __name__ == "__main__":
     entity_vocab = copy.deepcopy(tokenizer.entity_vocab)
     wiki_file = "./data/wiki_def/wiki.pkl.zip"
     entity_vocab = get_entity_vocab(entity_files=[wiki_file])
-    conll_reader = CoNLLReader(encoder_model="roberta-base", target_vocab=wnut_iob, entity_vocab=entity_vocab, min_instances=0, max_instances=-1)
+    conll_reader = CoNLLReader(encoder_model="bert-base-uncased", target_vocab=wnut_iob, entity_vocab=entity_vocab, min_instances=0, max_instances=-1)
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
     test_file = "./training_data/EN-English/en_test.conll"
