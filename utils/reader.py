@@ -107,7 +107,6 @@ class CoNLLReader(Dataset):
             ans.append("$")
         if len(ans) and ans[-1] == "$": 
             ans.pop(-1)
-        print(ans)
         return ans
 
 
