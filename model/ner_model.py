@@ -250,7 +250,7 @@ class NERBaseAnnotator(pl.LightningModule):
                 param.grad = self.grad_backup[name]
 
     def perform_forward_step(self, batch, mode=''):
-        tokens, tags, token_mask, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len, auxiliary_tag, position_ids = batch
+        tokens, tags, token_mask, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len, auxiliary_tag = batch
         batch_size = tokens.size(0)
 
         outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags, output_hidden_states=True)
