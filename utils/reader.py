@@ -115,10 +115,11 @@ class CoNLLReader(Dataset):
                             'water', 'wing', 'work', 'world'}
                 #if self.entity_vocab[entity] in care_set: 
                     #ans.append("({})".format(self.entity_vocab[entity]))
-            ans.append("$")
-            position_ids.append(len(position_ids)-1)
-        #if len(ans) and ans[-1] == "$": 
-        #    ans.pop(-1)
+            #ans.append("$")
+            #position_ids.append(len(position_ids)-1)
+        if len(ans) and ans[-1] == "$": 
+            ans.pop(-1)
+            position_ids.pop(-1)
         return ans, position_ids
 
 
