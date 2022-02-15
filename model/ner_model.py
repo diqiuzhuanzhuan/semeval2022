@@ -116,7 +116,6 @@ class NERBaseAnnotator(pl.LightningModule):
 
         max_len = max([len(token) for token in tokens])
         token_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.pad_token_id)
-        position_ids_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(0)
         # -100 is the default ignore index
         tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(-100)
         mask_tensor = torch.zeros(size=(len(tokens), max_len), dtype=torch.bool)
@@ -131,13 +130,12 @@ class NERBaseAnnotator(pl.LightningModule):
             token_tensor[i, :seq_len] = tokens_
             tag_len_tensor[i] = tag_len
             
-            position_ids_tensor[i, :seq_len] = position_ids[i]
             tag_tensor[i, :tag_len] = tags[i]
             auxiliary_tag_tensor[i, :tag_len] = torch.tensor([0 if self.id_to_tag[j.item()] == 'O' else 1 for j in tags[i]])
             mask_tensor[i, :seq_len] = masks[i]
             token_type_ids_tensor[i, :seq_len] = token_type_ids[i]
 
-        return token_tensor, tag_tensor, mask_tensor, token_type_ids_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor, auxiliary_tag_tensor, position_ids_tensor
+        return token_tensor, tag_tensor, mask_tensor, token_type_ids_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor, auxiliary_tag_tensor
 
     def configure_optimizers(self):
         optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr, weight_decay=0.01)
