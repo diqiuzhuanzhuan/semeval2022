@@ -255,7 +255,7 @@ class NERBaseAnnotator(pl.LightningModule):
         tokens, tags, token_mask, token_type_ids, metadata, subtoken_pos_to_raw_pos, tag_len, auxiliary_tag, position_ids = batch
         batch_size = tokens.size(0)
 
-        outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags, output_hidden_states=True, position_ids=position_ids)
+        outputs = self.encoder(input_ids=tokens, attention_mask=token_mask, labels=tags, output_hidden_states=True)
         hidden_states = outputs.hidden_states[0]
         auxiliary_logits = self.auxiliary_classifier(hidden_states)
 
@@ -345,17 +345,18 @@ if __name__ == "__main__":
     encoder_model = "distilbert-base-uncased"
     encoder_model = "bert-base-uncased"
     track = "EN-English/en"
+    wiki_file = os.path.join(base_dir, "data/wiki_def/wiki.pkl.zip")
     train_file = os.path.join(base_dir, "training_data/{}_train.conll".format(track))
     dev_file = os.path.join(base_dir, "training_data/{}_dev.conll".format(track))
     test_file = os.path.join(base_dir, "training_data/{}_test.conll".format(track))
     output_dir = os.path.join(base_dir, "{}".format(track), "{}-train".format(encoder_model))
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = wnut_iob
-    entity_vocab = get_entity_vocab()
+    entity_vocab = get_entity_vocab(entity_files=[wiki_file])
     train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
     test_data = get_reader(file_path=test_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
-    entity_vocab = get_entity_vocab(conll_files=[train_file])
-    dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=15, max_length=55, augment=[])
+    entity_vocab = get_entity_vocab(conll_files=[train_file], entity_files=[wiki_file])
+    dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=15, max_length=55, entity_vocab=entity_vocab, augment=[])
 
     model = create_model(train_data=train_data, dev_data=dev_data, test_data=test_data, tag_to_id=train_data.get_target_vocab(),
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,

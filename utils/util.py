@@ -216,6 +216,29 @@ def get_entity_vocab(encoder_model="studio-ousia/luke-base", conll_files: List[s
                                 entity_vocab[entity.lower()] = len(entity_vocab)
                             else:
                                 entity_vocab[entity.lower()] = wiki_data[entity][0]
+                    elif "tsv" in file:
+                        _map_type_to_human_readable_words = {
+                            "LOC": "location",
+                            "CORP": "corperation",
+                            "GRP": "group",
+                            "PER": "person",
+                            "CW": "creative work",
+                            "PROD": "product",
+                        }
+                        for line in f:
+                            fields = line.decode("utf-8").strip("\n").strip("\r").split("\t")
+                            if len(fields) != 4:
+                                continue
+                            entity, entity_type = fields[3].lower(), _map_type_to_human_readable_words[fields[1]]
+                            if entity in entity_vocab:
+                                if not isinstance(entity_vocab[entity.lower()], str):
+                                    entity_vocab[entity.lower()] = entity_type
+
+                                if entity_type not in entity_vocab[entity]:
+                                    entity_vocab[entity.lower()] = entity_vocab[entity.lower()] + "|" + entity_type
+                            else:
+                                entity_vocab[entity.lower()] = entity_type
+                            
                     else:    
                         for entity in f:
                             entity = entity.strip('\r').strip('\n')
@@ -516,7 +539,8 @@ if __name__ == "__main__":
     #k_fold(train_file, dev_file)
     #reader = get_reader(train_file, target_vocab=wnut_iob, encoder_model='roberta-base')
     wiki_file = "./data/wiki_def/wiki.pkl.zip"
-    get_entity_vocab(conll_files=[], entity_files=[wiki_file])
+    official_wiki_file = "./data/wiki_def/wikigaz.tsv.zip"
+    entity_vocab = get_entity_vocab(conll_files=[], entity_files=[official_wiki_file])
     #print(len(entity_vocab))
     y_true = []
     for fields, _ in get_ner_reader(dev_file):
