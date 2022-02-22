@@ -1,3 +1,4 @@
+from tkinter import N
 from typing import List, Any, Union
 import os
 
@@ -121,11 +122,15 @@ class NERBaseAnnotator(pl.LightningModule):
         max_len = max([len(token) for token in tokens])
         token_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.pad_token_id)
         # -100 is the default ignore index
-        tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(-100)
+        if self.use_crf:
+            ignore_index = 0
+        else:
+            ignore_index = -100
+        tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(ignore_index)
         mask_tensor = torch.zeros(size=(len(tokens), max_len), dtype=torch.bool)
         tag_len_tensor = torch.zeros(size=(len(tokens),), dtype=torch.long)
         token_type_ids_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(0)
-        auxiliary_tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(-100)
+        auxiliary_tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(-100) # don't modify this -100, as it is not belong to ner tag
 
         for i in range(len(tokens)):
             tokens_ = tokens[i]
@@ -296,8 +301,10 @@ class NERBaseAnnotator(pl.LightningModule):
     def _compute_token_tags(self, token_scores, tags, token_mask, metadata, subtoken_pos_to_raw_pos, batch_size, tag_lens, mode=''):
         if self.use_crf:
         # compute the log-likelihood loss and compute the best NER annotation sequence
-            loss = -self.crf_layer(token_scores, tags, token_mask) / float(batch_size)
-            best_path = self.crf_layer.viterbi_tags(token_scores, token_mask)
+            # we need to modify -100 to 0, for the sake of running normaly in crf function
+            crf_token_mask = tags != -100
+            loss = -self.crf_layer(token_scores, tags, crf_token_mask) / float(batch_size)
+            best_path = self.crf_layer.viterbi_tags(token_scores, crf_token_mask)
         else:
             loss = None
             best_path = torch.argmax(token_scores, -1)
