@@ -76,7 +76,11 @@ class NERBaseAnnotator(pl.LightningModule):
         self.pad_token_id = pad_token_id
 
         self.encoder_model = encoder_model
-        self.encoder = AutoModelForTokenClassification.from_pretrained(encoder_model, num_labels=self.target_size, classifier_dropout=dropout_rate)
+        try:
+            self.encoder = AutoModelForTokenClassification.from_pretrained(encoder_model, num_labels=self.target_size, classifier_dropout=dropout_rate)
+        except TypeError as e:
+            self.encoder = AutoModelForTokenClassification.from_pretrained(encoder_model, num_labels=self.target_size)
+            logger.warning("{} has no classifier_dropout parameter".format(encoder_model))
         if self.use_crf:
             self.crf_layer = ConditionalRandomField(num_tags=self.target_size, constraints=allowed_transitions(constraint_type="BIO", labels=self.id_to_tag))
         
@@ -350,6 +354,7 @@ if __name__ == "__main__":
     output_dir = os.path.join(base_dir, "{}".format(track), "{}-train".format(encoder_model))
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = wnut_iob
+    use_crf = True
     entity_vocab = get_entity_vocab(entity_files=[wiki_file])
     train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
     test_data = get_reader(file_path=test_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
@@ -358,9 +363,9 @@ if __name__ == "__main__":
 
     model = create_model(train_data=train_data, dev_data=dev_data, test_data=test_data, tag_to_id=train_data.get_target_vocab(),
                      dropout_rate=0.1, batch_size=16, stage='fit', lr=2e-5,
-                     encoder_model=encoder_model, num_gpus=1, use_crf=False)
+                     encoder_model=encoder_model, num_gpus=1, use_crf=use_crf)
 
-    trainer = train_model(model=model, out_dir=output_dir, epochs=1, monitor="val_F1@PROD")
+    trainer = train_model(model=model, out_dir=output_dir, epochs=1, monitor="val_micro@F1")
     # use pytorch lightnings saver here.
     out_model_path, best_checkpoint = save_model(trainer=trainer, out_dir=output_dir, model_name=encoder_model, timestamp=time.time())
     
