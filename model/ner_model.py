@@ -302,7 +302,7 @@ class NERBaseAnnotator(pl.LightningModule):
         if self.use_crf:
         # compute the log-likelihood loss and compute the best NER annotation sequence
             # we need to modify -100 to 0, for the sake of running normaly in crf function
-            crf_token_mask = tags != -100
+            crf_token_mask = (tags != -100) & token_mask
             loss = -self.crf_layer(token_scores, tags, crf_token_mask) / float(batch_size)
             best_path = self.crf_layer.viterbi_tags(token_scores, crf_token_mask)
         else:
@@ -363,9 +363,11 @@ if __name__ == "__main__":
     iob_tagging = wnut_iob
     use_crf = True
     entity_vocab = get_entity_vocab(entity_files=[wiki_file])
+    entity_vocab = dict()
     train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
     test_data = get_reader(file_path=test_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
     entity_vocab = get_entity_vocab(conll_files=[train_file], entity_files=[wiki_file])
+    entity_vocab = dict()
     dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=15, max_length=55, entity_vocab=entity_vocab, augment=[])
 
     model = create_model(train_data=train_data, dev_data=dev_data, test_data=test_data, tag_to_id=train_data.get_target_vocab(),
