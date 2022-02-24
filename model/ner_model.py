@@ -271,7 +271,7 @@ class NERBaseAnnotator(pl.LightningModule):
         # compute the log-likelihood loss and compute the best NER annotation sequence
         token_scores = outputs.logits
         kl_loss = self._add_kl_loss()
-        l2_loss = self._add_l2_regulization(l2_config=[(1, 'B-PROD'), (1, 'I-PROD'), (0.8, 'B-CW'), (0.8, 'I-CW'), (0.3, 'B-PER'), (0.3, 'I-PER')])
+        l2_loss = self._add_l2_regulization(l2_config=self.l2_loss_config)
         alpha = np.exp(-self.global_step/10000)
         loss = (1-self.alpha) *  outputs.loss + self.alpha * auxiliary_loss - kl_loss + l2_loss
 
