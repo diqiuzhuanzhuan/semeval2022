@@ -1,16 +1,11 @@
 from collections import defaultdict
-from pickle import LIST
-from turtle import position
-from typing import Dict, List
 import torch
 from torch.utils.data import Dataset
 import random
-
 from transformers import AutoTokenizer, LukeTokenizer
 import copy
 import ahocorasick
 from intervaltree import IntervalTree, Interval
-
 from log import logger
 from utils.reader_utils import get_ner_reader, extract_spans, _assign_ner_tags
 import nltk
@@ -63,6 +58,9 @@ class CoNLLReader(Dataset):
         ans = []
         words = set(sentence.split(" "))
         tree = IntervalTree()
+        word_index_to_mask = dict()
+        ans_index_to_mask = dict()
+        mask_val = 100
 
         for end_index, (insert_order, original_value) in self.entity_automation.iter(sentence):
             start_index = end_index - len(original_value) + 1
@@ -87,7 +85,12 @@ class CoNLLReader(Dataset):
             entity = sentence[interval.begin: interval.end+1]
             if entity in stop_words:
                 continue
-            ans.append(sentence[interval.begin: interval.end+1])
+            entity_index_begin = sentence[0:interval.begin].count(" ")
+            entity_index = [entity_index_begin+i for i in range(entity.count(" "))]
+            for i in entity_index:
+                word_index_to_mask[i] = mask_val
+            ans_entity_index_begin = len(ans) 
+            ans.append(entity)
             self.tokenizer(sentence[interval.begin: interval.end+1])
             if isinstance(self.entity_vocab[entity], str):
                 care_set = {'accompaniment', 'aircraft', 'airliner', 'album','architecture', 'art', 'art_form', 'artform','automobile', 'ballad', 'ballad_opera', 'beverage',
@@ -104,11 +107,14 @@ class CoNLLReader(Dataset):
                 #if self.entity_vocab[entity] in care_set: 
                     #ans.append("({})".format(self.entity_vocab[entity]))
                 ans.append("({})".format(self.entity_vocab[entity]))
+            ans_entity_index = [i for i in range(ans_entity_index_begin, len(ans))]
+            for i in ans_entity_index:
+                ans_index_to_mask[i] = mask_val
+            mask_val += 1
             ans.append("$")
-        if len(ans) and ans[-1] == "$": 
+        if len(ans) and ans[-1] == "$":
             ans.pop(-1)
-        return ans
-
+        return ans, word_index_to_mask, ans_index_to_mask
 
     def get_target_size(self):
         return len(set(self.label_to_id.values()))
@@ -256,7 +262,7 @@ class CoNLLReader(Dataset):
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
         if self.entity_vocab:
-            entity_ans = self._search_entity(sentence_str)
+            entity_ans, _, _ = self._search_entity(sentence_str)
             for idx, token in enumerate(entity_ans):
                 if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                     break
