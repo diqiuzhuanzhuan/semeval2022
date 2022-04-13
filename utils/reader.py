@@ -322,6 +322,7 @@ class CoNLLReader(Dataset):
         token_masks_rep = [_nxor(i, j) for i, j in itertools.product(mask_token, mask_token)]
         token_masks_rep = np.reshape(np.array(token_masks_rep), newshape=[len(mask_token), len(mask_token)])
         token_masks_rep[:no_need_to_mask_len, :no_need_to_mask_len] = 1
+        token_type_ids.extend([1] * (len(tokens_sub_rep) - len(token_type_ids)))
 
         #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
         #for i, val in enumerate(position_ids):
