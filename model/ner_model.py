@@ -123,7 +123,7 @@ class NERBaseAnnotator(pl.LightningModule):
         token_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.pad_token_id)
         # -100 is the default ignore index
         if self.use_crf:
-            ignore_index = -100
+            ignore_index = 0
         else:
             ignore_index = -100
         tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(ignore_index)
@@ -388,7 +388,7 @@ if __name__ == "__main__":
     out_model_path, best_checkpoint = save_model(trainer=trainer, out_dir=output_dir, model_name=encoder_model, timestamp=time.time())
     
 
-    model = load_model(best_checkpoint, wnut_iob, use_crf=False)
+    model = load_model(best_checkpoint, wnut_iob, use_crf=use_crf)
     model.test_data = test_data
     trainer = test_model(model)
     write_result(model, "en_pred.conll", mode='test')
