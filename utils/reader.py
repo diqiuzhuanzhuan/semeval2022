@@ -1,4 +1,6 @@
+from cProfile import label
 from collections import defaultdict
+from numpy import product
 import torch
 from torch.utils.data import Dataset
 import random
@@ -10,6 +12,7 @@ from log import logger
 from utils.reader_utils import get_ner_reader, extract_spans, _assign_ner_tags
 import nltk
 import os
+import itertools
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 nltk.download('stopwords')
 from nltk.corpus import stopwords
@@ -86,7 +89,7 @@ class CoNLLReader(Dataset):
             if entity in stop_words:
                 continue
             entity_index_begin = sentence[0:interval.begin].count(" ")
-            entity_index = [entity_index_begin+i for i in range(entity.count(" "))]
+            entity_index = [entity_index_begin+i for i in range(entity.count(" ")+1)]
             for i in entity_index:
                 word_index_to_mask[i] = mask_val
             ans_entity_index_begin = len(ans) 
@@ -111,7 +114,7 @@ class CoNLLReader(Dataset):
             for i in ans_entity_index:
                 ans_index_to_mask[i] = mask_val
             mask_val += 1
-            ans.append("$")
+            #ans.append("$")
         if len(ans) and ans[-1] == "$":
             ans.pop(-1)
         return ans, word_index_to_mask, ans_index_to_mask
@@ -226,14 +229,40 @@ class CoNLLReader(Dataset):
         sentence_str = ''
         position_ids = []
         tokens_sub_rep, ner_tags_rep = [self.cls_token_id], ['O']
+        mask_token = [1]
         token_type_ids = []
         pos_to_single_word = dict()
         subtoken_pos_to_raw_pos = []
         subtoken_pos_to_raw_pos.append(0)
+        sentence_str = " ".join(tokens_).lower()
+        self.ner_tags.append(ner_tags_rep)
+        if self.entity_vocab:
+            entity_ans, word_index_to_mask, entity_index_to_mask = self._search_entity(sentence_str)
+        else:
+            entity_ans, word_index_to_mask, entity_index_to_mask = [], dict(), dict()
+        """
+                    he    was   named   after   iron   man  [SEP] iron man  (person) [SEP]
+        he          1      1      1      1        1     1     1    0    0      0      0
+        was         2      1      1      1        1     1     1    0    0      0      0
+        named       3      1      1      1        1     1     1    0    0      0      0
+        after       4      1      1      1        1     1     1    0    0      0      0
+        iron        5      1      1      1        1     1     1    1    1      1      1
+        man         5    1      1      1        1     1     1    1    1      1      1
+        [SEP]       6      1      1      1        1     1     1     0    0     0       0
+        iron        5
+        man         5
+        (person)    5
+        [SEP]       6
+        """ 
+        """
+            we build the attention matrix via two operations:
+            at first, we get the first matrix via NXOR operation between two or two
+            secondly, we fix positions representing the first sentence by setting all these values to zero
+        """
+        sentence_str = ""
         for idx, token in enumerate(tokens_):
             if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                 break
-                
             if sentence_str:
                 sentence_str += " " + token.lower()
             else:
@@ -246,6 +275,10 @@ class CoNLLReader(Dataset):
             pos_to_single_word[(len(tokens_sub_rep), len(tokens_sub_rep)+len(rep_))] = token
             subtoken_pos_to_raw_pos.extend([idx+1] * len(rep_))
             tokens_sub_rep.extend(rep_)
+            if idx in word_index_to_mask:
+                mask_token.extend([word_index_to_mask[idx]] * len(rep_))
+            else:
+                mask_token.extend([1] * len(rep_))
 
             # if we have a NER here, in the case of B, the first NER tag is the B tag, the rest are I tags.
             ner_tag = ner_tags[idx]
@@ -255,14 +288,16 @@ class CoNLLReader(Dataset):
             ner_tags_rep.extend(tags)
         self.pos_to_single_word_maps.append(pos_to_single_word)
         tokens_sub_rep.append(self.sep_token_id)
+        mask_token.append(1)
         token_type_ids.extend([0] * len(tokens_sub_rep))
         subtoken_pos_to_raw_pos.append(idx+2)
+        assert(len(mask_token) == len(tokens_sub_rep)) 
+        no_need_to_mask_len = len(tokens_sub_rep)
         #assert(self.tokenizer(sentence_str)["input_ids"] == tokens_sub_rep)
         #assert(len(position_ids) == len(tokens_sub_rep))
         ner_tags_rep.append('O')
         self.ner_tags.append(ner_tags_rep)
         if self.entity_vocab:
-            entity_ans, _, _ = self._search_entity(sentence_str)
             for idx, token in enumerate(entity_ans):
                 if self._max_length != -1 and len(tokens_sub_rep) > self._max_length:
                     break
@@ -271,11 +306,21 @@ class CoNLLReader(Dataset):
                 else:
                     rep_ = self.tokenizer(" " + token.lower())['input_ids']
                 rep_ = rep_[1:-1] #why? the first id is <s>, and the last id is </s>, so we eliminate them
+                assert idx in entity_index_to_mask
+                mask_token.extend([entity_index_to_mask[idx]] * len(rep_))
                 tokens_sub_rep.extend(rep_)
-            
             tokens_sub_rep.append(self.sep_token_id)
-        token_masks_rep = [True] * len(tokens_sub_rep)
-        token_type_ids.extend([1] * (len(tokens_sub_rep) - len(token_type_ids)))
+            mask_token.append(1)
+
+        assert(len(mask_token) == len(tokens_sub_rep))        
+        token_masks_rep = mask_token
+        def _nxor(a, b):
+            if a == b:
+                return 1
+            else:
+                return 0
+        token_masks_rep = [_nxor(i, j) for i, j in itertools.product(mask_token, mask_token)]
+
         #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
         #for i, val in enumerate(position_ids):
             #assert(tokens_sub_rep[i] == tokens_sub_rep[val])
@@ -290,6 +335,7 @@ if __name__ == "__main__":
     wiki_file = "./data/wiki_def/wiki.pkl.zip"
     wiki_file = "./data/wiki_def/wikigaz.tsv.zip"
     entity_vocab = get_entity_vocab(encoder_model=None, entity_files=[wiki_file])
+    entity_vocab = None
     conll_reader = CoNLLReader(encoder_model="bert-base-uncased", target_vocab=wnut_iob, entity_vocab=entity_vocab, min_instances=0, max_instances=-1)
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"

@@ -10,3 +10,6 @@ roberta-finetune
 .DS_Store
 lightning_logs
 roberta-evaluate
+en_train.conll_*
+en_dev.conll_*
+submission
