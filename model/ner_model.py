@@ -128,6 +128,7 @@ class NERBaseAnnotator(pl.LightningModule):
             ignore_index = -100
         tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(ignore_index)
         mask_tensor = torch.zeros(size=(len(tokens), max_len), dtype=torch.bool)
+        mask_tensor = torch.zeros(size=(len(tokens), max_len, max_len), dtype=torch.bool)
         tag_len_tensor = torch.zeros(size=(len(tokens),), dtype=torch.long)
         token_type_ids_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(0)
         auxiliary_tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(-100) # don't modify this -100, as it is not belong to ner tag
@@ -141,7 +142,7 @@ class NERBaseAnnotator(pl.LightningModule):
             
             tag_tensor[i, :tag_len] = tags[i]
             auxiliary_tag_tensor[i, :tag_len] = torch.tensor([0 if self.id_to_tag[j.item()] == 'O' else 1 for j in tags[i]])
-            mask_tensor[i, :seq_len] = masks[i]
+            mask_tensor[i, :seq_len, :seq_len] = masks[i]
             token_type_ids_tensor[i, :seq_len] = token_type_ids[i]
 
         return token_tensor, tag_tensor, mask_tensor, token_type_ids_tensor, gold_spans, subtoken_pos_to_raw_pos, tag_len_tensor, auxiliary_tag_tensor

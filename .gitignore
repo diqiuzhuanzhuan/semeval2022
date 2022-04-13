@@ -13,3 +13,4 @@ roberta-evaluate
 en_train.conll_*
 en_dev.conll_*
 submission
+data/res

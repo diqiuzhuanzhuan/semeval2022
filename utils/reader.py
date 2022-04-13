@@ -1,6 +1,6 @@
 from cProfile import label
 from collections import defaultdict
-from numpy import product
+from turtle import shape
 import torch
 from torch.utils.data import Dataset
 import random
@@ -13,6 +13,7 @@ from utils.reader_utils import get_ner_reader, extract_spans, _assign_ner_tags
 import nltk
 import os
 import itertools
+import numpy as np
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 nltk.download('stopwords')
 from nltk.corpus import stopwords
@@ -313,13 +314,14 @@ class CoNLLReader(Dataset):
             mask_token.append(1)
 
         assert(len(mask_token) == len(tokens_sub_rep))        
-        token_masks_rep = mask_token
         def _nxor(a, b):
             if a == b:
                 return 1
             else:
                 return 0
         token_masks_rep = [_nxor(i, j) for i, j in itertools.product(mask_token, mask_token)]
+        token_masks_rep = np.reshape(np.array(token_masks_rep), newshape=[len(mask_token), len(mask_token)])
+        token_masks_rep[:no_need_to_mask_len, :no_need_to_mask_len] = 1
 
         #assert(token_masks_rep == self.tokenizer(sentence_str)["attention_mask"])
         #for i, val in enumerate(position_ids):
@@ -335,7 +337,6 @@ if __name__ == "__main__":
     wiki_file = "./data/wiki_def/wiki.pkl.zip"
     wiki_file = "./data/wiki_def/wikigaz.tsv.zip"
     entity_vocab = get_entity_vocab(encoder_model=None, entity_files=[wiki_file])
-    entity_vocab = None
     conll_reader = CoNLLReader(encoder_model="bert-base-uncased", target_vocab=wnut_iob, entity_vocab=entity_vocab, min_instances=0, max_instances=-1)
     train_file = "./training_data/EN-English/en_train.conll"
     dev_file = "./training_data/EN-English/en_dev.conll"
