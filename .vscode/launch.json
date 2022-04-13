@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "Python: Current File",
             "type": "python",
@@ -11,6 +12,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "preLaunchTask": "setpath",
+            "justMyCode": false,
             "environment": [{
                 "name": "PYTHONPATH",
                 "value": "${workspaceFolder}" //Set to whatever value you want.

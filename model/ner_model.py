@@ -123,7 +123,7 @@ class NERBaseAnnotator(pl.LightningModule):
         token_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(self.pad_token_id)
         # -100 is the default ignore index
         if self.use_crf:
-            ignore_index = 0
+            ignore_index = -100
         else:
             ignore_index = -100
         tag_tensor = torch.empty(size=(len(tokens), max_len), dtype=torch.long).fill_(ignore_index)
@@ -303,7 +303,15 @@ class NERBaseAnnotator(pl.LightningModule):
         if self.use_crf:
         # compute the log-likelihood loss and compute the best NER annotation sequence
             # we need to modify -100 to 0, for the sake of running normaly in crf function
-            crf_token_mask = (tags != -100) & token_mask
+            """
+            if token_mask.dim() == 3:
+                crf_token_mask = (tags != -100) & token_mask[:, 0]
+            else:
+                crf_token_mask = (tags != -100) & token_mask
+            """
+            crf_token_mask = torch.empty(size=tags.size(), dtype=torch.bool).fill_(False)
+            for i, tag_len in enumerate(tag_lens):
+                crf_token_mask[i, :tag_len] = True
             loss = -self.crf_layer(token_scores, tags, crf_token_mask) / float(batch_size)
             best_path = self.crf_layer.viterbi_tags(token_scores, crf_token_mask)
         else:
