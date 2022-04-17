@@ -1,9 +1,10 @@
-from tkinter import N
-from typing import List, Any, Union
-import os
+# -*- coding: utf-8 -*-
+# author: Feynman
+# email: diqiuzhuanzhuan@gmail.com
 
+from typing import List, Any
+import os
 import pytorch_lightning.core.lightning as pl
-from pytorch_lightning.utilities.distributed import init_dist_connection
 from torch.nn import CrossEntropyLoss
 import torch
 import torch.nn.functional as F
@@ -14,13 +15,7 @@ from allennlp.modules.conditional_random_field import allowed_transitions
 from torch import nn
 from torch.nn.modules import loss
 from torch.utils.data import DataLoader
-import torchmetrics
-from transformers import get_linear_schedule_with_warmup, AutoModel
-from transformers.models import trocr
-from transformers.utils.dummy_pt_objects import RobertaForTokenClassification
-from transformers import *
-from transformers.utils.dummy_tf_objects import WarmUp
-
+from transformers import get_linear_schedule_with_warmup, AutoModelForTokenClassification
 from log import logger
 from utils.metric import SpanF1
 from utils.reader_utils import extract_spans, get_tags
@@ -370,13 +365,13 @@ if __name__ == "__main__":
     output_dir = os.path.join(base_dir, "{}".format(track), "{}-train".format(encoder_model))
     submission_file = os.path.join(base_dir, "submission", "{}.pred.conll".format(track))
     iob_tagging = wnut_iob
-    use_crf = True
+    use_crf = False
     entity_vocab = get_entity_vocab(entity_files=[wiki_file])
-    entity_vocab = dict()
+    #entity_vocab = dict()
     train_data = get_reader(file_path=dev_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
     test_data = get_reader(file_path=test_file, target_vocab=iob_tagging, encoder_model=encoder_model, max_instances=15, max_length=100, entity_vocab=entity_vocab, augment=[])
     entity_vocab = get_entity_vocab(conll_files=[train_file], entity_files=[wiki_file])
-    entity_vocab = dict()
+    #entity_vocab = dict()
     dev_data = get_reader(file_path=dev_file, target_vocab=wnut_iob, encoder_model=encoder_model, max_instances=15, max_length=55, entity_vocab=entity_vocab, augment=[])
 
     model = create_model(train_data=train_data, dev_data=dev_data, test_data=test_data, tag_to_id=train_data.get_target_vocab(),
